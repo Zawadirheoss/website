@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gospel Springs Mission</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="Homepage style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+          <img src="Gospel springs logo.jpg" alt="logo" style="width: 50px;border-radius: 60px;">
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="about us.html">About us</a>
+             <a href="Events calender.html">Events calender</a>
+             <a href="give.html">Give</a>
+             <div class="nav-live-container">
+              <a href="live.html">Live</a>
+              <span id="liveBadge" class="live-badge"></span>
+          </div>
+             <a href="ministries.html">Ministries</a>
+            <a href="services.html">Service times</a>
+            <a href="Other.html">Resources</a>
+        </div>
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+    <!-- Back to Top Arrow -->
+<button id="backToTop" class="back-to-top" aria-label="Back to Top">
+  <svg class="arrow-icon" viewBox="0 0 24 24">
+    <path d="M12 4l-8 8h5v8h6v-8h5z"/>
+  </svg>
+  <div class="pulse-ring"></div>
+</button>
+         <div id="notification-bell">
+        <button id="bell-button">🔔</button>
+        <span id="notification-badge" class="badge"></span>
+        <div id="notification-dropdown" class="dropdown">
+          <div id="notification-list"></div>
+          <button id="mark-as-read">Mark as Read</button>
+        </div>
+      </div>
+    <!-- ======= WhatsApp Chat Widget ======= -->
+<div class="whatsapp-widget" id="whatsappWidget">
+  <div class="chat-header">
+      <span>Need help? Chat with us</span>
+      <button class="close-chat" id="closeChat">×</button>
+  </div>
+  <div class="chat-body">
+      <p>We're here to answer your questions. Message us directly on WhatsApp:</p>
+  </div>
+  <a href="https://wa.me/254768398208?text=Hello%20Gospel%20Springs%20Mission,%20I%20have%20a%20question..." 
+     class="start-chat" target="_blank">
+      <i class="fab fa-whatsapp"></i> Start Chat
+  </a>
+</div>
+<button class="whatsapp-float pulse" id="whatsappButton">
+  <i class="fab fa-whatsapp"></i>
+</button>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Gospel Springs Mission </h1>
+            <p>Winning  Discipling  Sending</p>
+            <a href="live.html" class="watch-live-button">
+              <i class="icon fab fa-facebook facebook"></i>
+              <i class="icon fab fa-youtube youtube"></i>
+              <i class="icon fab fa-tiktok tiktok"></i>
+              Watch Live
+          </a> 
+        </div>
+    </section>
+    <section class="welcome-section">
+      <img src="Emasinga.jpg" alt="Bishop's Portrait" class="bishop-portrait" loading="lazy">
+      <div class="welcome-message">
+        <h1>Welcome to Gospel Springs Mission!</h1>
+        <p>We are delighted to have you here. Whether you are visiting for the first time or returning, we hope you feel the warmth of our community. At Gospel Springs, we are committed to growing together in faith, love, and service. Our doors and hearts are always open to you.</p>
+        <p class="signature">Blessings,<br>Gospel Springs Mission</p>
+      </div>
+      <a href="services.html" class="visit-button">
+        Plan Your Visit
+        <span class="button-icon">→</span>
+      </a>
+    </section>
+    <section class="gsm-newhere-2024">
+  <div class="gsm-newhere-header">
+    <h2 class="gsm-newhere-title">New Here?</h2>
+    <p class="gsm-newhere-subtitle">Start your journey with Gospel Springs in 3 simple steps</p>
+    <div class="gsm-newhere-divider">
+      <svg viewBox="0 0 120 10" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,5 C30,10 50,0 80,5 C110,10 120,0 120,5" fill="none" stroke="#FF6B00" stroke-width="2"/>
+      </svg>
+    </div>
+  </div> 
+  <div class="gsm-newhere-steps">
+    <!-- Step 1 -->
+    <div class="gsm-step-card gsm-step-1">
+      <div class="gsm-step-decor">
+        <span class="gsm-step-badge">01</span>
+        <div class="gsm-step-iconbox">
+          <i class="fas fa-church gsm-step-icon"></i>
+        </div>
+      </div>
+      <div class="gsm-step-content">
+        <h3>Visit Us</h3>
+        <p>Join our Sunday services at 8AM or 11AM</p>
+      </div>
+      <a href="services.html" class="gsm-step-button">
+        View Times <i class="fas fa-arrow-right gsm-step-arrow"></i>
+      </a>
+    </div>
+    <!-- Step 2 -->
+    <div class="gsm-step-card gsm-step-2">
+      <div class="gsm-step-decor">
+        <span class="gsm-step-badge">02</span>
+        <div class="gsm-step-iconbox">
+          <i class="fas fa-handshake gsm-step-icon"></i>
+        </div>
+      </div>
+      <div class="gsm-step-content">
+        <h3>Connect</h3>
+        <p>Meet our welcome team after service</p>
+      </div>
+      <a href="Welcome team.html" class="gsm-step-button">
+        Meet Us <i class="fas fa-arrow-right gsm-step-arrow"></i>
+      </a>
+    </div>
+    <!-- Step 3 -->
+    <div class="gsm-step-card gsm-step-3">
+      <div class="gsm-step-decor">
+        <span class="gsm-step-badge">03</span>
+        <div class="gsm-step-iconbox">
+          <i class="fas fa-seedling gsm-step-icon"></i>
+        </div>
+      </div>
+      <div class="gsm-step-content">
+        <h3>Grow</h3>
+        <p>Join a small group or ministry</p>
+      </div>
+      <a href="ministries.html" class="gsm-step-button">
+        Explore <i class="fas fa-arrow-right gsm-step-arrow"></i>
+      </a>
+    </div>
+  </div>
+</section>
+    <!-- Community CTA Section -->
+<section class="community-cta">
+  <div class="cta-container">
+      <h2>Join Our Vibrant Community</h2>
+      <p>Whether you're a long-time member or new to Gospel Springs, our communities are open to all who seek fellowship, 
+      spiritual growth, and meaningful connections. Find your place among believers walking the same journey of faith.</p>
+      <a href="Community info.html" class="cta-button">Intrested to join?</a>
+      <a href="Sermon view.html" class="cta-button">Watch latest sermons</a>
+      <a href="Online meeting public view.html" class="cta-button">Join online discussions</a>
+  </div>
+</section>
+    <section class="section">
+        <h2 class="section-title">About Our Church</h2>
+        <div class="mission-statement" style="max-width: 800px; margin: 0 auto; text-align: center; line-height: 1.8;">
+            <p>Established in 1990 by Senior Bishop William Laktari, Gospel Springs Mission has been a beacon of hope in Isongo and beyond. From humble beginnings as a home fellowship, we've grown into a vibrant spiritual community impacting lives through dynamic worship, practical teaching, and compassionate outreach.</p>
+        </div>
+    </section>
+    <section class="section">
+      <h2 class="section-title">Our Location</h2>
+      <div class="location-container">
+          <div>
+              <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.201622931095!2d34.6545026!3d0.3383238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x178024e2f5f5950f%3A0x6ef8d5701ede89e1!2s8MQ4%2B739%20Butsotso!5e0!3m2!1sen!2ske!4v1718906582957!5m2!1sen!2ske" 
+                  class="location-map" 
+                  allowfullscreen="" 
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+          </div>
+          <div style="text-align: center;">
+              <h3 style="color: #1a237e; margin-bottom: 1.5rem;">Visit Us</h3>
+              <p style="line-height: 1.7; margin-bottom: 2rem;">
+                  Isongo, Navakholo Sub County<br>
+                  Along Isongo-Ingoste Road<br>
+                  50m Off the Main Road<br>
+                  Butsotso, Kenya
+              </p>
+              <div class="map-actions">
+                  <a href="https://www.google.com/maps/place/8MQ4%2B739,+Butsotso/@0.3383238,34.6545026,342m/data=!3m1!1e3!4m6!3m5!1s0x178024e2f5f5950f:0x6ef8d5701ede89e1!8m2!3d0.3381762!4d34.6552219!16s%2Fg%2F11q364bzlq?entry=ttu" 
+                     class="map-button map-button-primary" 
+                     target="_blank">
+                      <i class="fas fa-map-marked-alt"></i>
+                      View on Maps
+                  </a>
+              </div>
+          </div>
+      </div>
+  </section>
+   <!-- Mission Section -->
+   <section class="section">
+    <h2 class="section-title">Our Mission</h2>
+    <div class="mission-pillars">
+        <div class="pillar">
+            <i class="fas fa-trophy fa-3x" style="color: #1a237e;"></i>
+            <h3>Winning</h3>
+            <p>Reaching the lost with the transformative message of Christ's love</p>
+        </div>
+        <div class="pillar">
+          <i class="fas fa-graduation-cap fa-3x" style="color: #1a237e;"></i>
+          <h3>Discipling</h3>
+          <p>Nurturing spiritual growth through biblical teaching and mentorship</p>
+      </div>
+        <div class="pillar">
+            <i class="fas fa-paper-plane fa-3x" style="color: #1a237e;"></i>
+            <h3>Sending</h3>
+            <p>Equipping and deploying believers into their God-given purpose</p>
+        </div>
+    </div>
+    <a href="Our mission.html" class="mission-button">
+      Explore Our Mission <i class="fas fa-arrow-right"></i>
+  </a>
+</section>
+<!-- Add this between Mission and Theme sections -->
+<div class="mission-connector">
+  <div class="scroll-down">
+    <div class="chevrons">
+      <div class="chevron"></div>
+      <div class="chevron"></div>
+      <div class="chevron"></div>
+    </div>
+    <div class="connector-message">
+      <span class="connector-text">This sacred mission inspires our</span>
+      <span class="focus-year">Spiritual Focus</span>
+    </div>
+  </div>
+</div>
+    <section class="theme-hero">
+        <div class="theme-overlay"></div>
+        <div class="theme-content">
+            <p class="year-tag">Our Spiritual Focus</p>
+            <div class="scripture-box">
+                <div class="decorative-border"></div>
+                <blockquote>
+                    "Go and make disciples of all nations"
+                    <cite>Matthew 28:19 KJV</cite>
+                </blockquote>
+                <div class="decorative-border"></div>
+            </div>
+            <a href="Spiritual focus.html" class="discover-link">
+              Explore Our spiritual  focus 
+              <span class="arrow">⟶</span>
+          </a>
+        </div>
+    </section> 
+   
+  <br>
+  <!-- Inspirational Quote Section (Place after Spiritual Focus section) -->
+<section class="inspirational-quote">
+  <div class="quote-container">
+      <div class="quote-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 16H9V21H7V16H2V14L7 9H9V14H14V16ZM22 16H17V21H15V16H10V14L15 9H17V14H22V16Z" fill="currentColor"/>
+          </svg>
+      </div>
+      <blockquote class="quote-text">
+          "The journey of faith begins with a single step of obedience."
+          <cite class="quote-author">— Bishop William Laktari</cite>
+      </blockquote>
+      <div class="quote-pattern"></div>
+  </div>
+</section>
+  <section class="image-section">
+    <img src="IMG-20240811-WA0002 (1) (1) (1) (1).jpg" alt="Descriptive Alt Text">
+    <div class="image-caption">
+    </div>
+</section>
+<!-- Mother Church/HQ Section -->
+<section class="hq-section" id="mother-church">
+  <div class="hq-container">
+    <div class="hq-header">
+      <h2 class="hq-title">Our Mother Church</h2>
+      <div class="hq-divider"></div>
+      <p class="hq-subtitle">The spiritual home where Gospel Springs Mission began</p>
+    </div>
+    <div class="hq-content">
+      <div class="hq-image-container">
+        <img src="MOTHER.jpg" alt="Gospel Springs Mother Church" class="hq-image">
+        <div class="hq-badge">
+          <i class="fas fa-landmark"></i>
+          <span>Since 1990</span>
+        </div>
+      </div>
+
+      <div class="hq-details">
+        <div class="hq-milestones">
+          <h3>Sacred Beginnings</h3>
+          <ul>
+            <li>
+              <i class="fas fa-cross"></i>
+              <span>First service held under mango trees</span>
+            </li>
+            <li>
+              <i class="fas fa-users"></i>
+              <span>Original 12-member congregation</span>
+            </li>
+            <li>
+              <i class="fas fa-praying-hands"></i>
+              <span>Where Bishop Laktari received his vision</span>
+            </li>
+          </ul>
+        </div>
+        <div class="hq-current">
+          <h3>Today at Our HQ</h3>
+          <p>While we've grown internationally, this sacred space remains:</p>
+          <ul>
+            <li>Annual pilgrimage site for members</li>
+            <li>Training center for new pastors</li>
+            <li>Home to our original altar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+<br>
+<!-- Journey Section -->
+<section class="journey-section" id="journey">
+  <div class="journey-container">
+    <div class="section-header">
+      <h2 class="section-title">Our Journey</h2>
+      <div class="title-divider">
+        <div class="divider-line"></div>
+        <div class="divider-dot"></div>
+      </div>
+      <p class="section-subtitle">From humble beginnings to global impact</p>
+    </div>
+    <div class="journey-content">
+      <div class="year-card" data-year="1990">
+        <div class="year-badge">1996</div>
+        <div class="year-content">
+          <h3>The Seed Was Planted</h3>
+          <p>At Isongo, 20 faithful believers gathered for the first Gospel Springs service. What began as a home fellowship would soon blossom into a movement.</p>
+          <div class="story-highlights">
+            <div class="highlight-item">
+              <i class="fas fa-users"></i>
+              <span>12 founding members</span>
+            </div>
+            <div class="highlight-item">
+              <i class="fas fa-tree"></i>
+              <span>Open-air services</span>
+            </div>
+          </div>
+        </div>
+        <div class="year-media">
+          <div class="media-frame">
+            <img src="Early image.jpg" alt="Original 1990 members" class="media-image">
+            <div class="media-overlay"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="history.html" class="journey-cta">
+      <span>Explore Full Story</span>
+      <svg class="cta-arrow" viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+      <div class="cta-underline"></div>
+    </a>
+  </div>
+</section>
+<section class="founder-bishop-section">
+  <div class="founder-container">
+      <div class="founder-content">
+          <h2 class="founder-title">Founder & <span class="highlight-name">Lead Bishop</span></h2>
+          <h3 class="founder-name">Bishop William Laktari</h3>
+          <div class="founder-meta">
+              <span class="meta-item">
+                  <i class="fas fa-globe"></i> Global Ministry
+              </span>
+              <span class="meta-item">
+                  <i class="fas fa-calendar-alt"></i> Founder since 1990
+              </span>
+          </div>
+          <div class="founder-bio">
+              <p>Bishop William Laktari is the visionary founder of Gospel Springs Mission with over 30 years of apostolic ministry. Based in the United States, he provides strategic leadership while maintaining spiritual oversight of the global ministry.</p>
+              <ul class="founder-accomplishments">
+                  <li><i class="fas fa-star"></i> Established Gospel Springs Mission in 1990</li>
+                  <li><i class="fas fa-star"></i> Planted 14 churches across Kenya</li>
+                  </ul>
+              <blockquote class="founder-quote">
+                  "Our calling is to make disciples who transform nations through the power of the Gospel."
+              </blockquote>
+          </div>
+          <div class="founder-actions">
+              <a href="mailto:bishop.laktari@gospelsprings.org" class="founder-button">
+                  <i class="fas fa-envelope"></i> Email...
+              </a>
+              <a href="Founder message.html" class="founder-button outline">
+                  <i class="fas fa-book-open"></i> Read Messages
+              </a>
+          </div>
+      </div>
+      <div class="founder-image-container">
+          <img src="bishop.jpg" alt="Bishop William Laktari" class="founder-image">
+          <div class="founder-badge">
+              <i class="fas fa-crown"></i>
+              <span>Founding Bishop</span>
+          </div>
+      </div>
+  </div>
+</section>
+<section class="kenyan-bishop-section">
+  <div class="bishop-container">
+      <div class="bishop-image-container">
+          <img src="IMG-20240811-WA0000 (1) (1) (1) (1).jpg" alt="Bishop Wycliffe Wabuko" class="bishop-image">
+          <div class="bishop-badge">
+              <i class="fas fa-cross"></i>
+              <span>Presiding Bishop - Kenya</span>
+          </div>
+      </div>
+      <div class="bishop-content">
+          <h2 class="bishop-title">Bishop <span class="highlight-name">Wycliffe Wabuko</span></h2>
+          <div class="bishop-meta">
+              <span class="meta-item">
+                  <i class="fas fa-map-marker-alt"></i> Kakamega, Kenya
+              </span>
+              <span class="meta-item">
+                  <i class="fas fa-calendar-alt"></i> Serving since 2003
+              </span>
+          </div>
+          <div class="bishop-bio">
+              <p>As the Presiding Bishop of Gospel Springs Mission in Kenya, Bishop Wabuko provides spiritual leadership and pastoral oversight to our East African congregations. With over 15 years of ministry experience, he has been instrumental in expanding our mission's impact across the region.</p>
+          </div>
+          <div class="bishop-actions">
+              <a href="mailto:bishop.wabuko@gospelsprings.org" class="bishop-button">
+                  <i class="fas fa-envelope"></i> Email Bishop
+              </a>
+              <a href="tel:+254712345678" class="bishop-button outline">
+                  <i class="fas fa-phone-alt"></i> Call Office
+              </a>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Programs Title -->
+<section class="fancy-title-section">
+  <h2 class="fancy-title">
+    <span class="title-text">Our Programs</span>
+    <span class="title-decoration"></span>
+  </h2>
+</section>
+<section class="programs-section">
+  <div class="programs-container">
+      <div class="program-card">
+          <div class="program-icon">⛪</div>
+          <h3>Weekly Services</h3>
+          <p>Join us for our regular worship services and spiritual gatherings throughout the week.</p>
+          <p style="color: orangered;font-weight: bold;text-decoration: underline;"><a href="services.html">Know more</a></p>
+      </div>
+      <div class="program-card">
+          <div class="program-icon">📖</div>
+          <h3>Bible Study</h3>
+          <p>Deepen your faith through our weekly scripture discussions and prayer meetings.</p>
+          <p style="color: orangered;font-weight: bold;text-decoration: underline;"><a href="Bible study form.html">Register now</a></p>
+      </div> 
+      <div class="program-card">
+          <div class="program-icon">👨👩👧👦</div>
+          <h3>Saturday Fellowship</h3>
+          <p>Family-oriented programs featuring activities for all age groups every Saturday.</p>
+      </div>
+  </div>
+ <!-- Centered "More Programs" Button -->
+<div class="button-container">
+  <a href="Programs.html" class="programs-button">
+    More Programs
+    <span class="button-icon">→</span>
+  </a>
+</div>
+</section>
+ <!-- Branch Churches Title -->
+<section class="fancy-title-section">
+  <h2 class="fancy-title">
+    <span class="title-text">Our Branch Churches</span>
+    <span class="title-decoration"></span>
+  </h2>
+</section>
+<section class="branch-churches">
+    <div class="churches-carousel">
+      <!-- Emasinga Branch -->
+      <div class="church-card">
+        <img src="Ahero.jpg" alt="Emasinga Branch">
+        <h3>Ahero Branch</h3>
+        <p>Join us at our Ahero branch for uplifting worship and community fellowship.</p>
+      </div>
+      <!-- Ikoli Branch -->
+      <div class="church-card">
+        <img src="IMG_20221211_121140_0 (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1) (1).jpg" alt="Ikoli Branch">
+        <h3>Ikoli Branch</h3>
+        <p>Experience God's presence at our Ikoli branch. All are welcome!</p>
+      </div>
+      <!-- Nasira Branch -->
+      <div class="church-card">
+        <img src="Ruai.jpg" alt="Nasira Branch">
+        <h3>Ruai Branch</h3>
+        <p>Be part of our vibrant community at the Ruai branch of GSM International.</p>
+      </div>
+    </div>
+    <!-- "View More" Button -->
+    <div class="view-more">
+      <a href="branch churches.html" class="btn">View More</a>
+    </div>
+  </section>
+<!-- Leadership Section -->
+ <!-- Branch Pastors Title -->
+<section class="fancy-title-section">
+  <h2 class="fancy-title">
+    <span class="title-text">Our Branch Pastors</span>
+    <span class="title-decoration"></span>
+  </h2>
+</section>
+<section class="leadership">
+    <div class="leadership-carousel">
+      <!-- Leadership Cards -->
+      <div class="leadership-card">
+        <img src="bishop.jpg" alt="Ev. Ezekiel">
+        <h3>Pastor </h3>
+        <p>Senior Pastor, </p>
+      </div>
+      <div class="leadership-card">
+        <img src="bg21.jpg" alt="Pastor Sarah">
+        <h3>Pastor </h3>
+        <p>Senior Pastor, </p>
+      </div>
+      <div class="leadership-card">
+        <img src="pray.jpg" alt="Pastor Andrew">
+        <h3>Pastor </h3>
+        <p> Leader, Pastor, Nakuru</p>
+      </div>
+    </div>
+    <!-- "View More" Button -->
+    <div class="view-more">
+      <a href="Pastors.html" class="btn">View More</a>
+    </div>
+  </section>
+<section class="ministry-sections">
+  <section class="prpasu-section">
+    <div class="prpasu-container">
+        <h2 class="prpasu-heading">Spiritual Support Network</h2>
+        <div class="prpasu-grid">
+            <!-- Prayer Request Card -->
+            <div class="prpasu-card prayer-card">
+                <div class="card-icon">
+                    <i class="fas fa-hands-praying"></i>
+                </div>
+                <h3>Prayer Requests</h3>
+                <p>Share your prayer needs with our compassionate community. We believe in the power of collective prayer to bring comfort and miracles.</p>
+                <a href="prayer.html" class="prpasu-btn">
+                    Submit Request
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <!-- Pastoral Support Card -->
+            <div class="prpasu-card pastoral-card">
+                <div class="card-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>Pastoral Care</h3>
+                <p>Connect with our dedicated pastoral team for spiritual guidance, counseling, and emotional support during life's challenges.</p>
+                <a href="Pastoral support.html" class="prpasu-btn">
+                    Request Support
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <!-- Ministry Support Card -->
+            <div class="prpasu-card ministry-card">
+                <div class="card-icon">
+                    <i class="fas fa-church"></i>
+                </div>
+                <h3>Ministry Partnership</h3>
+                <p>Join hands with us in spreading hope. Your support enables our outreach programs and community services.</p>
+                <a href="Partner.html" class="prpasu-btn">
+                    Get Involved
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="stats-section">
+  <h3 class="section-title" style="color: orangered;">Our Global Impact</h3>
+  <div class="stats-container">
+      <div class="stat-card">
+          <i class="fas fa-church stat-icon"></i>
+          <span class="stat-number" data-target="14">0</span>
+          <span class="stat-label">Churches Planted</span>
+      </div>
+      <div class="stat-card">
+          <i class="fas fa-sitemap stat-icon"></i>
+          <span class="stat-number" data-target="10">0</span>
+          <span class="stat-label">Active Departments</span>
+      </div>
+      <div class="stat-card">
+          <i class="fas fa-hands-praying stat-icon"></i>
+          <span class="stat-number" data-target="8">0</span>
+          <span class="stat-label">Ministries</span>
+      </div>
+  </div>
+</section>
+<!-- FAQ Section -->
+<section class="faq-section">
+  <h2>Frequently Asked Questions</h2> 
+  <div class="faq-container">
+    <!-- FAQ Item 1 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Where is your church located?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Our church is located at Isongo .,We also have number of branch churches, We welcome you to join us for worship and fellowship!.Check our"About" page to know more.</p>
+      </div>
+    </div>
+    <!-- FAQ Item 2 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>What services do you offer?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>We offer Sunday worship, Bible studies, youth programs, community outreach, and pastoral counseling.</p>
+      </div>
+    </div>
+    <!-- FAQ Item 3 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>What are your service times?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Our Sunday services are at 8:00 AM-1:00 PM.Check our"Services"page for more</p>
+      </div>
+    </div>
+    <!-- FAQ Item 4 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>How can I get involved?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>You can join our volunteer teams, small groups, or our community. Visit our "Communities" or "Connect" page or contact us for more information.</p>
+      </div>
+    </div>
+    <!-- FAQ Item 5 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Do you have programs for children and youth?</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Yes! We have Sunday School, youth groups, and special events for children and teens. Check our "about us>Ministries" page for details.</p>
+      </div>
+    </div>
+    <!-- FAQ Item 5 -->
+    <div class="faq-item">
+      <div class="faq-question">
+        <span>Do you have scholarship programs for students</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">
+        <p>Yes, we offer scholarships! These are available for ministry members who are students in primary, secondary, or university. For more details, please visit our "Scholarships" page or contact our office.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="comment-section">
+  <div class="comment-container">
+      <h2 class="section-title">Suggestion box</h2>
+      <div class="input-group">
+          <textarea 
+              id="commentInput" 
+              class="modern-input" 
+              placeholder="Share your thoughts/idea/feedback..."
+              rows="4"
+          ></textarea>
+          <button id="submitBtn" class="gradient-btn">
+            Send message
+              <div class="hover-effect"></div>
+          </button>
+      </div>
+  </div>
+  <!-- Submission Modal -->
+  <div class="modal-overlay" id="loadingModal">
+      <div class="modern-modal">
+          <div class="spinner"></div>
+          <p class="modal-text">Submitting your...</p>
+      </div>
+  </div>
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+      <div class="modern-modal">
+          <svg class="success-icon" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <p class="modal-text">Successfully Submitted!</p>
+      </div>
+  </div>
+</section>
+<div class="footer">
+  <div class="footer-column">
+      <h4>Connect With Us</h4>
+      <div class="social-icons">
+          <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="contact.html" class="social-link" aria-label="Email Us"> <i class="fas fa-envelope"></i> </a>
+          <a href="tel:+254768398208" class="social-link" aria-label="Call Us"> <i class="fas fa-phone-alt"></i></a>
+      </div>
+      <br>
+      <p style="font-style: italic;">Subscribe to our newsletter to stay updated </p>
+       <a href="Subscribe.html" class="newlt-button">
+        <span class="newlt-icon">✉️</span>
+        Subscribe Now
+      </a>
+  </div>
+  <div class="footer-column center-column">
+      <img src="Gospel springs logo.jpg" alt="Logo" class="footer-logo" style="border-radius: 50px;">
+      <p>&copy; 2025 Gospel Springs Mission International.<br>All rights reserved.</p>
+      <p class="ict-team">
+          <a href="Ict team.html" style="color: orangered; text-decoration: underline;">ICT Team</a>
+      </p>
+  </div>
+  <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul class="quick-links">
+          <li><a href="Church library.html">Library</a></li>
+          <li><a href="Partner.html">Partnership</a></li>
+          <li><a href="Volunteer.html">Volunteer</a></li>
+          <li><a href="FAQ's.html">Faqs</a></li>
+          <li><a href="Job view.html">Jobs</a></li>
+          <a href="Life springs.html">School</a>
+      </ul>
+  </div>
+</div>
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
+    
+
+
+    <script>
+        const slides = document.querySelectorAll('.ministry-slide');
+        let currentSlide = 0;
+      
+        function showSlide(index) {
+          slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === index);
+          });
+        }
+      
+        function nextSlide() {
+          currentSlide = (currentSlide + 1) % slides.length;
+          showSlide(currentSlide);
+        }
+      
+        // Start auto-scrolling
+        setInterval(nextSlide, 7000); // Change slide every 7 seconds
+      
+        // Show the first slide initially
+        showSlide(currentSlide);
+      </script>
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        
+        const firebaseConfig = {
+        apiKey: "AIzaSyDUwSw_KL0icgHVVQDtL9MjesYuvK-CLlU",
+        authDomain: "comments-d7f6e.firebaseapp.com",
+        databaseURL: "https://comments-d7f6e-default-rtdb.firebaseio.com",
+        projectId: "comments-d7f6e",
+        storageBucket: "comments-d7f6e.firebasestorage.app",
+        messagingSenderId: "634627152708",
+        appId: "1:634627152708:web:59e905dd030fb40636d511"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        
+        const commentInput = document.getElementById('commentInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingModal = document.getElementById('loadingModal');
+        const successModal = document.getElementById('successModal');
+        
+        submitBtn.addEventListener('click', async () => {
+        const comment = commentInput.value.trim();
+        
+        if (comment) {
+          loadingModal.style.display = 'flex';
+          
+          try {
+              await push(ref(db, 'comments'), {
+                  text: comment,
+                  timestamp: Date.now()
+              });
+              
+              loadingModal.style.display = 'none';
+              successModal.style.display = 'flex';
+              commentInput.value = '';
+              
+              setTimeout(() => {
+                  successModal.style.display = 'none';
+              }, 2000);
+          } catch (error) {
+              console.error('Error submitting comment:', error);
+              loadingModal.style.display = 'none';
+          }
+        }
+        });
+        </script> 
+        <script>
+          function animateNumber(element, target) {
+              let current = 0;
+              const increment = target / 50;
+              const updateCount = () => {
+                  current += increment;
+                  if (current < target) {
+                      element.textContent = Math.ceil(current);
+                      requestAnimationFrame(updateCount);
+                  } else {
+                      element.textContent = target;
+                  }
+              };
+              requestAnimationFrame(updateCount);
+          }
+  
+          function handleIntersection(entries, observer) {
+              entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                      const numbers = document.querySelectorAll('.stat-number');
+                      numbers.forEach(number => {
+                          number.classList.add('animate');
+                          const target = parseInt(number.dataset.target, 10);
+                          animateNumber(number, target);
+                      });
+                  } else {
+                      const numbers = document.querySelectorAll('.stat-number');
+                      numbers.forEach(number => {
+                          number.classList.remove('animate');
+                          number.textContent = '0';
+                      });
+                  }
+              });
+          }
+  
+          const observer = new IntersectionObserver(handleIntersection, {
+              threshold: 0.5
+          });
+  
+          observer.observe(document.querySelector('.stats-section'));
+      </script>
+      <script>
+        // FAQ Dropdown Functionality
+document.querySelectorAll('.faq-question').forEach((question) => {
+  question.addEventListener('click', () => {
+    const faqItem = question.parentElement;
+    faqItem.classList.toggle('active');
+
+    // Close other FAQs when one is opened
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      if (item !== faqItem && item.classList.contains('active')) {
+        item.classList.remove('active');
+      }
+    });
+  });
+});
+      </script>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+  const backToTopButton = document.getElementById('backToTop');
+  const pulseRing = document.querySelector('.pulse-ring');
+  
+  // Show/hide button based on scroll position
+  window.addEventListener('scroll', function() {
+    if (window.pageYOffset > 300) {
+      backToTopButton.classList.add('visible');
+      
+      // Random flicker effect when visible
+      if (Math.random() > 0.7) {
+        backToTopButton.classList.add('flicker');
+        setTimeout(() => {
+          backToTopButton.classList.remove('flicker');
+        }, 1500);
+      }
+      
+      // Pulse ring appears occasionally
+      if (Math.random() > 0.8) {
+        pulseRing.style.opacity = '0.7';
+        setTimeout(() => {
+          pulseRing.style.opacity = '0';
+        }, 2000);
+      }
+    } else {
+      backToTopButton.classList.remove('visible');
+    }
+  });
+  
+  // Smooth scroll to top
+  backToTopButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    
+    // Special animation on click
+    this.classList.add('flicker');
+    pulseRing.style.opacity = '0.7';
+    setTimeout(() => {
+      this.classList.remove('flicker');
+      pulseRing.style.opacity = '0';
+    }, 1500);
+  });
+});
+      </script>
+      <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+    
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyDR7s4ILvz62xXbGeO04sVbBRNF9sGNop8",
+          authDomain: "notification-8ad87.firebaseapp.com",
+          databaseURL: "https://notification-8ad87-default-rtdb.firebaseio.com",
+          projectId: "notification-8ad87",
+          storageBucket: "notification-8ad87.firebasestorage.app",
+          messagingSenderId: "46977382487",
+          appId: "1:46977382487:web:4c7ada7d65a01ff5cd4b12"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+    
+        // Reference to the notifications in the database
+        const notificationsRef = ref(database, 'notifications');
+    
+        // Notification bell and dropdown elements
+        const notificationBell = document.getElementById('notification-bell');
+        const notificationBadge = document.getElementById('notification-badge');
+        const notificationList = document.getElementById('notification-list');
+        const dropdown = document.getElementById('notification-dropdown');
+    
+        // Fetch notifications from Firebase
+        onValue(notificationsRef, (snapshot) => {
+          const notifications = snapshot.val();
+    
+          if (notifications) {
+            const notificationEntries = Object.entries(notifications);
+            const totalNotifications = notificationEntries.length;
+    
+            // Show the bell and update the badge
+            notificationBell.style.display = 'block';
+            notificationBadge.textContent = totalNotifications;
+            notificationBadge.style.display = 'block';
+    
+            // Update dropdown content
+            notificationList.innerHTML = notificationEntries.map(([id, notification]) => `
+              <div class="notification-item" data-id="${id}">
+                <div class="notification-message">${notification.message}</div>
+              </div>
+            `).join('');
+    
+            // Show dropdown on bell click
+            document.getElementById('bell-button').onclick = () => {
+              dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            };
+    
+            // Mark as read functionality
+            document.getElementById('mark-as-read').onclick = () => {
+              notificationEntries.forEach(([id]) => {
+                update(ref(database, `notifications/${id}`), { read: true });
+              });
+              dropdown.style.display = 'none'; // Close the modal
+            };
+          } else {
+            // Hide the bell if no notifications
+            notificationBell.style.display = 'none';
+            notificationList.innerHTML = '<div class="no-notifications">No new notifications</div>';
+          }
+        });
+    
+        // Close dropdown when clicking outside
+        window.onclick = (event) => {
+          if (!event.target.closest('#notification-bell')) {
+            dropdown.style.display = 'none';
+          }
+        };
+      </script>
+      <script>
+        // WhatsApp Widget Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const widget = document.getElementById('whatsappWidget');
+    const whatsappBtn = document.getElementById('whatsappButton');
+    const closeBtn = document.getElementById('closeChat');
+    
+    // Toggle widget visibility
+    whatsappBtn.addEventListener('click', function() {
+        widget.classList.toggle('active');
+        whatsappBtn.classList.remove('pulse');
+    });
+    
+    closeBtn.addEventListener('click', function() {
+        widget.classList.remove('active');
+        // Re-enable pulse after 30 seconds
+        setTimeout(() => {
+            whatsappBtn.classList.add('pulse');
+        }, 30000);
+    });
+    
+    // Auto-show pulse after 20 seconds
+    setTimeout(() => {
+        if (!widget.classList.contains('active')) {
+            whatsappBtn.classList.add('pulse');
+        }
+    }, 20000);
+    
+    // Close when clicking outside (optional)
+    document.addEventListener('click', function(e) {
+        if (!widget.contains(e.target) && e.target !== whatsappBtn) {
+            widget.classList.remove('active');
+        }
+    });
+});
+      </script>
+      <script>
+        // Animate the focus year text
+document.querySelector('.focus-year').addEventListener('mouseover', function() {
+  this.style.animation = 'glow 1.5s ease-in-out infinite alternate';
+});
+
+document.querySelector('.focus-year').addEventListener('mouseout', function() {
+  this.style.animation = '';
+});
+      </script>
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCrz6qySUu5D1TBxvyVfVBLbY_DCvtY3rA",
+    authDomain: "live-events-bd682.firebaseapp.com",
+    databaseURL: "https://live-events-bd682-default-rtdb.firebaseio.com",
+    projectId: "live-events-bd682",
+    storageBucket: "live-events-bd682.firebasestorage.app",
+    messagingSenderId: "280445604397",
+    appId: "1:280445604397:web:00766767d770cf6e275ea4"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const eventsRef = ref(db, 'events');
+
+const liveBadge = document.getElementById('liveBadge');
+
+// Real-time listener for events
+onValue(eventsRef, (snapshot) => {
+    const eventsData = snapshot.val();
+    const eventCount = eventsData ? Object.keys(eventsData).length : 0;
+    
+    updateBadge(eventCount);
+}, {
+    onlyOnce: false
+});
+
+function updateBadge(count) {
+    if (count > 0) {
+        liveBadge.textContent = count;
+        liveBadge.classList.add('active', 'pulse');
+        
+        // Add temporary animation for new events
+        liveBadge.style.animation = 'badge-pop 0.4s ease-out';
+        setTimeout(() => {
+            liveBadge.style.animation = '';
+        }, 400);
+    } else {
+        liveBadge.classList.remove('active', 'pulse');
+    }
+}
+      </script>
+</body>
+</html> 

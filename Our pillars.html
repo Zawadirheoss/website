@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gospel Springs Mission - Our Pillars</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #1a2b4c;
+      --secondary: #3a5683;
+      --accent: #ff6b35;
+      --light: #f8f9fa;
+      --lighter: #ffffff;
+      --dark: #2d3436;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 60px;
+      object-fit: contain;
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      transform: rotate(-5deg) scale(1.05);
+    }
+
+    .church-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .greeting {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    .pillars-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--primary);
+      display: inline-block;
+      padding-bottom: 1rem;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .pillars-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .pillar {
+      background: var(--lighter);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .pillar:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .pillar-icon {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-size: 2rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .pillar-content {
+      padding: 2rem;
+      flex-grow: 1;
+    }
+
+    .pillar h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .pillar p {
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    .pillar-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .pillar-link i {
+      margin-left: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .pillar-link:hover {
+      color: var(--primary);
+    }
+
+    .pillar-link:hover i {
+      transform: translateX(3px);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .hero {
+        padding: 4rem 1rem;
+        clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+      }
+
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .pillars-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pillar {
+      animation: fadeIn 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .pillar:nth-child(1) { animation-delay: 0.1s; }
+    .pillar:nth-child(2) { animation-delay: 0.2s; }
+    .pillar:nth-child(3) { animation-delay: 0.3s; }
+    .pillar:nth-child(4) { animation-delay: 0.4s; }
+    .pillar:nth-child(5) { animation-delay: 0.5s; }
+    .pillar:nth-child(6) { animation-delay: 0.6s; }
+    .pillar:nth-child(7) { animation-delay: 0.7s; }
+    .pillar:nth-child(8) { animation-delay: 0.8s; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="Gospel springs logo.jpg" alt="Gospel Springs Mission Logo" class="logo">
+      <span class="church-name">Gospel Springs Mission</span>
+    </div>
+    <div class="greeting" id="greeting"></div>
+  </header>
+
+  <section class="hero">
+    <h1>Our Spiritual Pillars</h1>
+    <p>The foundational principles that guide our mission and ministry</p>
+  </section>
+
+  <section class="pillars-section">
+    <div class="section-title">
+      <h2>The Eight Pillars</h2>
+    </div>
+    
+    <div class="pillars-container">
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-cross"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Faith</h3>
+          <p>A strong belief in God and adherence to the teachings of the Bible as our foundation for Christian living.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-hands-praying"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Prayer</h3>
+          <p>Regular communication with God through prayer for spiritual growth, divine guidance, and intercession.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-hands-holding-circle"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Worship</h3>
+          <p>Honoring and glorifying God through heartfelt worship in spirit and truth, in all aspects of life.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-hand-holding-heart"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Service</h3>
+          <p>Serving others through Christ-like love, acts of kindness, charity, and community outreach programs.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-people-group"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Discipleship</h3>
+          <p>Teaching and mentoring believers to grow in their faith and become mature followers of Christ.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-globe"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Evangelism</h3>
+          <p>Sharing the Gospel message locally and globally, inviting others to experience God's saving grace.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-heart-circle-bolt"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Community</h3>
+          <p>Building a supportive, loving fellowship where believers grow together in unity and mutual care.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      
+      <div class="pillar">
+        <div class="pillar-icon">
+          <i class="fas fa-seedling"></i>
+        </div>
+        <div class="pillar-content">
+          <h3>Stewardship</h3>
+          <p>Faithfully managing God-given resources to advance His kingdom and bless others generously.</p>
+          <a href="#" class="pillar-link">Learn more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Time-based greeting
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      const greetingEl = document.getElementById('greeting');
+      let greeting;
+      
+      if (hour < 12) {
+        greeting = "Good morning! Welcome to Gospel Springs Mission";
+      } else if (hour < 18) {
+        greeting = "Good afternoon! Welcome to Gospel Springs Mission";
+      } else {
+        greeting = "Good evening! Welcome to Gospel Springs Mission";
+      }
+      
+      greetingEl.textContent = greeting;
+    }
+    
+    // Initialize greeting
+    updateGreeting();
+    
+    // Update greeting every minute in case page stays open
+    setInterval(updateGreeting, 60000);
+  </script>
+</body>
+</html>

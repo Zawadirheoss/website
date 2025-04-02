@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            animation: formEntrance 0.6s ease-out;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #34495e;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #0800ff;
+            box-shadow: 0 0 10px rgba(8, 0, 255, 0.1);
+        }
+
+        button {
+            background: linear-gradient(45deg, #0800ff, #6c5ce7);
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(8, 0, 255, 0.2);
+        }
+
+        @keyframes formEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status-message {
+            text-align: center;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 500px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block !important;
+        }
+
+        .loading {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            display: block !important;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block !important;
+        }
+
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Book Your Appointment</h1>
+    <div id="statusMessage" class="status-message"></div>
+
+    <form id="appointmentForm">
+        <label for="name" class="required">Name</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+
+        <label for="phone" class="required">Phone</label>
+        <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email ">
+
+        <label for="todayDate">Today's Date</label>
+        <input type="date" id="todayDate" name="todayDate" readonly>
+
+        <label for="requestedDate">Requested Date</label>
+        <input type="date" id="requestedDate" name="requestedDate" required placeholder="Day you want visit/meet..">
+
+        <label for="request" class="required">Request</label>
+        <textarea id="request" name="request" rows="4" required placeholder="Describe your request..."></textarea>
+
+        <button type="submit" id="submitBtn">Submit</button>
+    </form>
+
+    <!-- Modal -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <p>Submitting, please wait...</p>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCmGSWtYPRA9oC5OKfjbwysikLXMxf_74",
+            authDomain: "appointments-6e96a.firebaseapp.com",
+            databaseURL: "https://appointments-6e96a-default-rtdb.firebaseio.com",
+            projectId: "appointments-6e96a",
+            storageBucket: "appointments-6e96a.firebasestorage.app",
+            messagingSenderId: "88506189802",
+            appId: "1:88506189802:web:2732fd64c6b5516be79493"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Form submission logic
+        const form = document.getElementById('appointmentForm');
+        const loadingModal = document.getElementById('loadingModal');
+        const statusMessage = document.getElementById('statusMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Show loading modal
+            loadingModal.style.display = 'flex';
+
+            // Get form data
+            const formData = {
+                name: form.name.value,
+                phone: form.phone.value,
+                email: form.email.value,
+                todayDate: form.todayDate.value,
+                requestedDate: form.requestedDate.value,
+                request: form.request.value
+            };
+
+            try {
+                // Push data to Firebase
+                const appointmentsRef = ref(database, 'appointments');
+                await push(appointmentsRef, formData);
+
+                // Hide loading modal
+                loadingModal.style.display = 'none';
+
+                // Show success message
+                statusMessage.textContent = 'Submitted successfully. You will receive a response.';
+                statusMessage.classList.remove('error', 'loading');
+                statusMessage.classList.add('success');
+                statusMessage.style.display = 'block';
+
+                // Reset form
+                form.reset();
+            } catch (error) {
+                // Hide loading modal
+                loadingModal.style.display = 'none';
+
+                // Show error message
+                statusMessage.textContent = 'Submission failed. Please try again.';
+                statusMessage.classList.remove('success', 'loading');
+                statusMessage.classList.add('error');
+                statusMessage.style.display = 'block';
+                console.error('Error submitting form:', error);
+            }
+        });
+
+        // Set today's date as readonly
+        const todayDateInput = document.getElementById('todayDate');
+        const today = new Date().toISOString().split('T')[0];
+        todayDateInput.value = today;
+    </script>
+</body>
+</html>

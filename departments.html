@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Departments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6d4c41;  /* Earth tone for stability */
+            --accent: #9575cd;   /* Sacred purple */
+            --light: #fff8e1;    /* Warm light */
+            --dark: #333333;
+            --success: #4caf50;
+            --warning: #ff9800;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Merriweather', serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: 
+                linear-gradient(rgba(10, 33, 147, 0.85), rgba(226, 13, 112, 0.85)),
+                url('images/church-header.jpg'); /* Changed to local image */
+            background-size: cover;
+            background-position: center;
+            color: white;
+            position: relative;
+            margin-bottom: 4rem;
+            height: 38vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+            z-index: 0;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 700;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .greeting {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            animation: slideUp 0.8s ease-in-out;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        .church-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50px;
+            object-fit: cover;
+            z-index: 2;
+            border: 2px solid white;
+        }
+
+        .search-container {
+            margin: 2rem auto;
+            max-width: 600px;
+            padding: 0 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .search-bar {
+            display: flex;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-bar button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background: #7e57c2;
+        }
+
+        .departments-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .department-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .department-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .card-image {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .department-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-content::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .department-title {
+            color: #e65100;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .department-card:hover .department-title {
+            color: var(--accent);
+        }
+
+        .department-verse {
+            color: #555;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .ministry-button {
+            background: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .ministry-button:hover {
+            background: #7e57c2;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(149,117,205,0.3);
+        }
+
+        .ministry-button::after {
+            content: '➜';
+            transition: transform 0.3s ease;
+        }
+
+        .ministry-button:hover::after {
+            transform: translateX(3px);
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: #666;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: auto;
+                padding: 3rem 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .greeting {
+                font-size: 1.2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+            
+            .departments-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .department-card {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .search-bar input {
+                padding: 12px 20px;
+            }
+            
+            .search-bar button {
+                padding: 0 20px;
+            }
+            
+            .church-logo {
+                width: 50px;
+                height: 50px;
+                top: 15px;
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="Gospel springs logo.jpg" alt="Church Logo" class="church-logo"> <!-- Added logo -->
+        <div class="header-content">
+            <div class="greeting" id="greeting"></div>
+            <h1>Ministry Departments</h1>
+            <p>"Serve one another humbly in love" - Galatians 5:13</p>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for a department...">
+            <button type="button" id="searchButton"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <div class="departments-container">
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+            <p>No departments found matching your search.</p>
+            <p>Try a different keyword or browse all departments.</p>
+        </div>
+
+        <!-- IT Department -->
+        <div class="department-card" data-department="ict technology">
+            <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="IT Ministry" class="card-image">
+            <div class="card-content">
+                <h2 class="department-title">ICT Department</h2>
+                <p class="department-verse">"Whatever you do, work at it with all your heart" - Colossians 3:23</p>
+                <a href="Ict team.html" class="ministry-button">View team</a>
+            </div>
+        </div>
+
+        <!-- Hospitality -->
+        <div class="department-card" data-department="hospitality welcome greeting">
+            <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Hospitality" class="card-image">
+            <div class="card-content">
+                <h2 class="department-title">Hospitality</h2>
+                <p class="department-verse">"Offer hospitality without grumbling" - 1 Peter 4:9</p>
+                <button class="ministry-button">Join department</button>
+            </div>
+        </div>
+
+        <!-- Finance -->
+        <div class="department-card" data-department="finance money offering">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Finance" class="card-image">
+            <div class="card-content">
+                <h2 class="department-title">Finance</h2>
+                <p class="department-verse">"Now it is required that those who have been given a trust must prove faithful" - 1 Corinthians 4:2</p>
+                <button class="ministry-button">Join department</button>
+            </div>
+        </div>
+
+        <!-- Leadership -->
+        <div class="department-card" data-department="leadership elders pastors">
+            <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Leadership" class="card-image">
+            <div class="card-content">
+                <h2 class="department-title">Leadership</h2>
+                <p class="department-verse">"Welcome one another as Christ has welcomed you" - Romans 15:7</p>
+                <button class="ministry-button">Share your image</button>
+            </div>
+        </div>
+
+        <!-- Worship -->
+        <div class="department-card" data-department="worship music choir praise">
+            <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Worship" class="card-image">
+            <div class="card-content">
+                <h2 class="department-title">Worship Team</h2>
+                <p class="department-verse">"Sing to the Lord a new song" - Psalm 96:1</p>
+                <button class="ministry-button">Join department</button>
+            </div>
+        </div>
+
+        <!-- Youth -->
+        <div class="department-card" data-department="youth teens young">
+            <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Youth" class="card-image">
+            <div class="card-content">
+                <h2 class="department-title">Youth Ministry</h2>
+                <p class="department-verse">"Don't let anyone look down on you because you are young" - 1 Timothy 4:12</p>
+                <button class="ministry-button">Join department</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Time-based greeting
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            let greeting;
+            
+            if (hour < 12) {
+                greeting = "Good Morning!";
+            } else if (hour < 18) {
+                greeting = "Good Afternoon!";
+            } else {
+                greeting = "Good Evening!";
+            }
+            
+            document.getElementById('greeting').textContent = greeting;
+        }
+        
+        // Search functionality
+        function searchDepartments() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const cards = document.querySelectorAll('.department-card');
+            const noResults = document.getElementById('noResults');
+            let found = false;
+            
+            cards.forEach(card => {
+                const department = card.getAttribute('data-department');
+                const title = card.querySelector('.department-title').textContent.toLowerCase();
+                const verse = card.querySelector('.department-verse').textContent.toLowerCase();
+                
+                if (department.includes(filter) || title.includes(filter) || verse.includes(filter)) {
+                    card.style.display = 'block';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            noResults.style.display = found ? 'none' : 'block';
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            updateGreeting();
+            
+            document.getElementById('searchButton').addEventListener('click', searchDepartments);
+            document.getElementById('searchInput').addEventListener('keyup', searchDepartments);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Request</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Add modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e67e22;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-check {
+            font-size: 3rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e67e22;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-check {
+            font-size: 3rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+        }
+       
+        body {
+            font-family: 'Merriweather', serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '✝';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15rem;
+            color: rgba(241, 242, 246, 0.3);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .logo {
+            width: 60px;
+            height: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            border-radius: 50px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        h1::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #e67e22;
+            margin: 0.5rem auto;
+        }
+
+        form {
+            position: relative;
+            z-index: 1;
+        }
+
+        label {
+            display: block;
+            margin: 1.2rem 0 0.5rem;
+            color: #2c3e50;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(241, 242, 246, 0.3);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 12px rgba(230, 126, 34, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #e67e22, #d35400);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-text {
+            color: #e67e22;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .header-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+        <div class="container">
+            <div class="header-container">
+                <img src="Gospel springs logo.jpg" class="logo" alt="GSM Logo">
+                <p class="header-text">Gospel springs mission</p>
+            </div>
+            <h1>Prayer Request</h1>
+            <form id="prayerRequestForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+    
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+    
+                <label for="church">Church:</label>
+                <input type="text" id="church" name="church" required>
+    
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+    
+                <label for="time">Time:</label>
+                <input type="time" id="time" name="time" required>
+    
+                <label for="request">Prayer Request:</label>
+                <textarea id="request" name="request" rows="5" required></textarea>
+    
+                <button type="submit">Submit Prayer</button>
+            </form>
+        </div>
+    
+    
+
+    <!-- Add modal -->
+    <div class="modal" id="statusModal">
+        <div class="modal-content">
+            <div class="spinner" id="loadingSpinner"></div>
+            <div class="success-check" id="successCheck" style="display: none;">✓</div>
+            <p id="statusText"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+        const firebaseConfig = {
+            // Your existing config
+            apiKey: "AIzaSyDcZHNy-v2PBX-IbiVFrjo11a4-OFQ_R0k",
+            authDomain: "prayer-requests-33c2f.firebaseapp.com",
+            databaseURL: "https://prayer-requests-33c2f-default-rtdb.firebaseio.com",
+            projectId: "prayer-requests-33c2f",
+            storageBucket: "prayer-requests-33c2f.firebasestorage.app",
+            messagingSenderId: "1028729082135",
+            appId: "1:1028729082135:web:1cef9d52954f0e4be72752"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const form = document.getElementById('prayerRequestForm');
+        const modal = document.getElementById('statusModal');
+        const statusText = document.getElementById('statusText');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const successCheck = document.getElementById('successCheck');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show submitting modal
+            modal.style.display = 'flex';
+            loadingSpinner.style.display = 'block';
+            successCheck.style.display = 'none';
+            statusText.textContent = 'Submitting your prayer request...';
+
+            const prayerData = {
+                name: form.name.value,
+                phone: form.phone.value,
+                church: form.church.value,
+                date: form.date.value,
+                time: form.time.value,
+                request: form.request.value,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                await push(ref(db, 'prayerRequests'), prayerData);
+                
+                // Show success state
+                loadingSpinner.style.display = 'none';
+                successCheck.style.display = 'block';
+                statusText.textContent = 'Submitted successfully!';
+                
+                // Reset form and hide modal after 2 seconds
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    form.reset();
+                }, 2000);
+            } catch (error) {
+                console.error('Error submitting prayer request:', error);
+                statusText.textContent = 'Submission failed. Please try again.';
+                loadingSpinner.style.display = 'none';
+                successCheck.style.display = 'none';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

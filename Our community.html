@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communities/Artists</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563EB;
+            --navy-blue: #1E3A8A;
+            --background: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: var(--navy-blue);
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            padding: 2px;
+            background: white;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            color: white;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin: 1rem 0 2rem;
+        }
+
+        .nav-button {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: #E2E8F0;
+            color: #64748B;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .search-container {
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            max-width: 500px;
+            font-size: 1rem;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 0 2rem;
+        }
+
+        .community-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.2s;
+            text-align: center;
+        }
+
+        .community-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .card-icon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .whatsapp { color: #25D366; }
+        .facebook { color: #1877F2; }
+        .tiktok { color: #000000; }
+        .twitter { color: #1DA1F2; }
+        .youtube { color: #FF0000; }
+
+        .artist-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--primary);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .card-link:hover {
+            background: #1D4ED8;
+        }
+
+        .join-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <img src="Gospel springs logo.jpg" alt="Logo" class="logo">
+            <div class="greeting" id="greeting"></div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="nav-buttons" id="navButtons">
+            <button class="nav-button active" data-category="all">All</button>
+            <button class="nav-button" data-category="whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </button>
+            <button class="nav-button" data-category="facebook">
+                <i class="fab fa-facebook"></i> Facebook
+            </button>
+            <button class="nav-button" data-category="tiktok">
+                <i class="fab fa-tiktok"></i> TikTok
+            </button>
+            <button class="nav-button" data-category="twitter">
+                <i class="fab fa-twitter"></i> Twitter
+            </button>
+            <button class="nav-button" data-category="youtube">
+                <i class="fab fa-youtube"></i> YouTube
+            </button>
+            <button class="nav-button" data-category="other">Other Communities</button>
+            <button class="nav-button" data-category="artist">
+                <i class="fas fa-palette"></i> Artists
+            </button>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search communities..." id="searchInput">
+            <button class="nav-button" id="sortButton">Sort by Date</button>
+        </div>
+
+        <div class="community-grid" id="communityGrid"></div>
+
+        <a href="Members register.html" class="join-button">
+            <i class="fas fa-plus"></i>Become member
+        </a>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCT6bSwCgtmpHycabxKFzDHzy7lZX1jtgo",
+            authDomain: "communities-3731d.firebaseapp.com",
+            databaseURL: "https://communities-3731d-default-rtdb.firebaseio.com",
+            projectId: "communities-3731d",
+            storageBucket: "communities-3731d.firebasestorage.app",
+            messagingSenderId: "424139613732",
+            appId: "1:424139613732:web:07146538124ccad0dd1ab1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let currentCategory = 'all';
+        let allCommunities = [];
+        let sortAscending = true;
+
+        const iconClasses = {
+            whatsapp: 'fab fa-whatsapp whatsapp',
+            facebook: 'fab fa-facebook facebook',
+            tiktok: 'fab fa-tiktok tiktok',
+            twitter: 'fab fa-twitter twitter',
+            youtube: 'fab fa-youtube youtube',
+            artist: 'fas fa-palette'
+        };
+
+        function setGreeting() {
+            const hour = new Date().getHours();
+            const greeting = document.getElementById('greeting');
+            if (hour < 12) greeting.textContent = '🌞 Good Morning!';
+            else if (hour < 18) greeting.textContent = '☀️ Good Afternoon!';
+            else greeting.textContent = '🌙 Good Evening!';
+        }
+
+        function fetchCommunities() {
+            const categories = ['whatsapp', 'facebook', 'tiktok', 'twitter', 'youtube', 'artist', 'other'];
+            categories.forEach(category => {
+                onValue(ref(db, category), (snapshot) => {
+                    const data = snapshot.val();
+                    if (data) {
+                        const communities = Object.entries(data).map(([key, value]) => ({
+                            ...value,
+                            id: key,
+                            category
+                        }));
+                        allCommunities = [...allCommunities, ...communities];
+                        updateUI();
+                    }
+                });
+            });
+        }
+
+        function updateUI(filter = '', category = currentCategory) {
+            const grid = document.getElementById('communityGrid');
+            let filtered = allCommunities;
+
+            if (category === 'all') {
+                filtered = filtered.filter(c => c.category !== 'artist');
+            } else if (category !== 'all') {
+                filtered = filtered.filter(c => c.category === category);
+            }
+
+            if (filter) {
+                filtered = filtered.filter(c => 
+                    c.title?.toLowerCase().includes(filter) || 
+                    c.name?.toLowerCase().includes(filter)
+                );
+            }
+
+            filtered.sort((a, b) => sortAscending ? 
+                new Date(a.date) - new Date(b.date) : 
+                new Date(b.date) - new Date(a.date)
+            );
+
+            grid.innerHTML = filtered.length ? filtered.map(community => {
+                const isArtist = community.category === 'artist';
+                return `
+                    <div class="community-card">
+                        ${!isArtist ? `
+                            <i class="${iconClasses[community.category]} card-icon"></i>
+                            <h3 class="card-title">${community.title}</h3>
+                            <p class="card-description">${community.description}</p>
+                            <a href="${community.link}" class="card-link" target="_blank">
+                                <i class="fas fa-arrow-right"></i> Join Community
+                            </a>
+                            <div class="card-date">
+                                ${new Date(community.date).toLocaleDateString()}
+                            </div>
+                        ` : `
+                            <img src="${community.image}" class="artist-image" 
+                                 alt="${community.name}" 
+                                 onerror="this.src='https://via.placeholder.com/120'">
+                            <h3 class="card-title">${community.name}</h3>
+                            <a href="${community.profileLink}" class="card-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Profile
+                            </a>
+                        `}
+                    </div>
+                `}).join('') : '<div class="empty-state">No communities found</div>';
+        }
+
+        document.getElementById('navButtons').addEventListener('click', (e) => {
+            if (e.target.classList.contains('nav-button')) {
+                document.querySelectorAll('.nav-button').forEach(btn => 
+                    btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentCategory = e.target.dataset.category;
+                updateUI(document.getElementById('searchInput').value.toLowerCase());
+            }
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            updateUI(e.target.value.toLowerCase());
+        });
+
+        document.getElementById('sortButton').addEventListener('click', () => {
+            sortAscending = !sortAscending;
+            document.getElementById('sortButton').textContent = 
+                sortAscending ? 'Sort by Date' : 'Reverse Sort';
+            updateUI(document.getElementById('searchInput').value.toLowerCase());
+        });
+
+        setGreeting();
+        fetchCommunities();
+        setInterval(setGreeting, 1000 * 60 * 60);
+    </script>
+</body>
+</html>

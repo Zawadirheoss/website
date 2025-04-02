@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Ministries</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+        }
+
+        .header {
+            position: relative;
+            text-align: center;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(42, 8, 232, 0.9), rgba(255, 20, 126, 0.9)),
+                        url('https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-blend-mode: multiply;
+            background-size: cover;
+            color: white;
+            margin-bottom: 2rem;
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .church-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .church-logo:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .greeting {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            font-size: 1.2rem;
+            background: rgba(255,255,255,0.15);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #ffd700, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ministries-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            padding-bottom: 4rem;
+        }
+
+        .ministry-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .ministry-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .ministry-image {
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 4px solid;
+            border-image: linear-gradient(45deg, #3498db, #9b59b6) 1;
+            filter: saturate(0.9);
+            transition: filter 0.3s ease;
+        }
+
+        .ministry-card:hover .ministry-image {
+            filter: saturate(1.1);
+        }
+
+        .ministry-content {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .ministry-title {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .view-button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255,255,255,0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .view-button:hover::before {
+            left: 100%;
+        }
+
+        .view-button:hover {
+            box-shadow: 0 8px 25px rgba(52,152,219,0.4);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+                margin-top: 60px;
+            }
+            
+            .greeting {
+                font-size: 1rem;
+                top: 25px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="Gospel springs logo.jpg" alt="Church Logo" class="church-logo">
+        <div class="greeting" id="greeting"></div>
+        <h1>Discover Our Ministries</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Join our spiritual family and grow in faith</p>
+    </div>
+
+    <div class="ministries-container">
+        <!-- Youth Ministry -->
+        <div class="ministry-card">
+            <img src="youth-ministry.jpg" alt="Youth Ministry" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Youth Ministry</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <!-- Ushering Ministry -->
+        <div class="ministry-card">
+            <img src="ushering.jpg" alt="Ushering Ministry" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Ushering Ministry</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <!-- Praise & Worship -->
+        <div class="ministry-card">
+            <img src="praise-worship.jpg" alt="Praise & Worship" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Praise & Worship</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <!-- Children's Ministry -->
+        <div class="ministry-card">
+            <img src="childrens-ministry.jpg" alt="Children's Ministry" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Children's Ministry</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <!-- Evangelism -->
+        <div class="ministry-card">
+            <img src="evangelism.jpg" alt="Evangelism" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Evangelism</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <!-- Choir Ministry -->
+        <div class="ministry-card">
+            <img src="choir.jpg" alt="Choir Ministry" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Choir Ministry</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <!-- Band -->
+        <div class="ministry-card">
+            <img src="band.jpg" alt="Band" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Heart Adorn Band</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <!-- Additional Ministries -->
+        <div class="ministry-card">
+            <img src="prayer.jpg" alt="Prayer Ministry" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Prayer Ministry</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+
+        <div class="ministry-card">
+            <img src="missions.jpg" alt="Missions Ministry" class="ministry-image">
+            <div class="ministry-content">
+                <h2 class="ministry-title">Missions Ministry</h2>
+                <button class="view-button">Explore Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Time-based Greeting
+        const greeting = document.getElementById('greeting');
+        const hour = new Date().getHours();
+        const greetings = {
+            morning: '🌞 Good Morning!',
+            afternoon: '☀️ Good Afternoon!',
+            evening: '🌙 Good Evening!'
+        };
+
+        if (hour < 12) {
+            greeting.textContent = greetings.morning;
+        } else if (hour < 18) {
+            greeting.textContent = greetings.afternoon;
+        } else {
+            greeting.textContent = greetings.evening;
+        }
+
+        // Add smooth hover effect to cards
+        document.querySelectorAll('.ministry-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.transform = `
+                    perspective(1000px)
+                    rotateX(${(y - rect.height/2) / 15}deg)
+                    rotateY(${-(x - rect.width/2) / 15}deg)
+                    translateY(-10px)
+                `;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

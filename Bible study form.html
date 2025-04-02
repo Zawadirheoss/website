@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bible Study Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 340px;
+            text-align: center;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 60px;
+            border-radius: 10px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .phone-input {
+            display: flex;
+            gap: 8px;
+            margin: 8px 0;
+        }
+
+        .phone-input select {
+            width: 35%;
+            padding: 12px;
+        }
+
+        .phone-input input {
+            width: 65%;
+            padding: 12px;
+        }
+
+        button {
+            background-color: #5c85d6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            padding: 12px;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #4a6fa5;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 20% auto;
+            padding: 25px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content span {
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+
+        .modal-content.error {
+            border-left: 5px solid #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <img src="Gospel springs logo.jpg" alt="Logo" class="logo">
+        <form id="bibleStudyForm">
+            <input type="text" id="name" name="name" placeholder="Full Name" required>
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <div class="phone-input">
+                <select id="countryCode" required>
+                    <option value="">Code</option>
+                    <option value="+1">+1 (USA)</option>
+                    <option value="+44">+44 (UK)</option>
+                    <option value="+91">+91 (India)</option>
+                    <option value="+234">+234 (NG)</option>
+                    <option value="+254">+254 (KE)</option>
+                </select>
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number" required maxlength="10" pattern="[0-9]{10}">
+            </div>
+            <input type="email" id="email" name="email" placeholder="Email Address" required>
+            <input type="text" id="church" name="church" placeholder="Church Name" required>
+            <select id="level" name="level" required>
+                <option value="">Select Study Level</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+            <button type="submit">Register Now</button>
+        </form>
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content" id="modalContent">
+            <span id="modalText"></span>
+        </div>
+    </div>
+
+    <!-- Firebase SDK (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSmDwOuNyoMcUT3RpmgohlpWdhZv9Xe44",
+            authDomain: "bible-study-7ffd8.firebaseapp.com",
+            databaseURL: "https://bible-study-7ffd8-default-rtdb.firebaseio.com",
+            projectId: "bible-study-7ffd8",
+            storageBucket: "bible-study-7ffd8.firebasestorage.app",
+            messagingSenderId: "291347700852",
+            appId: "1:291347700852:web:848fe662c05b168da50521"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // DOM elements
+        const form = document.getElementById('bibleStudyForm');
+        const modal = document.getElementById('myModal');
+        const modalText = document.getElementById('modalText');
+        const modalContent = document.getElementById('modalContent');
+
+        // Phone number validation
+        const validatePhoneNumber = (phone) => {
+            const phoneRegex = /^\d{7,15}$/;
+            return phoneRegex.test(phone);
+        };
+
+        // Email validation
+        const validateEmail = (email) => {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        };
+
+        // Form validation
+        const validateForm = (formData) => {
+            if (!formData.name.trim()) return 'Please enter your name';
+            if (!formData.gender) return 'Please select your gender';
+            if (!formData.phone) return 'Please enter your phone number';
+            if (!validatePhoneNumber(formData.phone.replace(/\D/g, ''))) return 'Invalid phone number';
+            if (!formData.email) return 'Please enter your email';
+            if (!validateEmail(formData.email)) return 'Invalid email format';
+            if (!formData.church.trim()) return 'Please enter your church name';
+            if (!formData.level) return 'Please select your bible study level';
+            return null;
+        };
+
+        // Form submission
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Show submitting modal
+            modalText.textContent = 'Submitting...';
+            modalContent.classList.remove('error');
+            modal.style.display = 'block';
+
+            // Prepare form data
+            const formData = {
+                name: form.name.value.trim(),
+                gender: form.gender.value,
+                phone: `${form.countryCode.value}${form.phone.value.replace(/\D/g, '')}`,
+                email: form.email.value.trim(),
+                church: form.church.value.trim(),
+                level: form.level.value,
+                timestamp: new Date().toISOString()
+            };
+
+            // Validate form
+            const validationError = validateForm(formData);
+            if (validationError) {
+                modalText.textContent = validationError;
+                modalContent.classList.add('error');
+                setTimeout(() => modal.style.display = 'none', 3000);
+                return;
+            }
+
+            try {
+                // Submit to Firebase Realtime Database
+                const newRegistrationRef = database.ref('registrations').push();
+                await newRegistrationRef.set(formData);
+
+                // Success handling
+                modalText.textContent = 'Submission Successful! 🎉';
+                modalContent.classList.remove('error');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    form.reset();
+                }, 2000);
+            } catch (error) {
+                // Error handling
+                console.error('Submission Error:', error);
+                modalText.textContent = `Submission Failed: ${error.message || 'Please check your internet connection'}`;
+                modalContent.classList.add('error');
+                setTimeout(() => modal.style.display = 'none', 5000);
+            }
+        });
+
+        // Close modal when clicking outside
+        window.onclick = (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+    </script>
+</body>
+</html>

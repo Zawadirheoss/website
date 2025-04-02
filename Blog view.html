@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Blog Platform</title>
+    <style>
+        :root {
+            --primary: #2A2A72;
+            --secondary: #009FFD;
+            --accent: #FFA400;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            background: linear-gradient(45deg, var(--light), #ffffff);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+        }
+
+        input, select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 159, 253, 0.25);
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .blog-topic {
+            color: var(--primary);
+            margin: 0 0 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .blog-content {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+
+        .meta-data {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .controls {
+                grid-template-columns: 1fr;
+                top: 0.5rem;
+            }
+            
+            .blog-card {
+                padding: 1.5rem;
+            }
+            
+            .blog-topic {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .meta-data {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Youth Blog Hub</h1>
+        <p>Empowering Young Voices</p>
+    </header>
+
+    <div class="container">
+        <div class="controls">
+            <input type="text" id="searchInput" placeholder="🔍 Search blogs...">
+            <select id="dateFilter">
+                <option value="">All Dates</option>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+            </select>
+        </div>
+        <div id="blogList"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDqzEnzX1LZdQ0TCOqBgJBHzLVZhDu4yRA",
+            authDomain: "blog-27908.firebaseapp.com",
+            databaseURL: "https://blog-27908-default-rtdb.firebaseio.com",
+            projectId: "blog-27908",
+            storageBucket: "blog-27908.firebasestorage.app",
+            messagingSenderId: "1097524120984",
+            appId: "1:1097524120984:web:61eb49531c44c47415efed"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const blogsRef = ref(db, 'blogs');
+
+        const blogList = document.getElementById('blogList');
+        const searchInput = document.getElementById('searchInput');
+        const dateFilter = document.getElementById('dateFilter');
+
+        let allBlogs = [];
+
+        // Fetch data from Firebase
+        onValue(blogsRef, (snapshot) => {
+            allBlogs = [];
+            snapshot.forEach((childSnapshot) => {
+                const blog = {
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                };
+                allBlogs.push(blog);
+            });
+            renderBlogs(allBlogs);
+        });
+
+        // Render blogs with filters
+        function renderBlogs(blogs) {
+            // Apply filters
+            const searchTerm = searchInput.value.toLowerCase();
+            const filtered = blogs.filter(blog => 
+                blog.topic.toLowerCase().includes(searchTerm) ||
+                blog.blogContent.toLowerCase().includes(searchTerm)
+            );
+
+            // Apply sorting
+            const sorted = [...filtered].sort((a, b) => {
+                const dateA = new Date(a.datetime);
+                const dateB = new Date(b.datetime);
+                
+                if(dateFilter.value === 'newest') return dateB - dateA;
+                if(dateFilter.value === 'oldest') return dateA - dateB;
+                return 0;
+            });
+
+            // Generate HTML
+            blogList.innerHTML = sorted.map(blog => `
+                <article class="blog-card">
+                    <h2 class="blog-topic">${blog.topic}</h2>
+                    <div class="blog-content">${blog.blogContent}</div>
+                    <div class="meta-data">
+                        <span>👤 ${blog.author}</span>
+                        <span>📅 ${new Date(blog.datetime).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        })}</span>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // Event listeners
+        searchInput.addEventListener('input', () => renderBlogs(allBlogs));
+        dateFilter.addEventListener('change', () => renderBlogs(allBlogs));
+    </script>
+</body>
+</html>

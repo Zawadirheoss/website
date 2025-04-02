@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe to Our Newsletter | Gospel Springs Mission</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #4fc3f7;
+            --accent: #ff6f00;
+            --light: #f5f5f5;
+            --dark: #212121;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #283593);
+            color: white;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 60px;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 2px solid white;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .greeting {
+            text-align: center;
+            flex-grow: 1;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .benefits {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: 250px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .benefit-card i {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .subscription-form {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-btn i {
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover i {
+            transform: translateX(5px);
+        }
+
+        .free-notice {
+            text-align: center;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #666;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .success .modal-icon {
+            color: #4caf50;
+        }
+
+        .submitting .modal-icon {
+            color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="Gospel springs logo.jpg" alt="Gospel Springs Mission Logo">
+                <h1>Gospel Springs Mission</h1>
+            </div>
+            <div class="greeting" id="greeting">
+                <!-- Greeting will be inserted by JavaScript -->
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Stay Connected With Our Community</h2>
+            <p>Join our newsletter to receive weekly devotionals, event updates, and spiritual nourishment directly to your inbox.</p>
+            
+            <div class="benefits">
+                <div class="benefit-card">
+                    <i class="fas fa-book-bible"></i>
+                    <h3>Weekly Devotionals</h3>
+                    <p>Inspirational messages to strengthen your faith journey</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Event Updates</h3>
+                    <p>Never miss our worship services and special programs</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-pray"></i>
+                    <h3>Prayer Points</h3>
+                    <p>Join our prayer network with weekly prayer guides</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="subscription-form">
+        <h2 style="text-align: center; color: var(--primary); margin-bottom: 1.5rem;">Subscribe to Our Newsletter</h2>
+        
+        <form id="newsletterForm">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                    <option value="Prefer not to say">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                Subscribe Now <i class="fas fa-paper-plane"></i>
+            </button>
+            
+            <p class="free-notice">This is a completely free service. We respect your privacy and you can unsubscribe anytime.</p>
+        </form>
+    </div>
+
+    <!-- Submitting Modal -->
+    <div class="modal submitting-modal">
+        <div class="modal-content submitting">
+            <i class="fas fa-circle-notch modal-icon"></i>
+            <h3>Submitting...</h3>
+            <p>Please wait while we process your subscription</p>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal success-modal">
+        <div class="modal-content success">
+            <i class="fas fa-check-circle modal-icon"></i>
+            <h3>Successfully Subscribed!</h3>
+            <p>Thank you for joining our newsletter family. Check your email for confirmation.</p>
+            <button class="submit-btn" style="margin-top: 1.5rem;" onclick="closeSuccessModal()">
+                Close <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+   
+    <script type="module">
+        // Import the functions you need from the Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-database.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAvDQOUlBmHGGGMX0eb1tWxKi7ZWvTapsQ",
+            authDomain: "newsletter-subscribers-73019.firebaseapp.com",
+            projectId: "newsletter-subscribers-73019",
+            storageBucket: "newsletter-subscribers-73019.firebasestorage.app",
+            messagingSenderId: "1028414271443",
+            appId: "1:1028414271443:web:5e5f86570a3e1b5ca1c926",
+            measurementId: "G-0ZMH7HVB2G",
+            databaseURL: "https://newsletter-subscribers-73019-default-rtdb.firebaseio.com/"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Set up greeting based on time of day
+        function setGreeting() {
+            const hour = new Date().getHours();
+            let greeting;
+            
+            if (hour < 12) {
+                greeting = "Good Morning! Subscribe to our newsletter";
+            } else if (hour < 18) {
+                greeting = "Good Afternoon! Join our newsletter";
+            } else {
+                greeting = "Good Evening! Stay connected with us";
+            }
+            
+            document.getElementById('greeting').textContent = greeting;
+        }
+
+        // Handle form submission
+        document.getElementById('newsletterForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const gender = document.getElementById('gender').value;
+            
+            // Show submitting modal
+            document.querySelector('.submitting-modal').classList.add('active');
+            
+            try {
+                // Push data to Firebase Realtime Database
+                await push(ref(database, 'subscribers'), {
+                    name: name,
+                    email: email,
+                    gender: gender,
+                    timestamp: new Date().toISOString()
+                });
+                
+                // Hide submitting modal and show success
+                document.querySelector('.submitting-modal').classList.remove('active');
+                document.querySelector('.success-modal').classList.add('active');
+                
+                // Reset form
+                document.getElementById('newsletterForm').reset();
+                
+            } catch (error) {
+                console.error("Error submitting form:", error);
+                document.querySelector('.submitting-modal').classList.remove('active');
+                alert("There was an error submitting your form. Please try again.");
+            }
+        });
+
+        // Close success modal
+        window.closeSuccessModal = function() {
+            document.querySelector('.success-modal').classList.remove('active');
+        }
+
+        // Initialize greeting
+        setGreeting();
+    </script>
+</body>
+</html>

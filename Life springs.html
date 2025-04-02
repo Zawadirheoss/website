@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Spring Academy - Premier CBC Christian Education</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #1a237e;
+            --secondary-color: #ffd700;
+            --accent-color: #4CAF50;
+            --text-dark: #2d3436;
+            --text-light: #f9f9f9;
+            --gradient-blue: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #ffffff;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--gradient-blue);
+            padding: 1rem 6%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 1.8rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(13, 71, 161, 0.8)),
+                        url('life.jpg') center/cover fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .primary-cta {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .secondary-cta {
+            border: 2px solid var(--text-light);
+            color: var(--text-light);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 6%;
+            background: #f8f9fa;
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-content {
+            text-align: left;
+        }
+
+        .about-content h2 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .about-image {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Programs Section */
+        .programs {
+            padding: 8rem 6%;
+            background: var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .programs::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: #f8f9fa;
+            transform: skewY(-3deg);
+        }
+
+        .programs h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .program-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .program-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 8rem 6%;
+            background: #f8f9fa;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gradient-blue);
+            color: var(--text-light);
+            padding: 6rem 6% 3rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary-color);
+        }
+
+        .footer-section p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Media Queries */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 60%;
+                height: calc(100vh - 70px);
+                background: var(--primary-color);
+                flex-direction: column;
+                padding: 2rem;
+                transition: all 0.3s ease;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .cta-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-school"></i> LS academy
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#programs">Programs</a>
+                <a href="#admissions">Admissions</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 data-aos="fade-up">Shaping Future Leaders</h1>
+            <p data-aos="fade-up" data-aos-delay="200">CBC Accredited Christian Education for Holistic Development</p>
+            <div class="cta-buttons">
+                <a href="#admissions" class="cta-btn primary-cta" data-aos="zoom-in" data-aos-delay="400">Enroll Now</a>
+                <a href="#programs" class="cta-btn secondary-cta" data-aos="zoom-in" data-aos-delay="600">Explore Programs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image" data-aos="fade-right">
+                <img src="https://images.unsplash.com/photo-1588072432836-e100327743ca" alt="School Campus">
+            </div>
+            <div class="about-content" data-aos="fade-left">
+                <h2>About Our Academy</h2>
+                <p>At Life Spring Academy, we combine academic excellence with spiritual growth through our CBC-aligned curriculum. Our Christ-centered approach nurtures students to become responsible, ethical leaders of tomorrow.</p>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>15+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>98%</h3>
+                        <p>Transition Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <h2 data-aos="fade-up">Our Educational Programs</h2>
+        <div class="program-grid">
+            <div class="program-card" data-aos="flip-left">
+                <i class="fas fa-baby-carriage program-icon"></i>
+                <h3>Early Years</h3>
+                <p>Play-based learning for PP1 & PP2 focusing on foundational skills and character development.</p>
+            </div>
+            <div class="program-card" data-aos="flip-left" data-aos-delay="200">
+                <i class="fas fa-book-open program-icon"></i>
+                <h3>Primary School</h3>
+                <p>Grades 1-6 curriculum emphasizing creativity, critical thinking, and digital literacy.</p>
+            </div>
+            <div class="program-card" data-aos="flip-left" data-aos-delay="400">
+                <i class="fas fa-atom program-icon"></i>
+                <h3>Junior Secondary</h3>
+                <p>Grades 7-9 program with STEM focus and talent development pathways.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Nairobi, Kenya</p>
+                <p><i class="fas fa-phone"></i> +254 700 000 000</p>
+                <p><i class="fas fa-envelope"></i> admissions@lifespring.ac.ke</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#about">About Us</a>
+                <a href="#programs">Programs</a>
+                <a href="#admissions">Admissions</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 150
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').style.background = 'var(--primary-color)';
+            } else {
+                document.querySelector('.navbar').style.background = 'var(--gradient-blue)';
+            }
+        });
+    </script>
+</body>
+</html>

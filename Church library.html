@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gospel Springs Digital Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBVF9QsKDQD-rzGINx1J6koFmTBVWW-6vI",
+            authDomain: "library-3a828.firebaseapp.com",
+            databaseURL: "https://library-3a828-default-rtdb.firebaseio.com",
+            projectId: "library-3a828",
+            storageBucket: "library-3a828.firebasestorage.app",
+            messagingSenderId: "940268315200",
+            appId: "1:940268315200:web:893023dbe54c0f5cebf5a5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let currentCategory = 'bible_study';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCategoryResources(currentCategory);
+            updateGreeting();
+            
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    currentCategory = card.dataset.category;
+                    document.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+                    card.classList.add('active');
+                    loadCategoryResources(currentCategory);
+                });
+            });
+
+            document.querySelector('.search-input').addEventListener('input', (e) => {
+                filterResources(e.target.value);
+            });
+        });
+
+        function updateGreeting() {
+            const hours = new Date().getHours();
+            const greeting = 
+                hours < 12 ? "Good Morning 🌞" :
+                hours < 18 ? "Good Afternoon ☀️" : "Good Evening 🌙";
+            document.getElementById('greeting').textContent = greeting;
+        }
+
+        function loadCategoryResources(category) {
+            const resourcesRef = ref(db, category);
+            onValue(resourcesRef, (snapshot) => {
+                const data = snapshot.val();
+                displayResources(data);
+            });
+        }
+
+        function displayResources(data) {
+            const container = document.getElementById('resourcesContainer');
+            container.innerHTML = '';
+
+            if (!data) {
+                container.innerHTML = '<div class="no-data">No resources found in this category</div>';
+                return;
+            }
+
+            Object.values(data).forEach(resource => {
+                const resourceHTML = `
+                    <div class="resource-card">
+                        <div class="resource-info">
+                            <h4>${resource.title}</h4>
+                            <p class="author">${resource.author}</p>
+                            <p class="date">Published: ${resource.date}</p>
+                            <p class="description">${resource.description}</p>
+                        </div>
+                        <a href="${resource.link}" target="_blank" class="read-btn">
+                            Read Now <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', resourceHTML);
+            });
+        }
+
+        function filterResources(searchTerm) {
+            const searchLower = searchTerm.toLowerCase();
+            document.querySelectorAll('.resource-card').forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                card.style.display = title.includes(searchLower) ? 'flex' : 'none';
+            });
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f5f5;
+            color: #333;
+            padding-top: 80px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #050d77;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+            border-radius: 60px;
+        }
+
+        .greeting {
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        /* Search and Categories */
+        .search-section {
+            padding: 20px 5%;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 2px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .categories {
+            padding: 2rem 5%;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-card.active {
+            border-color: #3498db;
+            background: #f8f9fa;
+        }
+
+        /* Resources Section */
+        .featured {
+            padding: 2rem 5%;
+        }
+
+        #resourcesContainer {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .resource-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .read-btn {
+            background: #3498db;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s ease;
+        }
+
+        .read-btn:hover {
+            background: #2980b9;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="logo">
+            <img src="Gospel springs logo.jpg" alt="logo">
+            <span></span>
+        </div>
+        <div class="greeting" id="greeting"></div>
+    </nav>
+
+    <section class="search-section">
+        <input type="text" class="search-input" placeholder="Search all resources by title...">
+    </section>
+
+    <section class="categories">
+        <div class="category-grid">
+            <div class="category-card active" data-category="bible_study">
+                <h3>📖 Bible Study</h3>
+                <p>Study guides & commentaries</p>
+            </div>
+            <div class="category-card" data-category="devotional">
+                <h3>🙏 Devotionals</h3>
+                <p>Daily spiritual nourishment</p>
+            </div>
+            <div class="category-card" data-category="children_books">
+                <h3>👶 Children's Books</h3>
+                <p>Christian stories for kids</p>
+            </div>
+            <div class="category-card" data-category="other_resources">
+                <h3>📚 Other Resources</h3>
+                <p>Additional Christian materials</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured">
+        <div id="resourcesContainer">
+            <div class="no-data">Select a category to view resources</div>
+        </div>
+    </section>
+</body>
+</html>

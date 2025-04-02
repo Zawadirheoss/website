@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Gospel Springs Mission International</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary: #4B6CB7;
+            --secondary: #182848;
+            --accent: #FFD700;
+            --text: #2D3748;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Header with Logo and Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .header.scrolled {
+            padding: 0.8rem 5%;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            max-width: 100%;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            animation: fadeIn 1s ease-in-out;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .greeting::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .greeting:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections */
+        .section {
+            padding: 10rem 5% 6rem;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            z-index: -1;
+        }
+
+        .history-section {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .history-section::before {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+        }
+
+        .history-content {
+            max-width: 900px;
+            width: 100%;
+            z-index: 1;
+            position: relative;
+            padding: 3rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            margin: 0 auto;
+        }
+
+        .section-heading {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: 1px;
+            width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        .history-section .section-heading {
+            color: var(--accent);
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-text {
+            font-size: clamp(1rem, 1.2vw, 1.2rem);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            width: 100%;
+            overflow-wrap: break-word;
+        }
+
+        .history-section .section-text {
+            font-size: clamp(1rem, 1.3vw, 1.3rem);
+        }
+
+        /* Timeline Section */
+        .timeline-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+
+        .timeline-content {
+            position: relative;
+            width: 45%;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            left: 0;
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            left: 55%;
+            margin-left: auto;
+        }
+
+        .timeline-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        /* Location Section */
+        .location-section {
+            background: var(--card-bg);
+            padding: 4rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-container {
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+
+        .location-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .info-card {
+            padding: 1.5rem;
+            background: rgba(75, 108, 183, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: clamp(0.7rem, 1.5vw, 0.9rem) clamp(1.5rem, 3vw, 2rem);
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(75, 108, 183, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-size: clamp(0.8rem, 1.1vw, 1rem);
+            white-space: nowrap;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(24, 40, 72, 0.4);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: var(--secondary);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-accent:hover {
+            background: white;
+        }
+
+        /* Floating Gallery Button */
+        .float-gallery-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: clamp(15px, 2vw, 20px) clamp(20px, 3vw, 30px);
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            overflow: hidden;
+            font-size: clamp(0.8rem, 1.1vw, 1rem);
+        }
+
+        .float-gallery-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .float-gallery-btn:active {
+            transform: translateY(0) scale(1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .float-gallery-btn {
+            animation: pulse 3s infinite;
+        }
+
+        /* Background shapes */
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            z-index: -1;
+            display: none;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: -100px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            bottom: -150px;
+            left: -150px;
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .bg-shape {
+                display: block;
+            }
+            
+            .section {
+                padding: 10rem 10% 6rem;
+            }
+            
+            .history-content {
+                padding: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 40px);
+                left: 40px !important;
+            }
+            
+            .timeline-item:nth-child(even) .timeline-content {
+                left: 40px !important;
+            }
+            
+            .float-gallery-btn {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .float-gallery-btn span {
+                display: none;
+            }
+            
+            .location-section {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-heading::after {
+                width: 50px;
+                height: 3px;
+                bottom: -10px;
+            }
+            
+            .greeting {
+                font-size: 1rem;
+            }
+            
+            .logo {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Logo and Greeting -->
+    <div class="header" id="header">
+        <div class="logo-container">
+            <img src="Gospel springs logo.jpg" alt="Church Logo" class="logo">
+        </div>
+        <div class="greeting" id="greeting"></div>
+    </div>
+
+    <!-- Background Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+
+    <!-- Sections -->
+    <section class="section history-section">
+        <div class="history-content animate__animated animate__fadeIn">
+            <h1 class="section-heading">Our Sacred Journey</h1>
+            <p class="section-text">Founded in 1996, Gospel Springs Mission International Church began as a small gathering of faithful believers in a humble home. Through divine guidance and unwavering faith, we've grown into a vibrant spiritual family with multiple branches. Our journey reflects God's faithfulness through every challenge and triumph.</p>
+            <p class="section-text">From our first baptism in a local river to constructing our current sanctuary, each milestone has been a testament to God's provision. We honor our founders' vision while embracing new generations of believers.</p>
+            <a href="history.html" class="btn btn-accent">
+                <span>Explore Our Journey</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section">
+        <div class="timeline-container">
+            <h2 class="section-heading">Historical Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1996</div>
+                        <img src="early image.jpg" alt="Church Founding" class="timeline-img">
+                        <h3>Humble Beginnings</h3>
+                        <p>Founded with 12 members meeting in the Pastor's living room</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">1998</div>
+                        <img src="images/planning-phase.jpg" alt="Planning Phase" class="timeline-img">
+                        <h3>Vision for Permanent Home</h3>
+                        <p>Began planning and fundraising for a permanent church structure</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2000</div>
+                        <img src="images/construction.jpg" alt="Building Construction" class="timeline-img">
+                        <h3>Building Our Sanctuary</h3>
+                        <p>Construction began on our first permanent worship center</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2002</div>
+                        <img src="images/first-building.jpg" alt="First Building" class="timeline-img">
+                        <h3>First Branch Church</h3>
+                        <p>Established our first branch congregation in a neighboring community</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2005</div>
+                        <img src="images/expansion.jpg" alt="Ministry Expansion" class="timeline-img">
+                        <h3>Ministry Expansion</h3>
+                        <p>Began planting multiple branch churches across the region</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2006</div>
+                        <img src="images/school-opening.jpg" alt="School Opening" class="timeline-img">
+                        <h3>Lifespring Academy</h3>
+                        <p>Founded our Christian-based educational institution</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2010</div>
+                        <img src="images/outreach.jpg" alt="Outreach Programs" class="timeline-img">
+                        <h3>Outreach Advancement</h3>
+                        <p>Expanded our ministry through community outreach programs and missions</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">Present</div>
+                        <img src="images/current-ministry.jpg" alt="Current Ministry" class="timeline-img">
+                        <h3>Continuing the Mission</h3>
+                        <p>Growing our church network and impacting communities through faith and education</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Location Section -->
+    <section class="section">
+        <div class="location-section">
+            <h2 class="section-heading">Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/place/8MQ4%2B739,+Butsotso/@0.3383238,34.6545026,342m/data=!3m1!1e3!4m6!3m5!1s0x178024e2f5f5950f:0x6ef8d5701ede89e1!8m2!3d0.3381762!4d34.6552219!16s%2Fg%2F11q364bzlq?entry=ttu" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                </iframe>
+            </div>
+            <div class="location-info">
+                <div class="info-card">
+                    <h3><i class="fas fa-map-marker-alt"></i> Main Headquarters</h3>
+                    <p>Along Isongo-Ingoste road, Isongo,Kenya</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-clock"></i> Service Times</h3>
+                    <p>Sunday: 7:30AM & 9:30AM<br>
+                    Wednesday: 5:30PM</p>
+                </div>
+                <div class="info-card">
+                    <h3><i class="fas fa-phone"></i> Contact Us</h3>
+                    <p>+234 801 234 5678<br>
+                    info@gospelsprings.org</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Sections (2, 3, 5, 7) -->
+    <section class="section">
+        <h2 class="section-heading">Our Guiding Constitution</h2>
+        <div class="info-card" style="max-width: 800px; margin: 0 auto;">
+            <h3>Church Constitution</h3>
+            <p>Our constitution is the foundation of our church governance, clearly outlining our statement of faith, leadership structure, membership requirements, and operational guidelines. It reflects our commitment to biblical principles and organizational integrity.</p>
+            <a href="documents/constitution.pdf" download class="btn">
+                <span>Download Constitution</span>
+                <i class="fas fa-download"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-heading">Spiritual Ministries</h2>
+        <div class="info-card" style="max-width: 800px; margin: 0 auto;">
+            <h3>Vibrant Ministries</h3>
+            <p>Our diverse ministries serve every age group and spiritual need. From dynamic youth programs to profound Bible study groups, each ministry is designed to nurture faith, build community, and empower service. Discover where your gifts can flourish in God's kingdom.</p>
+            <a href="ministries.html" class="btn">
+                <span>Explore Ministries</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+    <section class="section">
+        <h2 class="section-heading">Our Departments</h2>
+        <div class="info-card" style="max-width: 800px; margin: 0 auto;">
+            <h3>Dynamic Departments</h3>
+            <p>Our dedicated departments cater to various organizational functions and professional expertise. From innovative technical teams to strategic administrative groups, each department is structured to enhance collaboration, drive efficiency, and achieve excellence. Find where your skills can make an impact in our collective mission.</p>
+            <a href="departments.html" class="btn">
+                <span>Explore Departments</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-heading">Our Branch Churches</h2>
+        <div class="info-card" style="max-width: 800px; margin: 0 auto;">
+            <h3>Global Family</h3>
+            <p>What began as one congregation has multiplied into several thriving branches across regions. Each location maintains our core values while adapting to local needs. Learn about our various locations, their unique characteristics, and how we maintain unity across distances.</p>
+            <a href="branch churches.html" class="btn">
+                <span>Discover Branches</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-heading">Foundational Pillars</h2>
+        <div class="info-card" style="max-width: 800px; margin: 0 auto;">
+            <h3>Core Beliefs</h3>
+            <p>Our five pillars represent the non-negotiable foundations of our faith: Scripture as God's Word, Salvation through Christ, the Power of Prayer, the Importance of Fellowship, and the Call to Evangelism. These principles guide every aspect of our church life and ministry.</p>
+            <a href="Our pillars.html" class="btn">
+                <span>Understand Our Foundations</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Floating Gallery Button -->
+    <a href="gallery.html" class="float-gallery-btn">
+        <i class="fas fa-images"></i>
+        <span>View Our Gallery</span>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Greeting Message Based on Time
+        const greetingElement = document.getElementById('greeting');
+        const hour = new Date().getHours();
+        let greeting = '';
+
+        if (hour < 12) {
+            greeting = 'Good Morning!';
+        } else if (hour < 18) {
+            greeting = 'Good Afternoon!';
+        } else {
+            greeting = 'Good Evening!';
+        }
+
+        greetingElement.textContent = greeting;
+
+        // Scroll Animation
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.timeline-content, .info-card');
+            elements.forEach(el => {
+                const elementPosition = el.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Initialize elements as invisible
+        document.querySelectorAll('.timeline-content, .info-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Prevent horizontal scroll
+        function checkForHorizontalScroll() {
+            const docWidth = document.documentElement.scrollWidth;
+            const winWidth = window.innerWidth;
+            
+            if (docWidth > winWidth) {
+                document.body.style.overflowX = 'hidden';
+            }
+        }
+
+        window.addEventListener('resize', checkForHorizontalScroll);
+        window.addEventListener('load', checkForHorizontalScroll);
+    </script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonies - Gospel Springs Church</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: #16038b;
+            color: white;
+        }
+
+        .header img {
+            width: 60px;
+            border-radius: 15px;
+        }
+
+        .greeting {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .testimonies-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 3px;
+            background: #e74c3c;
+            margin: 0.5rem auto;
+        }
+
+        .testimonies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .testimony-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimony-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .testimony-title {
+            color: #2c3e50;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimony-content {
+            color: #7f8c8d;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .testimony-date, .testimony-owner {
+            color: #2c3e50;
+            font-size: 0.9rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .read-more:hover {
+            background: #c0392b;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #2c3e50;
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .contact-info {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item h3 {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+
+        .social-icons {
+            margin-top: 2rem;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #e74c3c;
+        }
+
+        @media (max-width: 768px) {
+            .testimonies-container {
+                padding: 2rem 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="Gospel springs logo.jpg" alt="Church Logo">
+        <div class="greeting" id="greeting"></div>
+    </div>
+
+    <div class="testimonies-container">
+        <h2 class="section-title">Powerful Testimonies</h2>
+        
+        <div class="testimonies-grid" id="testimonies-grid">
+            <!-- Testimonies will be dynamically inserted here -->
+            <p id="no-testimonies" style="display: none; text-align: center; color: #7f8c8d;">No testimonies found at the moment.</p>
+        </div>
+    </div>
+
+    <!-- Modal for Full Testimony -->
+    <div class="modal" id="testimony-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h3 id="modal-title"></h3>
+            <p id="modal-content"></p>
+            <p id="modal-date"></p>
+            <p id="modal-owner"></p>
+        </div>
+    </div>
+
+   
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyABgVI9WN375cWgrSJ6b8Hr5DnJtm--OtY",
+            authDomain: "testimonies-2aa32.firebaseapp.com",
+            projectId: "testimonies-2aa32",
+            storageBucket: "testimonies-2aa32.firebasestorage.app",
+            messagingSenderId: "834432962048",
+            appId: "1:834432962048:web:fea85e5ba3a6b4147052e5"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Fetch testimonies from Firebase
+        const testimoniesRef = ref(database, 'testimonies');
+        onValue(testimoniesRef, (snapshot) => {
+            const testimonies = snapshot.val();
+            const testimoniesGrid = document.getElementById('testimonies-grid');
+            const noTestimoniesMessage = document.getElementById('no-testimonies');
+
+            testimoniesGrid.innerHTML = ''; // Clear existing content
+
+            if (testimonies) {
+                Object.entries(testimonies).forEach(([key, testimony]) => {
+                    const card = document.createElement('div');
+                    card.className = 'testimony-card';
+                    card.innerHTML = `
+                        <h3 class="testimony-title">${testimony.title || 'No Title'}</h3>
+                        <p class="testimony-content">${testimony.testimony || 'No testimony content.'}</p>
+                        <p class="testimony-date">Date: ${testimony.date || 'No date provided.'}</p>
+                        <p class="testimony-owner">By: ${testimony.owner || 'Anonymous'}</p>
+                        ${testimony.testimony.split(' ').length > 20 ? `<a class="read-more" data-id="${key}">Read Full Story</a>` : ''}
+                    `;
+                    testimoniesGrid.appendChild(card);
+                });
+                noTestimoniesMessage.style.display = 'none';
+            } else {
+                noTestimoniesMessage.style.display = 'block';
+            }
+        }, (error) => {
+            console.error('Error fetching testimonies:', error);
+            document.getElementById('no-testimonies').style.display = 'block';
+        });
+
+        // Handle modal for full testimony
+        const modal = document.getElementById('testimony-modal');
+        const closeModal = document.getElementById('close-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const modalDate = document.getElementById('modal-date');
+        const modalOwner = document.getElementById('modal-owner');
+
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('read-more')) {
+                const testimonyId = e.target.getAttribute('data-id');
+                const testimonyRef = ref(database, `testimonies/${testimonyId}`);
+                onValue(testimonyRef, (snapshot) => {
+                    const testimony = snapshot.val();
+                    if (testimony) {
+                        modalTitle.textContent = testimony.title || 'No Title';
+                        modalContent.textContent = testimony.testimony || 'No testimony content.';
+                        modalDate.textContent = `Date: ${testimony.date || 'No date provided.'}`;
+                        modalOwner.textContent = `By: ${testimony.owner || 'Anonymous'}`;
+                        modal.style.display = 'flex';
+                    }
+                }, (error) => {
+                    console.error('Error fetching testimony:', error);
+                });
+            }
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Greeting message based on time
+        const greeting = document.getElementById('greeting');
+        const hour = new Date().getHours();
+        if (hour < 12) {
+            greeting.textContent = 'Good Morning!';
+        } else if (hour < 18) {
+            greeting.textContent = 'Good Afternoon!';
+        } else {
+            greeting.textContent = 'Good Evening!';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rehoboth Zawadi - ICT Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2A2F4F;
+            --secondary: #917FB3;
+            --accent: #E5BEEC;
+            --text: #2A2F4F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: white;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .profile-card {
+            background: white;
+            max-width: 800px;
+            margin: -80px auto 60px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            padding: 30px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            text-align: left;
+        }
+
+        .greeting {
+            font-size: 1.8em;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .profile-info h1 {
+            font-size: 2.5em;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .profile-info h1::before {
+            content: "Am ";
+            font-weight: 400;
+        }
+
+        .profile-info p {
+            font-size: 1.1em;
+            color: var(--text);
+            margin-bottom: 20px;
+        }
+
+        .org-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .org-link:hover {
+            color: var(--primary);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.2em;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            background: #f0f0f0;
+            height: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress {
+            background: var(--secondary);
+            height: 100%;
+            width: 60%;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 60px 0;
+            margin-top: 80px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+                margin: -100px 20px 40px;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .section-title {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="greeting" id="greeting"></div>
+        </div>
+    </header>
+
+    <div class="profile-card">
+        <img src="IMG-20240824-WA0007.jpg" alt="Rehoboth Zawadi" class="profile-image">
+        <div class="profile-info">
+            <h1>Rehoboth Zawadi</h1>
+            <p>ICT Director @ <a href="#" class="org-link">Gospel Springs Mission International</a></p>
+            <p class="contact-info">📞 +254 768 398 208</p>
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.1em;">
+                Technology strategist with 1+ year of experience in developing faith-based digital ecosystems. 
+                Passionate about creating integrated solutions that harmonize spiritual values with cutting-edge 
+                technology to empower religious communities and educational institutions.
+            </p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Frontend Development</h3>
+                    <p>HTML5, CSS3, JavaScript</p>
+                    <i class="fas fa-code fa-2x" style="color: var(--secondary); margin-top: 15px;"></i>
+                </div>
+                <div class="card">
+                    <h3>Backend & Database</h3>
+                    <p>Firebase, Realtime DB</p>
+                    <i class="fas fa-database fa-2x" style="color: var(--secondary); margin-top: 15px;"></i>
+                </div>
+                <div class="card">
+                    <h3>Automation</h3>
+                    <p>Python Scripting</p>
+                    <i class="fas fa-robot fa-2x" style="color: var(--secondary); margin-top: 15px;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Church Management System</h3>
+                    <p>Comprehensive platform for member management and event coordination</p>
+                    <div style="margin-top: 15px;">
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>School Portal</h3>
+                    <p>Interactive educational platform with real-time updates</p>
+                    <div style="margin-top: 15px;">
+                        <span class="tech-tag">HTML/CSS</span>
+                        <span class="tech-tag">Python</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Church Mobile App</h3>
+                    <p>Cross-platform spiritual engagement application</p>
+                    <div style="margin-top: 15px;">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Firebase</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="underway-projects">
+        <div class="container">
+            <h2 class="section-title">Projects Underway</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Members Portal</h3>
+                    <p>Developing a comprehensive members management system</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>School Student Portal</h3>
+                    <p>Creating an interactive platform for student engagement</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>School ERP System</h3>
+                    <p>Building an enterprise resource planning system for schools</p>
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="passion">
+        <div class="container">
+            <h2 class="section-title">My Passion as ICT Expert</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Innovation</h3>
+                    <p>Creating cutting-edge solutions that solve real-world problems</p>
+                </div>
+                <div class="card">
+                    <h3>Community Impact</h3>
+                    <p>Developing systems that empower and transform communities</p>
+                </div>
+                <div class="card">
+                    <h3>Continuous Learning</h3>
+                    <p>Staying updated with the latest technologies and trends</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="https://wa.me/254768398208" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://facebook.com/yourprofile" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://tiktok.com/@yourprofile" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="mailto:your.email@example.com">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 20px;">
+                © <span id="currentYear"></span> Rehoboth Zawadi. All Rights Reserved
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Dynamic Greeting
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greeting = document.getElementById('greeting');
+            let message = 'Hello, ';
+            
+            if (hour < 12) message += 'Good Morning ☀️';
+            else if (hour < 18) message += 'Good Afternoon 🌤';
+            else message += 'Good Evening 🌙';
+            
+            greeting.textContent = message;
+        }
+
+        // Current Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Initialize
+        window.addEventListener('load', () => {
+            updateGreeting();
+        });
+    </script>
+</body>
+</html>

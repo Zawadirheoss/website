@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer - Gospel Springs Mission International</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA0NQ4SFC-QUK104v9maergVcVba-1-6Po",
+            authDomain: "volunteer-497bd.firebaseapp.com",
+            projectId: "volunteer-497bd",
+            storageBucket: "volunteer-497bd.firebasestorage.app",
+            messagingSenderId: "31839267366",
+            appId: "1:31839267366:web:0d7f1bc5d73741da8814e7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const opportunitiesRef = ref(db, 'opportunities');
+
+        function init() {
+            updateGreeting();
+            loadOpportunities();
+            setInterval(updateGreeting, 1000 * 60); // Update greeting every minute
+        }
+
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greeting = 
+                hour < 12 ? "Good Morning" :
+                hour < 18 ? "Good Afternoon" : "Good Evening";
+            
+            document.getElementById('greeting').textContent = `${greeting}, Welcome!`;
+        }
+
+        function loadOpportunities() {
+            onValue(opportunitiesRef, (snapshot) => {
+                const data = snapshot.val() || {};
+                const grid = document.querySelector('.opportunities-grid');
+                grid.innerHTML = '';
+
+                if (Object.keys(data).length === 0) {
+                    grid.innerHTML = `
+                        <div class="no-opportunities">
+                            <h3>No Current Opportunities</h3>
+                            <p>Please check back later for new volunteer positions</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                Object.entries(data).forEach(([key, opportunity]) => {
+                    const card = document.createElement('div');
+                    card.className = 'opportunity-card';
+                    card.innerHTML = `
+                        <h3>${opportunity.title}</h3>
+                        <p class="description">${opportunity.description}</p>
+                        <div class="meta">
+                            <span class="date">📅 ${new Date(opportunity.timestamp).toLocaleDateString()}</span>
+                        </div>
+                        <a href="${opportunity.link}" target="_blank" class="apply-btn">
+                            Apply Now
+                        </a>
+                    `;
+                    grid.appendChild(card);
+                });
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #2b1a8d;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo img {
+            width: 50px;
+            border-radius: 12px;
+        }
+
+        .greeting {
+            color: white;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 8rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .volunteer-opportunities {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .volunteer-opportunities h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .opportunity-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .opportunity-card h3 {
+            color: #1a4a8d;
+            margin-bottom: 0.5rem;
+        }
+
+        .description {
+            color: #666;
+            flex-grow: 1;
+            margin: 1rem 0;
+        }
+
+        .meta {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .apply-btn {
+            display: block;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 1.5rem;
+            transition: background-color 0.3s;
+        }
+
+        .apply-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .no-opportunities {
+            text-align: center;
+            padding: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .no-opportunities h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .no-opportunities p {
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .volunteer-opportunities {
+                padding: 2rem 1rem;
+            }
+
+            .opportunities-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="Gospel springs logo.jpg" alt="Gospel Springs Logo">
+        </div>
+        <div class="greeting" id="greeting"></div>
+    </header>
+
+    <section class="hero">
+        <h1>Join Our Volunteer Team</h1>
+        <p>Make a difference in our community through service</p>
+    </section>
+
+    <section class="volunteer-opportunities">
+        <h2>Current Volunteer Opportunities</h2>
+        <div class="opportunities-grid"></div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bishop William Laktari - Visionary Leader</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #FFD700;
+            --navy: #0A1F3C;
+            --crimson: #DC143C;
+            --ivory: #FFFFF0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            background: var(--ivory);
+            color: var(--navy);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .hero {
+            height: 45vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(10,31,60,0.9), rgba(10,31,60,0.9)),
+                        url('church-bg.jpg') center/cover;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            padding-bottom: 10vh;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            color: var(--ivory);
+            padding: 20px;
+            max-width: 95%;
+        }
+
+        .animated-greeting {
+            font-size: clamp(2rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .title-box {
+            background: rgba(220,20,60,0.9);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transform: rotate(-3deg);
+            display: inline-block;
+            margin: 2rem 0;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .founder-title {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            transform: rotate(3deg);
+            color: var(--gold);
+        }
+
+        .scroll-prompt {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .achievements-grid {
+            max-width: 1200px;
+            margin: 10vh auto 5rem;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scripture-banner {
+            background: var(--navy);
+            color: var(--gold);
+            padding: 4rem 2rem;
+            text-align: center;
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            margin: 5rem 0;
+        }
+
+        .floating-image {
+            width: min(400px, 90%);
+            height: auto;
+            aspect-ratio: 3/4;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            margin: 2rem auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .founder-message {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .founder-message::before {
+            content: open-quote;
+            font-size: 5rem;
+            color: var(--crimson);
+            position: absolute;
+            top: -1rem;
+            left: 1rem;
+        }
+
+        .message-content {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--navy);
+            padding: 2rem;
+            quotes: "“" "”";
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+
+            .title-box {
+                padding: 1rem;
+            }
+
+            .founder-message {
+                margin: 3rem 1rem;
+                padding: 1rem;
+            }
+
+            .message-content {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+
+            .scripture-banner {
+                padding: 3rem 1rem;
+                clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animated-greeting" id="greeting"></h1>
+            <div class="title-box">
+                <h2 class="founder-title">I'm Bishop William Laktari</h2>
+            </div>
+          
+        </div>
+    </section>
+
+    <main>
+        <img src="bishop.jpg" alt="Bishop William Laktari" class="floating-image">
+
+        <div class="founder-message">
+            <div class="message-content">
+                <p>Beloved in Christ,</p>
+                <p>For over three decades, we've journeyed together in faith, building not just churches but communities of hope. Our mission has always been to illuminate lives through God's word and empower generations through education.</p>
+                <p>When we planted our first humble chapel in 1992, we dared to dream of a spiritual awakening across Western Kenya. Today, through your steadfast support, we've established 14 vibrant worship centers and transformed hundreds of lives through Life Spring Academy.</p>
+                <p>This is not merely our achievement, but a testament to God's grace working through each of you. As we look to the future, I envision campuses of excellence, multimedia evangelism centers, and sustainable community projects that will uplift entire regions.</p>
+                <p>Join me in this divine partnership. Together, we will continue breaking barriers, nurturing souls, and creating legacies that echo through eternity.</p>
+                <p style="margin-top: 2rem; font-weight: bold; color: var(--crimson);">
+                    Yours in Service,<br>
+                    Bishop William Laktari<br>
+                    Founder & Spiritual Leader
+                </p>
+            </div>
+        </div>
+
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <h3><i class="fas fa-church" style="color: var(--crimson);"></i> 14 Churches</h3>
+                <p>Established across Western Kenya, nurturing spiritual growth in rural communities</p>
+            </div>
+
+            <div class="achievement-card">
+                <h3><i class="fas fa-graduation-cap" style="color: var(--crimson);"></i> Life Spring Academy</h3>
+                <p>Founded in 2005, educating 200+ students with Christian values</p>
+            </div>
+
+            <div class="achievement-card">
+                <h3><i class="fas fa-book-bible" style="color: var(--crimson);"></i> Author & Scholar</h3>
+                <p>7 published works on African Christian leadership and discipleship</p>
+            </div>
+        </div>
+
+        <div class="scripture-banner">
+            <p>"Therefore, my dear brothers and sisters, stand firm. Let nothing move you."</p>
+            <p>1 Corinthians 15:58</p>
+        </div>
+    </main>
+
+    <script>
+        // Dynamic Greeting
+        const hour = new Date().getHours();
+        const greeting = document.getElementById('greeting');
+        
+        const greetings = {
+            morning: "☀️ Arise and Shine!",
+            afternoon: "🕊️ Grace & Peace",
+            evening: "🌟 Blessed Night"
+        };
+
+        greeting.textContent = hour < 12 ? greetings.morning : hour < 18 ? greetings.afternoon : greetings.evening;
+
+        // Responsive Image Handling
+        const image = document.querySelector('.floating-image');
+        let isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+        if (!isMobile) {
+            image.style.float = 'right';
+            image.style.shapeOutside = 'circle(50%)';
+            image.style.margin = '2rem 2rem 2rem 4rem';
+        }
+
+        // Scroll Listener for Parallax
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            document.querySelector('.hero').style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+
+        // Resize Handler
+        window.addEventListener('resize', () => {
+            isMobile = window.matchMedia("(max-width: 768px)").matches;
+            image.style.float = isMobile ? 'none' : 'right';
+            image.style.shapeOutside = isMobile ? 'none' : 'circle(50%)';
+            image.style.margin = isMobile ? '2rem auto' : '2rem 2rem 2rem 4rem';
+        });
+    </script>
+</body>
+</html>

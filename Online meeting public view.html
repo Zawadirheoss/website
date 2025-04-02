@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Meetings</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* Modern Gradient Background */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+    }
+
+    /* Glassmorphism Header */
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .logo {
+      height: 50px;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: rotate(-5deg);
+    }
+
+    .header-content {
+      flex-grow: 1;
+    }
+
+    /* Main Content Styles */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Meeting Cards */
+    .meetings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
+    }
+
+    .meeting-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .meeting-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .meeting-card h2 {
+      color: #2c3e50;
+      margin: 0 0 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .meeting-meta {
+      color: #6c757d;
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+    }
+
+    .join-button {
+      background: linear-gradient(135deg, #0611a2 0%, #2ecc71 100%);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .join-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* No Meetings Message */
+    .empty-state {
+      text-align: center;
+      padding: 4rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 15px;
+      margin: 2rem;
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      color: #6c757d;
+      margin-bottom: 1rem;
+    }
+
+    /* Support Button */
+    .support-button {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0611a2;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .support-button:hover {
+      transform: translateY(-3px);
+      color: white;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .meetings-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .support-button {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="Gospel springs logo.jpg" alt="Logo" class="logo">
+    <div class="header-content">
+      <h1>Available Meetings</h1>
+      <p>Join our upcoming virtual gatherings</p>
+    </div>
+  </header>
+
+  <main id="meetingsContainer">
+    <div class="meetings-grid"></div>
+  </main>
+
+  <a href="ICT team.html" class="support-button">
+    <i class="fas fa-life-ring"></i>
+    Need Support?
+  </a>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCrH3UeNzVpNW43U1PLvCRemv8PyAWG9i8",
+      authDomain: "online-meeting-4d5e0.firebaseapp.com",
+      projectId: "online-meeting-4d5e0",
+      storageBucket: "online-meeting-4d5e0.appspot.com",
+      messagingSenderId: "967651925347",
+      appId: "1:967651925347:web:ec700ce3ff4f8ea2378756"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const meetingsRef = ref(database, 'meetings');
+    const container = document.querySelector('.meetings-grid');
+
+    onValue(meetingsRef, (snapshot) => {
+      container.innerHTML = '';
+      
+      if (!snapshot.exists()) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-calendar-times"></i>
+            <h2>No Available Meetings</h2>
+            <p>Stay tuned for upcoming events!</p>
+          </div>
+        `;
+        return;
+      }
+
+      snapshot.forEach((childSnapshot) => {
+        const { title, host, link, dateTime } = childSnapshot.val();
+        const meetingCard = document.createElement('div');
+        meetingCard.className = 'meeting-card';
+        meetingCard.innerHTML = `
+          <h2>${title}</h2>
+          <div class="meeting-meta">
+            <p><i class="fas fa-user"></i> ${host}</p>
+            <p><i class="fas fa-clock"></i> ${dateTime}</p>
+          </div>
+          <button class="join-button" onclick="window.open('${link}', '_blank')">
+            <i class="fas fa-video"></i>
+            Join Meeting
+          </button>
+        `;
+        container.appendChild(meetingCard);
+      });
+    });
+  </script>
+</body>
+</html>

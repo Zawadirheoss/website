@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Hub</title>
+  <style>
+    /* Updated CSS with responsive improvements */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+      color: #2d3436;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0 15px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin: 0 0 1.5rem 0;
+      font-size: 2.2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 1rem;
+      background: rgba(255,255,255,0.9);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    input, select {
+      padding: 0.7rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    #newsContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.2rem;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .container {
+        padding: 0 10px;
+      }
+
+      header {
+        padding: 1rem;
+        border-radius: 10px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      #newsContainer {
+        grid-template-columns: 1fr;
+      }
+
+      input, select {
+        font-size: 0.9rem;
+      }
+    }
+
+    /* Remaining existing styles */
+    input:focus, select:focus {
+      border-color: #3498db;
+      outline: none;
+      box-shadow: 0 0 8px rgba(52,152,219,0.3);
+    }
+
+    .news-content {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #4a4a4a;
+      margin-bottom: 1rem;
+    }
+
+    .news-meta {
+      border-top: 1px solid #eee;
+      padding-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .status {
+      padding: 0.25rem 0.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    .status.verified {
+      background: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .status.not-verified {
+      background: #ffecb3;
+      color: #f57f17;
+    }
+
+    #noNewsMessage {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #666;
+      grid-column: 1 / -1;
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>News Hub</h1>
+      <div class="controls">
+        <input type="text" id="searchBar" placeholder="Search news...">
+        <input type="date" id="dateFilter">
+        <select id="statusFilter">
+          <option value="all">All Statuses</option>
+          <option value="verified">Verified</option>
+          <option value="not verified">Not Verified</option>
+        </select>
+      </div>
+    </header>
+    
+    <div id="newsContainer">
+      <p id="noNewsMessage">No news available, check back later.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    // JavaScript remains the same
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBaFY-4jLeMl9kn6Hxj4mBSl9Z0PiOCBJU",
+      authDomain: "news-3adb2.firebaseapp.com",
+      databaseURL: "https://news-3adb2-default-rtdb.firebaseio.com",
+      projectId: "news-3adb2",
+      storageBucket: "news-3adb2.firebasestorage.app",
+      messagingSenderId: "543240182264",
+      appId: "1:543240182264:web:bf6b0d65e56110e62e9e0d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const newsRef = ref(database, 'news');
+
+    const newsContainer = document.getElementById('newsContainer');
+    const noNewsMessage = document.getElementById('noNewsMessage');
+    const searchBar = document.getElementById('searchBar');
+    const dateFilter = document.getElementById('dateFilter');
+    const statusFilter = document.getElementById('statusFilter');
+
+    let allNews = [];
+
+    onValue(newsRef, (snapshot) => {
+      const newsData = snapshot.val();
+      allNews = newsData ? Object.values(newsData) : [];
+      applyFilters();
+    });
+
+    function renderNews(filteredNews) {
+      newsContainer.innerHTML = '';
+      
+      if (filteredNews.length === 0) {
+        noNewsMessage.style.display = 'block';
+        return;
+      }
+      
+      noNewsMessage.style.display = 'none';
+      
+      filteredNews.forEach(news => {
+        const newsCard = document.createElement('article');
+        newsCard.className = 'news-card';
+        newsCard.innerHTML = `
+          <div class="news-content">${news.news}</div>
+          <div class="news-meta">
+            <div>
+              <span class="source">${news.source}</span>
+              <span class="status ${news.status.replace(' ', '-')}">${news.status}</span>
+            </div>
+            <span class="datetime">${new Date(news.datetime).toLocaleString()}</span>
+          </div>
+        `;
+        newsContainer.appendChild(newsCard);
+      });
+    }
+
+    function applyFilters() {
+      const searchTerm = searchBar.value.toLowerCase();
+      const selectedDate = dateFilter.value;
+      const selectedStatus = statusFilter.value;
+
+      let filtered = allNews.filter(news => {
+        const matchesSearch = news.news.toLowerCase().includes(searchTerm) || 
+                             news.source.toLowerCase().includes(searchTerm);
+        const matchesDate = selectedDate ? 
+                           new Date(news.datetime).toISOString().split('T')[0] === selectedDate : 
+                           true;
+        const matchesStatus = selectedStatus === 'all' ? 
+                             true : 
+                             news.status === selectedStatus;
+        
+        return matchesSearch && matchesDate && matchesStatus;
+      });
+
+      renderNews(filtered);
+    }
+
+    // Event Listeners
+    searchBar.addEventListener('input', applyFilters);
+    dateFilter.addEventListener('change', applyFilters);
+    statusFilter.addEventListener('change', applyFilters);
+  </script>
+</body>
+</html>

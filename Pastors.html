@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Pastors - Gospel Springs Mission</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a2b4c;
+            --accent: #ff6b35;
+            --light: #f8f9fa;
+            --text: #2d3436;
+            --gradient: linear-gradient(135deg, #1a2b4c 0%, #0d1a2f 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+        }
+
+        .greeting-container {
+            text-align: center;
+        }
+
+        .greeting {
+            color: var(--primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .sub-greeting {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 600px;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            border: 2px solid #e0e0e0;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent);
+            box-shadow: 0 4px 15px rgba(255,107,53,0.1);
+        }
+
+        .container {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(to right, var(--accent), #ff5500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pastors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem 0;
+        }
+
+        .pastor-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            border: 1px solid rgba(255,107,53,0.1);
+        }
+
+        .pastor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(255,107,53,0.15);
+        }
+
+        .pastor-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-bottom: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .pastor-card:hover .pastor-image {
+            transform: scale(1.05);
+        }
+
+        .pastor-details {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .pastor-name {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pastor-title {
+            color: var(--accent);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .pastor-branch {
+            color: #555;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pastor-branch i {
+            color: var(--accent);
+        }
+
+        .pastor-description {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: linear-gradient(135deg, var(--accent), #ff5500);
+            color: white;
+            padding: 0.9rem 1.8rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .section-header h2 {
+                font-size: 2.2rem;
+            }
+
+            .pastor-image {
+                height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header-container">
+        <img src="Gospel springs logo.jpg" alt="GSM Logo" class="logo">
+        <div class="greeting-container">
+            <div class="greeting" id="dynamicGreeting">Welcome to Gospel Springs Mission</div>
+            <div class="sub-greeting">Where Faith Meets Purpose</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Branch Pastors</h2>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Search pastors by name..." id="searchInput">
+        </div>
+
+        <div class="pastors-grid" id="pastorsContainer">
+            <!-- Pastor 1 -->
+            <div class="pastor-card">
+                <img src="pastor1.jpg" alt="Pastor David Moyo" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Rev. David Moyo</h3>
+                    <p class="pastor-title">Head Pastor</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Emasinga (Mother Church)</p>
+                    <p class="pastor-description">Visionary leader with 15+ years experience in ministry and community development. Oversees all branches of Gospel Springs Mission.</p>
+                    <a href="mailto:david@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 2 -->
+            <div class="pastor-card">
+                <img src="pastor2.jpg" alt="Pastor Sarah Chiweshe" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Sarah Chiweshe</h3>
+                    <p class="pastor-title">Youth Ministry Director</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Nasira Branch</p>
+                    <p class="pastor-description">Passionate about youth empowerment and spiritual growth through innovative programs. Leads the vibrant youth ministry at Nasira.</p>
+                    <a href="mailto:sarah@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 3 -->
+            <div class="pastor-card">
+                <img src="pastor3.jpg" alt="Pastor Tinashe Makoni" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Tinashe Makoni</h3>
+                    <p class="pastor-title">Missions Coordinator</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Lubinu Branch</p>
+                    <p class="pastor-description">Leading international missions and cross-cultural evangelism initiatives. Based at our Lubinu branch.</p>
+                    <a href="mailto:tinashe@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 4 -->
+            <div class="pastor-card">
+                <img src="pastor4.jpg" alt="Pastor Grace Ndlovu" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Grace Ndlovu</h3>
+                    <p class="pastor-title">Women's Ministry Leader</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Lung'anyiro Branch</p>
+                    <p class="pastor-description">Empowering women through biblical teaching and leadership development. Shepherds the Lung'anyiro congregation.</p>
+                    <a href="mailto:grace@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 5 -->
+            <div class="pastor-card">
+                <img src="pastor5.jpg" alt="Pastor Tanaka Zhou" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Tanaka Zhou</h3>
+                    <p class="pastor-title">Worship Director</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Elwangale Branch</p>
+                    <p class="pastor-description">Creative worship leader blending traditional and contemporary music ministry. Leads worship at Elwangale branch.</p>
+                    <a href="mailto:tanaka@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 6 -->
+            <div class="pastor-card">
+                <img src="pastor6.jpg" alt="Pastor Michael Otieno" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Michael Otieno</h3>
+                    <p class="pastor-title">Outreach Pastor</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Mombasa Branch</p>
+                    <p class="pastor-description">Spearheading community outreach programs along the coastal region from our Mombasa branch.</p>
+                    <a href="mailto:michael@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 7 -->
+            <div class="pastor-card">
+                <img src="pastor7.jpg" alt="Pastor Esther Wambui" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Esther Wambui</h3>
+                    <p class="pastor-title">Children's Ministry</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Majengo Branch</p>
+                    <p class="pastor-description">Dedicated to nurturing children in faith through creative Bible teaching at our Majengo branch.</p>
+                    <a href="mailto:esther@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 8 -->
+            <div class="pastor-card">
+                <img src="pastor8.jpg" alt="Pastor James Kamau" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor James Kamau</h3>
+                    <p class="pastor-title">Discipleship Pastor</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Ruai Branch</p>
+                    <p class="pastor-description">Focusing on deep discipleship and spiritual formation for believers at our Ruai branch.</p>
+                    <a href="mailto:james@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 9 -->
+            <div class="pastor-card">
+                <img src="pastor9.jpg" alt="Pastor Lydia Achieng" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Lydia Achieng</h3>
+                    <p class="pastor-title">Prayer Ministry</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Ekero Branch</p>
+                    <p class="pastor-description">Leading intercessory prayer and spiritual warfare initiatives at our Ekero branch.</p>
+                    <a href="mailto:lydia@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 10 -->
+            <div class="pastor-card">
+                <img src="pastor10.jpg" alt="Pastor Daniel Owino" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Daniel Owino</h3>
+                    <p class="pastor-title">Evangelism Pastor</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Ikoli Branch</p>
+                    <p class="pastor-description">Passionate about street evangelism and crusades, based at our Ikoli branch.</p>
+                    <a href="mailto:daniel@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 11 -->
+            <div class="pastor-card">
+                <img src="pastor11.jpg" alt="Pastor Miriam Wanjiku" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Miriam Wanjiku</h3>
+                    <p class="pastor-title">Family Ministry</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Mujuru Branch</p>
+                    <p class="pastor-description">Strengthening marriages and families through biblical principles at our Mujuru branch.</p>
+                    <a href="mailto:miriam@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 12 -->
+            <div class="pastor-card">
+                <img src="pastor12.jpg" alt="Pastor Silas Omondi" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Silas Omondi</h3>
+                    <p class="pastor-title">Teaching Pastor</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Siaya Branch</p>
+                    <p class="pastor-description">Deep Bible teacher providing sound doctrine to believers at our Siaya branch.</p>
+                    <a href="mailto:silas@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 13 -->
+            <div class="pastor-card">
+                <img src="pastor13.jpg" alt="Pastor Rebecca Atieno" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Rebecca Atieno</h3>
+                    <p class="pastor-title">Hospitality Pastor</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Nyaporo Branch</p>
+                    <p class="pastor-description">Overseeing welcome and assimilation of new members at our Nyaporo branch.</p>
+                    <a href="mailto:rebecca@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- Pastor 14 -->
+            <div class="pastor-card">
+                <img src="pastor14.jpg" alt="Pastor Joseph Okoth" class="pastor-image">
+                <div class="pastor-details">
+                    <h3 class="pastor-name">Pastor Joseph Okoth</h3>
+                    <p class="pastor-title">Men's Ministry</p>
+                    <p class="pastor-branch"><i class="fas fa-church"></i> Ahero Branch</p>
+                    <p class="pastor-description">Equipping men to be spiritual leaders in their homes and communities at Ahero branch.</p>
+                    <a href="mailto:joseph@gsm.org" class="contact-button">
+                        <i class="fas fa-envelope"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Dynamic greeting based on time of day
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greetingElement = document.getElementById('dynamicGreeting');
+            let greeting;
+            
+            if (hour < 12) {
+                greeting = "Good Morning! Gospel Springs Mission";
+            } else if (hour < 18) {
+                greeting = "Good Afternoon! Gospel Springs Mission";
+            } else {
+                greeting = "Good Evening! Gospel Springs Mission";
+            }
+            
+            greetingElement.textContent = greeting;
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const pastorCards = document.querySelectorAll('.pastor-card');
+            
+            pastorCards.forEach(card => {
+                const pastorName = card.querySelector('.pastor-name').textContent.toLowerCase();
+                if (pastorName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Initialize greeting on page load
+        updateGreeting();
+    </script>
+</body>
+</html>

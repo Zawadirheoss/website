@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Great Commission | Matthew 28:19</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #f8f9fa;
+            --dark: #2c3e50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Merriweather', serif;
+        }
+
+        body {
+            background: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .church-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.9);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .church-logo:hover {
+            transform: rotate(15deg) scale(1.1);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+        }
+
+        .greeting {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            font-size: 1.1rem;
+            color: var(--light);
+            background: rgba(0,0,0,0.3);
+            padding: 10px 25px;
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .header {
+            position: relative;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, rgba(44, 62, 80, 0.9), rgba(52, 152, 219, 0.9)),
+                        url('https://images.unsplash.com/photo-1538370965046-79c0d6907d47?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--light);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .verse-display {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+            line-height: 1.3;
+            background: linear-gradient(45deg, #fff, #f1c40f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: -50px auto 0;
+            padding: 0 20px;
+        }
+
+        .scroll-section {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            margin-bottom: 30px;
+            padding: 40px;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .scroll-section.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .section-header {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 80%;
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 700;
+            position: relative;
+        }
+
+        .scripture-reference {
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .info-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @media (max-width: 768px) {
+            .verse-display {
+                font-size: 1.8rem;
+            }
+            
+            .greeting {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+            
+            .scroll-section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="Gospel springs logo.jpg" alt="Church Logo" class="church-logo">
+    <div class="greeting" id="greeting"></div>
+
+    <header class="header">
+        <div class="header-content">
+            <h1 class="verse-display">"Go and make disciples of all nations"</h1>
+            <div class="scripture-reference">Matthew 28:19 (KJV)</div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="scroll-section">
+            <h2 class="section-header">The Divine Mandate</h2>
+            <p>The Great Commission is not merely a suggestion but <span class="highlight">Christ's final command</span> to His Church. This imperative call contains four vital elements:</p>
+            <div class="interactive-grid">
+                <div class="info-card">
+                    <h3>Universal Scope</h3>
+                    <p>"All nations" emphasizes global evangelism without cultural or ethnic boundaries</p>
+                </div>
+                <div class="info-card">
+                    <h3>Discipleship Process</h3>
+                    <p>Making followers through teaching, baptism, and spiritual mentoring</p>
+                </div>
+                <div class="info-card">
+                    <h3>Trinitarian Foundation</h3>
+                    <p>Baptizing in the name of Father, Son, and Holy Spirit</p>
+                </div>
+                <div class="info-card">
+                    <h3>Perpetual Mission</h3>
+                    <p>"Until the end of the age" - an ongoing mandate for all believers</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="scroll-section">
+            <h2 class="section-header">Exegetical Breakdown</h2>
+            <div class="interactive-grid">
+                <div class="info-card">
+                    <h3>Original Greek</h3>
+                    <p>μαθητεύσατε (mathēteusate) - "make disciples" implies continuous action</p>
+                </div>
+                <div class="info-card">
+                    <h3>Historical Context</h3>
+                    <p>Given post-resurrection as Christ's final earthly instruction</p>
+                </div>
+                <div class="info-card">
+                    <h3>Theological Significance</h3>
+                    <p>Establishes evangelism as central to Christian identity</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="scroll-section">
+            <h2 class="section-header">Modern Application</h2>
+            <div class="interactive-grid">
+                <div class="info-card">
+                    <h3>Personal Evangelism</h3>
+                    <p>Sharing faith in daily interactions and relationships</p>
+                </div>
+                <div class="info-card">
+                    <h3>Cross-Cultural Missions</h3>
+                    <p>Supporting and participating in global missionary work</p>
+                </div>
+                <div class="info-card">
+                    <h3>Digital Outreach</h3>
+                    <p>Utilizing technology for 21st century discipleship</p>
+                </div>
+                <div class="info-card">
+                    <h3>Community Impact</h3>
+                    <p>Demonstrating Christ's love through social action</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Time-based Greeting
+        const greeting = document.getElementById('greeting');
+        const hour = new Date().getHours();
+        const greetings = {
+            morning: '⛅ Good Morning!',
+            afternoon: '☀️ Good Afternoon!',
+            evening: '🌙 Good Evening!'
+        };
+
+        greeting.textContent = hour < 12 ? greetings.morning : hour < 18 ? greetings.afternoon : greetings.evening;
+
+        // Scroll Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.scroll-section').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Hover Effects
+        document.querySelectorAll('.info-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.transform = `perspective(1000px) rotateX(${(y - rect.height/2)/20}deg) rotateY(${-(x - rect.width/2)/20}deg) translateY(-10px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Event Support</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Modern Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 500px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0,123,255,0.1) 0%, transparent 70%);
+      z-index: -1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      border: 3px solid white;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: rotate(15deg);
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .greeting {
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 1.1rem;
+      text-align: right;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.1)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+      opacity: 0.2;
+    }
+
+    .hero h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #4a5568;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+      outline: none;
+      background-color: white;
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.1);
+      transform: rotate(45deg);
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover::after {
+      left: 100%;
+    }
+
+    /* Modern Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      width: 90%;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal.show .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    .modal-message {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      color: #4a5568;
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: #667eea;
+    }
+
+    .success .modal-icon {
+      color: #48bb78;
+    }
+
+    .error .modal-icon {
+      color: #f56565;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(102, 126, 234, 0.2);
+      border-radius: 50%;
+      border-top-color: #667eea;
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 1.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem;
+        width: 95%;
+      }
+      
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .greeting {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <img src="Gospel springs logo.jpg" alt="Logo">
+      </div>
+      <div class="greeting" id="greeting"></div>
+    </div>
+
+    <div class="hero">
+      <h2><i class="fas fa-video"></i> Live Event Issue?</h2>
+      <p>We're sorry you're having trouble with our live stream. The event may not be ready yet, or you might be experiencing technical difficulties. Please ensure you have a stable internet connection and try again later. If the problem persists, let us know below.</p>
+    </div>
+
+    <form id="supportForm">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your full name">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+      </div>
+      <div class="form-group">
+        <label for="issue">Describe Your Issue</label>
+        <textarea id="issue" name="issue" required placeholder="Please describe the problem you're experiencing with the live event..."></textarea>
+      </div>
+      <button type="button" id="submitBtn" class="submit-btn">
+        <i class="fas fa-paper-plane"></i> Submit Request
+      </button>
+    </form>
+  </div>
+
+  <!-- Modern Modal for sending status -->
+  <div id="statusModal" class="modal">
+    <div class="modal-content" id="modalContent">
+      <div class="loading-spinner" id="loadingSpinner"></div>
+      <div class="modal-icon" id="statusIcon" style="display: none;">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <p class="modal-message" id="modalMessage">Processing your request...</p>
+    </div>
+  </div>
+
+  <!-- Firebase and App Scripts -->
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCs7sEaP-fmuK-Hyuuh2980ELtuLmc7o34",
+      authDomain: "live-support-1b26d.firebaseapp.com",
+      projectId: "live-support-1b26d",
+      storageBucket: "live-support-1b26d.firebasestorage.app",
+      messagingSenderId: "446205331390",
+      appId: "1:446205331390:web:0f3a75ce5084a7930c1bef",
+      databaseURL: "https://live-support-1b26d-default-rtdb.firebaseio.com/"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    // DOM Elements
+    const submitBtn = document.getElementById('submitBtn');
+    const statusModal = document.getElementById('statusModal');
+    const modalContent = document.getElementById('modalContent');
+    const modalMessage = document.getElementById('modalMessage');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const statusIcon = document.getElementById('statusIcon');
+    const greetingElement = document.getElementById('greeting');
+
+    // Set time-based greeting
+    function setGreeting() {
+      const hour = new Date().getHours();
+      let greeting;
+      
+      if (hour < 12) {
+        greeting = "Good morning!";
+      } else if (hour < 18) {
+        greeting = "Good afternoon!";
+      } else {
+        greeting = "Good evening!";
+      }
+      
+      greetingElement.textContent = greeting;
+    }
+
+    // Initialize greeting
+    setGreeting();
+
+    // Submit Button Click Event
+    submitBtn.addEventListener('click', async () => {
+      // Get form data
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const issue = document.getElementById('issue').value.trim();
+
+      // Validate form
+      if (!name || !phone || !issue) {
+        alert("Please fill in all fields before submitting.");
+        return;
+      }
+
+      // Show confirmation dialog
+      const isConfirmed = confirm(`Are you sure you want to submit this request?\n\nName: ${name}\nPhone: ${phone}`);
+      if (!isConfirmed) return;
+
+      // Show sending modal
+      statusModal.classList.add('show');
+      loadingSpinner.style.display = 'inline-block';
+      statusIcon.style.display = 'none';
+      modalMessage.textContent = 'Processing your request...';
+
+      try {
+        // Push data to Realtime Database
+        const supportRequestsRef = ref(database, 'supportRequests');
+        await push(supportRequestsRef, {
+          name: name,
+          phone: phone,
+          issue: issue,
+          timestamp: new Date().toISOString()
+        });
+
+        // Update modal for success
+        loadingSpinner.style.display = 'none';
+        statusIcon.style.display = 'block';
+        modalContent.classList.add('success');
+        modalMessage.textContent = 'Request submitted successfully! Our team will contact you shortly.';
+        statusIcon.innerHTML = '<i class="fas fa-check-circle"></i>';
+
+        // Reset form
+        document.getElementById('supportForm').reset();
+
+        // Redirect after delay
+        setTimeout(() => {
+          statusModal.classList.remove('show');
+          window.location.href = 'Live.html';
+        }, 3000);
+      } catch (error) {
+        // Update modal for error
+        loadingSpinner.style.display = 'none';
+        statusIcon.style.display = 'block';
+        modalContent.classList.add('error');
+        modalMessage.textContent = 'Error submitting request. Please try again.';
+        statusIcon.innerHTML = '<i class="fas fa-exclamation-circle"></i>';
+        console.error('Error adding data: ', error);
+
+        // Hide modal after delay
+        setTimeout(() => {
+          statusModal.classList.remove('show');
+          modalContent.classList.remove('error');
+        }, 3000);
+      }
+    });
+
+    // Close modal when clicking outside
+    statusModal.addEventListener('click', (e) => {
+      if (e.target === statusModal) {
+        statusModal.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Sermons Library</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .search-filter-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        #searchInput {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: #2196F3;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        select {
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            flex-grow: 1;
+        }
+
+        .sermons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .sermon-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .sermon-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .sermon-datetime {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sermon-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #1a1a1a;
+        }
+
+        .sermon-minister {
+            color: #2196F3;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .sermon-venue {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .watch-now-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+
+        .watch-now-btn:hover {
+            background: #1976D2;
+        }
+
+        .no-sermons {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📖 Sermon Library</h1>
+        </div>
+
+        <div class="search-filter-container">
+            <input type="text" id="searchInput" placeholder="Search by title or minister...">
+            <div class="filters">
+                <select id="dateFilter">
+                    <option value="all">All Dates</option>
+                    <option value="latest">Latest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
+                <select id="ministerFilter">
+                    <option value="all">All Ministers</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="sermons-grid" id="sermonsContainer">
+            <div class="no-sermons">Loading sermons...</div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsq6JnXTQLnoNYpgPD1BjcisJbAOi2X6A",
+            authDomain: "sermons-2a6b6.firebaseapp.com",
+            databaseURL: "https://sermons-2a6b6-default-rtdb.firebaseio.com",
+            projectId: "sermons-2a6b6",
+            storageBucket: "sermons-2a6b6.firebasestorage.app",
+            messagingSenderId: "973976718289",
+            appId: "1:973976718289:web:df77e2e30a33e04c2faef0"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Reference to the sermons node
+        const sermonsRef = database.ref('sermons');
+
+        // Array to store sermons data
+        let sermonsData = [];
+
+        // Fetch data from Firebase
+        sermonsRef.on('value', (snapshot) => {
+            sermonsData = [];
+            const data = snapshot.val();
+            if (data) {
+                sermonsData = Object.keys(data).map(key => ({
+                    id: key,
+                    ...data[key]
+                }));
+                renderSermons(sermonsData);
+                populateMinisterFilter();
+            } else {
+                renderNoSermons();
+            }
+        });
+
+        // Render sermons
+        function renderSermons(sermons) {
+            const container = document.getElementById('sermonsContainer');
+            container.innerHTML = '';
+
+            if (sermons.length === 0) {
+                renderNoSermons();
+                return;
+            }
+
+            sermons.forEach(sermon => {
+                const card = document.createElement('div');
+                card.className = 'sermon-card';
+                card.innerHTML = `
+                    <div class="sermon-datetime">
+                        ${new Date(sermon.datetime).toLocaleString()}
+                    </div>
+                    <h3 class="sermon-title">${sermon.title}</h3>
+                    <div class="sermon-minister">👤 ${sermon.minister}</div>
+                    <div class="sermon-venue">📍 ${sermon.venue} (${sermon.platform})</div>
+                    <a href="${sermon.link}" class="watch-now-btn" target="_blank">Watch Now →</a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderNoSermons() {
+            const container = document.getElementById('sermonsContainer');
+            container.innerHTML = '<div class="no-sermons">Check again later. No sermons available.</div>';
+        }
+
+        function populateMinisterFilter() {
+            const ministerFilter = document.getElementById('ministerFilter');
+            const ministers = [...new Set(sermonsData.map(sermon => sermon.minister))];
+            
+            ministerFilter.innerHTML = '<option value="all">All Ministers</option>';
+            ministers.forEach(minister => {
+                const option = document.createElement('option');
+                option.value = minister;
+                option.textContent = minister;
+                ministerFilter.appendChild(option);
+            });
+        }
+
+        function applyFilters() {
+            let filtered = [...sermonsData];
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const dateFilter = document.getElementById('dateFilter').value;
+            const ministerFilter = document.getElementById('ministerFilter').value;
+
+            // Search filter
+            if (searchTerm) {
+                filtered = filtered.filter(sermon => 
+                    sermon.title.toLowerCase().includes(searchTerm) ||
+                    sermon.minister.toLowerCase().includes(searchTerm)
+                );
+            }
+
+            // Minister filter
+            if (ministerFilter !== 'all') {
+                filtered = filtered.filter(sermon => sermon.minister === ministerFilter);
+            }
+
+            // Date sorting
+            if (dateFilter === 'latest') {
+                filtered.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+            } else if (dateFilter === 'oldest') {
+                filtered.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+            }
+
+            renderSermons(filtered);
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('dateFilter').addEventListener('change', applyFilters);
+        document.getElementById('ministerFilter').addEventListener('change', applyFilters);
+    </script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</body>
+</html>

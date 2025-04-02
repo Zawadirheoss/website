@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>30-Day Bible Reading Plan</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f1a2a, #1a2a4a);
+      color: #ffffff;
+      line-height: 1.6;
+      padding: 20px;
+      transition: all 0.5s ease;
+    }
+
+    body.light-mode {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      color: #2d3436;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+      transition: all 0.5s ease;
+    }
+
+    body.light-mode .container {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      background: linear-gradient(45deg, #ffffff, #a0d2eb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 1.5s ease;
+    }
+
+    body.light-mode header h1 {
+      background: linear-gradient(45deg, #2d3436, #0984e3);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #dfe6e9;
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeIn 2s ease;
+    }
+
+    body.light-mode header p {
+      color: #636e72;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .mode-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    body.light-mode .mode-toggle {
+      background: rgba(0, 0, 0, 0.05);
+      color: #2d3436;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .mode-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    body.light-mode .mode-toggle:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .reading-plan {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .day {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: slideUp 0.6s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    body.light-mode .day {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .day:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    body.light-mode .day:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .day h2 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+
+    body.light-mode .day h2 {
+      color: #2d3436;
+    }
+
+    .day p {
+      font-size: 1.1rem;
+      color: #dfe6e9;
+      font-weight: 300;
+    }
+
+    body.light-mode .day p {
+      color: #636e72;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        margin: 30px auto;
+        padding: 20px;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      .day {
+        padding: 20px;
+      }
+
+      .day h2 {
+        font-size: 1.3rem;
+      }
+
+      .day p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .mode-toggle {
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>30-Day Bible Reading Plan</h1>
+      <p>Discover the key stories and teachings of the Bible through this structured monthly journey</p>
+    </header>
+
+    <div class="controls">
+      <button class="mode-toggle" onclick="toggleMode()">🌓 Toggle Theme</button>
+    </div>
+
+    <section class="reading-plan">
+      <!-- All 28 days retained from original content -->
+      <div class="day">
+        <h2>Day 1: Creation</h2>
+        <p>Genesis 1-2</p>
+      </div>
+      <div class="day">
+        <h2>Day 2: The Fall</h2>
+        <p>Genesis 3</p>
+      </div>
+      <div class="day">
+        <h2>Day 3: God's Covenant with Abraham</h2>
+        <p>Genesis 12, 15</p>
+      </div>
+      <div class="day">
+        <h2>Day 4: The Exodus</h2>
+        <p>Exodus 14</p>
+      </div>
+      <div class="day">
+        <h2>Day 5: The Ten Commandments</h2>
+        <p>Exodus 20</p>
+      </div>
+      <div class="day">
+        <h2>Day 6: The Psalms</h2>
+        <p>Psalm 23, Psalm 91</p>
+      </div>
+      <div class="day">
+        <h2>Day 7: Wisdom Literature</h2>
+        <p>Proverbs 3</p>
+      </div>
+      <div class="day">
+        <h2>Day 8: The Prophets</h2>
+        <p>Isaiah 53</p>
+      </div>
+      <div class="day">
+        <h2>Day 9: The Life of David</h2>
+        <p>1 Samuel 16-17</p>
+      </div>
+      <div class="day">
+        <h2>Day 10: Elijah and the Prophets of Baal</h2>
+        <p>1 Kings 18</p>
+      </div>
+      <div class="day">
+        <h2>Day 11: Daniel in the Lion's Den</h2>
+        <p>Daniel 6</p>
+      </div>
+      <div class="day">
+        <h2>Day 12: The Birth of Jesus</h2>
+        <p>Luke 2</p>
+      </div>
+      <div class="day">
+        <h2>Day 13: The Sermon on the Mount</h2>
+        <p>Matthew 5-7</p>
+      </div>
+      <div class="day">
+        <h2>Day 14: The Miracles of Jesus</h2>
+        <p>John 2, John 6</p>
+      </div>
+      <div class="day">
+        <h2>Day 15: The Parables</h2>
+        <p>Luke 15</p>
+      </div>
+      <div class="day">
+        <h2>Day 16: The Last Supper</h2>
+        <p>Matthew 26</p>
+      </div>
+      <div class="day">
+        <h2>Day 17: The Crucifixion</h2>
+        <p>John 19</p>
+      </div>
+      <div class="day">
+        <h2>Day 18: The Resurrection</h2>
+        <p>Matthew 28</p>
+      </div>
+      <div class="day">
+        <h2>Day 19: The Great Commission</h2>
+        <p>Matthew 28:16-20</p>
+      </div>
+      <div class="day">
+        <h2>Day 20: The Early Church</h2>
+        <p>Acts 2</p>
+      </div>
+      <div class="day">
+        <h2>Day 21: Paul's Conversion</h2>
+        <p>Acts 9</p>
+      </div>
+      <div class="day">
+        <h2>Day 22: The Armor of God</h2>
+        <p>Ephesians 6</p>
+      </div>
+      <div class="day">
+        <h2>Day 23: The Fruit of the Spirit</h2>
+        <p>Galatians 5</p>
+      </div>
+      <div class="day">
+        <h2>Day 24: Love Chapter</h2>
+        <p>1 Corinthians 13</p>
+      </div>
+      <div class="day">
+        <h2>Day 25: The Hope of Glory</h2>
+        <p>Colossians 1</p>
+      </div>
+      <div class="day">
+        <h2>Day 26: The Second Coming</h2>
+        <p>1 Thessalonians 4</p>
+      </div>
+      <div class="day">
+        <h2>Day 27: The Faith Chapter</h2>
+        <p>Hebrews 11</p>
+      </div>
+      <div class="day">
+        <h2>Day 28: The New Heaven and New Earth</h2>
+        <p>Revelation 21-22</p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('light-mode');
+      
+      // Store theme preference
+      const isLightMode = document.body.classList.contains('light-mode');
+      localStorage.setItem('theme', isLightMode ? 'light' : 'dark');
+    }
+
+    // Load saved theme
+    window.addEventListener('load', () => {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      if (savedTheme === 'light') document.body.classList.add('light-mode');
+    });
+  </script>
+</body>
+</html>

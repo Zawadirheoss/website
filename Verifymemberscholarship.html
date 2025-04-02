@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gospel Springs Mission - Scholarship Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    .hero {
+      position: relative;
+      height: 60vh;
+      background: url('church.jpg') no-repeat center center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin: 10px 0 20px;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .cta-buttons button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #ff6b6b;
+      color: white;
+      transition: background-color 0.3s;
+    }
+    .cta-buttons button:hover {
+      background-color: #ff4757;
+    }
+    .content-section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .content-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    .content-section p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .modal-content button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff6b6b;
+      color: white;
+      cursor: pointer;
+    }
+    .modal-content button:hover {
+      background-color: #ff4757;
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Gospel Springs Mission</h1>
+      <p>Empowering students through our scholarship program.</p>
+      <div class="cta-buttons">
+        <button id="applyNowBtn">Apply Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="content-section">
+    <h2>Scholarship Program</h2>
+    <p>
+      At Gospel Springs Mission, we believe in supporting our members in their educational pursuits. 
+      Our scholarship program is designed to provide financial assistance to deserving students who are 
+      active members of our ministry.
+    </p>
+    <h3>How to Qualify</h3>
+    <p>
+      To qualify for the scholarship, you must be a registered member of Gospel Springs Mission. 
+      Additionally, you must demonstrate academic excellence and a commitment to community service.
+    </p>
+    <h3>Benefits</h3>
+    <p>
+      - Financial support for tuition fees<br>
+      - Access to mentorship programs<br>
+      - Networking opportunities with other scholars<br>
+    </p>
+  </section>
+
+  <!-- Apply Now Modal -->
+  <div id="applyModal" class="modal">
+    <div class="modal-content">
+      <h2>Verify that you're a member of Gospel Springs Mission</h2>
+      <input type="text" id="firstName" placeholder="First Name" required>
+      <input type="text" id="secondName" placeholder="Second Name" required>
+      <button id="verifyBtn">Verify</button>
+    </div>
+  </div>
+
+  <!-- Verification Success Modal -->
+  <div id="successModal" class="modal">
+    <div class="modal-content">
+      <h2>Successfully Verified</h2>
+      <p>Proceed to the scholarship form.</p>
+      <button id="proceedBtn">Proceed with form download</button>
+    </div>
+  </div>
+
+  <!-- Verification Failed Modal -->
+  <div id="failedModal" class="modal">
+    <div class="modal-content">
+      <h2>Not Yet a Member</h2>
+      <p>Please register as a member and try again later.</p>
+      <button id="closeFailedModalBtn">Close</button>
+    </div>
+  </div>
+
+  <!-- Firebase and Firestore Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAyiRtkvdxnGWaiG-Xn-50Vm_Pb1J0ya6E",
+      authDomain: "church-cms-96407.firebaseapp.com",
+      projectId: "church-cms-96407",
+      storageBucket: "church-cms-96407.firebasestorage.app",
+      messagingSenderId: "19370427001",
+      appId: "1:19370427001:web:b1d20215c437fc324e4aa8",
+      measurementId: "G-NKDZSFGR4X"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // DOM Elements
+    const applyNowBtn = document.getElementById('applyNowBtn');
+    const applyModal = document.getElementById('applyModal');
+    const verifyBtn = document.getElementById('verifyBtn');
+    const successModal = document.getElementById('successModal');
+    const failedModal = document.getElementById('failedModal');
+    const closeFailedModalBtn = document.getElementById('closeFailedModalBtn');
+    const proceedBtn = document.getElementById('proceedBtn');
+
+    // Open Apply Modal
+    applyNowBtn.addEventListener('click', () => {
+      applyModal.style.display = 'flex';
+    });
+
+    // Verify Membership
+    verifyBtn.addEventListener('click', async () => {
+      const firstName = document.getElementById('firstName').value.trim();
+      const secondName = document.getElementById('secondName').value.trim();
+
+      if (!firstName || !secondName) {
+        alert('Please enter both first and second name.');
+        return;
+      }
+
+      // Query Firestore to check if the member exists
+      const membersRef = collection(db, 'Members');
+      const q = query(membersRef, where('firstName', '==', firstName), where('secondName', '==', secondName));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        applyModal.style.display = 'none';
+        successModal.style.display = 'flex';
+      } else {
+        applyModal.style.display = 'none';
+        failedModal.style.display = 'flex';
+      }
+    });
+
+    // Proceed to PDF Preview and Download
+    proceedBtn.addEventListener('click', () => {
+      const pdfUrl = 'AN18_00108_22 Tuition fee 27 Feb 2025 19_05 PM.pdf';
+      
+      // Open the PDF in a new tab for print preview
+      const newWindow = window.open(pdfUrl, '_blank');
+      newWindow.onload = () => {
+        newWindow.print(); // Trigger print preview
+      };
+
+      // Provide a download link for the PDF
+      const downloadLink = document.createElement('a');
+      downloadLink.href = pdfUrl;
+      downloadLink.download = 'AN18_00108_22 Tuition fee 27 Feb 2025 19_05 PM.pdf';
+      downloadLink.click();
+    });
+
+    // Close Failed Modal
+    closeFailedModalBtn.addEventListener('click', () => {
+      failedModal.style.display = 'none';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --live: #dc2626;
+            --upcoming: #16a34a;
+            --disabled: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .greeting {
+            color: var(--dark);
+            font-weight: 500;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-right: 1rem;
+            transition: transform 0.3s ease;
+            border-radius: 60px;
+        }
+
+        .logo:hover {
+            transform: rotate(-15deg);
+        }
+
+        .events-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            transform: translateY(0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-card.live {
+            border-left: 6px solid var(--live);
+        }
+
+        .event-card.upcoming {
+            border-left: 6px solid var(--upcoming);
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: var(--live);
+            color: white;
+            padding: 4px 30px;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .event-title {
+            color: var(--dark);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .event-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: #64748b;
+        }
+
+        .event-detail i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+
+        .timer {
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .countdown {
+            color: var(--upcoming);
+        }
+
+        .elapsed-time {
+            color: var(--live);
+        }
+
+        .watch-btn {
+            display: inline-flex;
+            align-items: center;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+        }
+
+        .watch-btn.live {
+            background: var(--live);
+        }
+
+        .watch-btn:disabled {
+            background: var(--disabled);
+            cursor: not-allowed;
+        }
+
+        .watch-btn:hover:not(:disabled) {
+            box-shadow: 0 5px 15px -3px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .watch-btn:hover:not(:disabled) i {
+            transform: translateX(3px);
+        }
+
+        .no-events {
+            text-align: center;
+            padding: 4rem 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .no-events i {
+            font-size: 4rem;
+            color: #cbd5e1;
+            margin-bottom: 1rem;
+        }
+
+        .support-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #10b981, #3b82f6);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .support-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 20px -5px rgba(16, 185, 129, 0.4);
+        }
+
+        .loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Video Player Styles */
+        .video-player-container {
+            width: 100%;
+            margin-top: 1rem;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            aspect-ratio: 16/9;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .video-player-container:hover .video-controls {
+            transform: translateY(0);
+        }
+
+        .control-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .time-display {
+            color: white;
+            font-size: 0.9rem;
+            margin: 0 0.5rem;
+        }
+
+        .progress-container {
+            flex-grow: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin: 0 0.5rem;
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--live);
+            border-radius: 3px;
+            width: 0%;
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            margin-right: 0.5rem;
+        }
+
+        .volume-slider {
+            width: 80px;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    
+    <header class="header">
+        <div class="header-left">
+            <img src="Gospel springs logo.jpg" alt="Live Events" class="logo">
+        </div>
+        <div class="greeting" id="greeting"></div>
+    </header>
+
+    <div class="events-container" id="eventsContainer"></div>
+
+    <a href="Live support.html" class="support-btn">
+        <i class="fas fa-headset"></i>
+        <span style="margin-left: 0.75rem;">Need Support</span>
+    </a>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCrz6qySUu5D1TBxvyVfVBLbY_DCvtY3rA",
+            authDomain: "live-events-bd682.firebaseapp.com",
+            databaseURL: "https://live-events-bd682-default-rtdb.firebaseio.com",
+            projectId: "live-events-bd682",
+            storageBucket: "live-events-bd682.firebasestorage.app",
+            messagingSenderId: "280445604397",
+            appId: "1:280445604397:web:00766767d770cf6e275ea4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const eventsRef = ref(db, 'events');
+
+        // Time-based greeting
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            const greeting = document.getElementById('greeting');
+            let message = 'Good Evening';
+            
+            if (hour < 12) message = 'Good Morning';
+            else if (hour < 18) message = 'Good Afternoon';
+            
+            greeting.textContent = `${message} 🌟`;
+        }
+        updateGreeting();
+        setInterval(updateGreeting, 1000 * 60 * 5);
+
+        // Notification permission
+        if (Notification.permission !== 'denied') {
+            Notification.requestPermission();
+        }
+
+        // Event timer management
+        const activeTimers = new Set();
+        const videoPlayers = new Map();
+
+        function createVideoPlayer(container, videoUrl) {
+            const videoId = `video-${Math.random().toString(36).substr(2, 9)}`;
+            
+            const playerHTML = `
+                <div class="video-player-container">
+                    <video id="${videoId}" class="video-player" playsinline>
+                        <source src="${videoUrl}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-controls">
+                        <button class="control-btn play-pause-btn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                        <span class="time-display">00:00 / 00:00</span>
+                        <div class="progress-container">
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="volume-container">
+                            <button class="control-btn mute-btn">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
+                        </div>
+                        <button class="control-btn fullscreen-btn">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            container.insertAdjacentHTML('beforeend', playerHTML);
+            
+            const video = document.getElementById(videoId);
+            const playPauseBtn = container.querySelector('.play-pause-btn');
+            const muteBtn = container.querySelector('.mute-btn');
+            const fullscreenBtn = container.querySelector('.fullscreen-btn');
+            const progressBar = container.querySelector('.progress-bar');
+            const progressContainer = container.querySelector('.progress-container');
+            const timeDisplay = container.querySelector('.time-display');
+            const volumeSlider = container.querySelector('.volume-slider');
+            
+            // Store video element for later access
+            videoPlayers.set(videoId, video);
+            
+            // Play/Pause functionality
+            playPauseBtn.addEventListener('click', () => {
+                if (video.paused) {
+                    video.play();
+                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                } else {
+                    video.pause();
+                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                }
+            });
+            
+            // Update progress bar
+            video.addEventListener('timeupdate', () => {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // Update time display
+                const currentMinutes = Math.floor(video.currentTime / 60);
+                const currentSeconds = Math.floor(video.currentTime % 60);
+                const durationMinutes = Math.floor(video.duration / 60);
+                const durationSeconds = Math.floor(video.duration % 60);
+                
+                timeDisplay.textContent = 
+                    `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds} / 
+                    ${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
+            });
+            
+            // Click on progress bar to seek
+            progressContainer.addEventListener('click', (e) => {
+                const rect = progressContainer.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                video.currentTime = pos * video.duration;
+            });
+            
+            // Volume controls
+            volumeSlider.addEventListener('input', () => {
+                video.volume = volumeSlider.value;
+                if (video.volume > 0) {
+                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                }
+            });
+            
+            muteBtn.addEventListener('click', () => {
+                if (video.volume > 0) {
+                    video.volume = 0;
+                    volumeSlider.value = 0;
+                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                } else {
+                    video.volume = 1;
+                    volumeSlider.value = 1;
+                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
+            });
+            
+            // Fullscreen functionality
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    container.querySelector('.video-player-container').requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+            
+            // Update play/pause button when video ends
+            video.addEventListener('ended', () => {
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                progressBar.style.width = '0%';
+                timeDisplay.textContent = '00:00 / 00:00';
+            });
+        }
+
+        function createTimer(eventElement, eventDate, videoUrl) {
+            const timerElement = eventElement.querySelector('.timer');
+            const watchBtn = eventElement.querySelector('.watch-btn');
+            const eventCard = eventElement;
+            const videoContainer = eventElement.querySelector('.video-container');
+
+            function updateTimer() {
+                const now = new Date();
+                const diff = eventDate - now;
+                
+                if (diff > 0) {
+                    // Countdown phase
+                    eventCard.classList.add('upcoming');
+                    eventCard.classList.remove('live');
+                    
+                    const hours = Math.floor(diff / 3600000);
+                    const minutes = Math.floor((diff % 3600000) / 60000);
+                    const seconds = Math.floor((diff % 60000) / 1000);
+                    timerElement.innerHTML = `
+                        <span class="countdown">Starts in: 
+                        ${hours}h ${minutes}m ${seconds}s</span>
+                    `;
+
+                    // Disable watch button during countdown
+                    watchBtn.disabled = true;
+                    watchBtn.innerHTML = `Event Starts Soon <i class="fas fa-clock"></i>`;
+
+                    // Remove video player if exists
+                    if (videoContainer) {
+                        videoContainer.remove();
+                    }
+
+                    // Send notification 10 minutes before
+                    if (diff < 600000 && diff > 599000) {
+                        if (Notification.permission === 'granted') {
+                            new Notification('Event starting soon!', {
+                                body: `"${eventElement.querySelector('.event-title').textContent}" starts in 10 minutes`
+                            });
+                        }
+                    }
+                } else {
+                    // Elapsed time phase (event is live)
+                    eventCard.classList.remove('upcoming');
+                    eventCard.classList.add('live');
+                    
+                    const elapsed = now - eventDate;
+                    const hours = Math.floor(elapsed / 3600000);
+                    const minutes = Math.floor((elapsed % 3600000) / 60000);
+                    const seconds = Math.floor((elapsed % 60000) / 1000);
+                    timerElement.innerHTML = `
+                        <span class="elapsed-time">Live for: 
+                        ${hours}h ${minutes}m ${seconds}s</span>
+                    `;
+
+                    // Enable watch button and add video player
+                    watchBtn.disabled = false;
+                    watchBtn.innerHTML = `Watch Live <i class="fas fa-broadcast-tower"></i>`;
+                    watchBtn.classList.add('live');
+
+                    // Add video player if not already present
+                    if (!eventElement.querySelector('.video-player-container') && videoUrl) {
+                        createVideoPlayer(eventElement, videoUrl);
+                    }
+                }
+            }
+
+            updateTimer();
+            const interval = setInterval(updateTimer, 1000);
+            activeTimers.add(interval);
+        }
+
+        // Load events
+        document.querySelector('.loader').style.display = 'block';
+
+        onValue(eventsRef, (snapshot) => {
+            document.querySelector('.loader').style.display = 'none';
+            const container = document.getElementById('eventsContainer');
+            container.innerHTML = '';
+
+            // Clear existing timers and video players
+            activeTimers.forEach(clearInterval);
+            activeTimers.clear();
+            videoPlayers.forEach(player => {
+                player.pause();
+                player.removeAttribute('src');
+                player.load();
+            });
+            videoPlayers.clear();
+
+            if (!snapshot.exists()) {
+                container.innerHTML = `
+                    <div class="no-events fade-in">
+                        <i class="fas fa-calendar-times"></i>
+                        <h2>No Live Events Available</h2>
+                        <p>Check back later for upcoming events</p>
+                    </div>
+                `;
+                return;
+            }
+
+            snapshot.forEach((childSnapshot) => {
+                const event = childSnapshot.val();
+                const eventDate = new Date(event.datetime);
+                const eventElement = document.createElement('div');
+                eventElement.className = 'event-card fade-in';
+                eventElement.innerHTML = `
+                    ${eventDate < new Date() ? '<div class="live-badge">LIVE</div>' : ''}
+                    <h2 class="event-title">${event.title}</h2>
+                    <div class="event-detail">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${event.venue}</span>
+                    </div>
+                    <div class="event-detail">
+                        <i class="fas fa-clock"></i>
+                        <span>${eventDate.toLocaleString()}</span>
+                    </div>
+                    <div class="timer"></div>
+                    <button class="watch-btn" ${eventDate > new Date() ? 'disabled' : ''}>
+                        ${eventDate > new Date() ? 'Event Starts Soon <i class="fas fa-clock"></i>' : 'Watch Live <i class="fas fa-broadcast-tower"></i>'}
+                    </button>
+                `;
+                
+                container.appendChild(eventElement);
+                createTimer(eventElement, eventDate, event.videoUrl || '');
+            });
+        }, {
+            onlyOnce: false
+        });
+
+        // Add service worker for PWA capabilities
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                .then(registration => {
+                    console.log('ServiceWorker registration successful');
+                })
+                .catch(err => {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently asked- Gospel Springs Mission</title>
+  <style>
+    :root {
+      --primary-color: #2d3a8c;
+      --secondary-color: #4CAF50;
+      --accent-color: #f3f4f6;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    .header {
+      padding: 20px;
+      position: relative;
+    }
+
+    .church-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .greeting {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      margin-bottom: 30px;
+      font-weight: 600;
+      font-size: 2.2em;
+    }
+
+    .faq-category {
+      margin-bottom: 15px;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-question {
+      font-weight: 500;
+      cursor: pointer;
+      padding: 15px 20px;
+      background: var(--accent-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .faq-question:hover {
+      background: #e8e8e8;
+    }
+
+    .faq-question::after {
+      content: "▼";
+      font-size: 0.8em;
+      color: var(--primary-color);
+      transition: transform 0.3s ease;
+    }
+
+    .faq-question.active::after {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      background: #fdfdfd;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out, padding 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .faq-question.active + .faq-answer {
+      padding: 15px 20px;
+      max-height: 500px;
+      border-left-color: var(--secondary-color);
+    }
+
+    .contact-section {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+
+    .contact-button {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-button:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .church-name {
+      position: fixed;
+      top: 30px;
+      left: 100px;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="Gospel springs logo.jpg" alt="GSM Logo" class="church-logo">
+    <div class="church-name">Gospel Springs Mission</div>
+    <div class="greeting" id="greeting"></div>
+  </div>
+
+  <div class="container">
+    <h1>Frequently Asked Questions</h1>
+    <div class="faq-category">
+      <div class="faq-question" onclick="toggleAnswer(this)">What are your service times?</div>
+      <div class="faq-answer">Our Sunday services are at 9:00 AM and 11:00 AM. We also have a Wednesday evening service at 7:00 PM.</div>
+    </div>
+    <div class="faq-category">
+      <div class="faq-question" onclick="toggleAnswer(this)">Where is the church located?</div>
+      <div class="faq-answer">We are located at Isongo, along Isongo-Ingoste. Click <a href="https://www.google.com/maps/place/8MQ4%2B739,+Butsotso/@0.3383238,34.6545026,342m/data=!3m1!1e3!4m6!3m5!1s0x178024e2f5f5950f:0x6ef8d5701ede89e1!8m2!3d0.3381762!4d34.6552219!16s%2Fg%2F11q364bzlq?entry=ttu" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">here</a> for directions.</div>
+    </div>
+    <!-- Add more questions and answers here -->
+
+    <div class="contact-section">
+      <p>Still have questions? We'd love to hear from you!</p>
+      <button class="contact-button" onclick="window.location.href='contact.html'">Contact Us</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleAnswer(element) {
+      element.classList.toggle("active");
+    }
+
+    // Time-based greeting
+    (function() {
+      const hour = new Date().getHours();
+      const greeting = document.getElementById('greeting');
+      let message = '';
+      
+      if (hour < 12) message = 'Good Morning! 🌞';
+      else if (hour < 18) message = 'Good Afternoon! ☀️';
+      else message = 'Good Evening! 🌙';
+
+      greeting.textContent = message;
+    })();
+  </script>
+</body>
+</html>

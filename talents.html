@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Church Ministers - Gospel Springs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --accent: #f39c12;
+            --background: white;
+            --text: #333;
+            --card-bg: #f8f8f8;
+            --card-border: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--background);
+            min-height: 100vh;
+            color: var(--text);
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .logo-text {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .greeting {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--primary);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .ministers-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .ministers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .minister-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid var(--card-border);
+            transition: transform 0.3s ease;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .minister-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .minister-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+        }
+
+        .minister-detail {
+            color: #666;
+            font-size: 0.95rem;
+            margin: 0.4rem 0;
+        }
+
+        .view-button {
+            display: inline-block;
+            padding: 0.7rem 1.3rem;
+            border-radius: 20px;
+            text-decoration: none;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            color: white;
+            font-weight: 500;
+            margin-top: 1rem;
+            transition: transform 0.2s ease;
+        }
+
+        .view-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 12px rgba(231, 76, 60, 0.25);
+        }
+
+        .not-found {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #777;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .ministers-container {
+                padding: 5rem 1rem 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="Gospel springs logo.jpg" alt="Church Logo" class="logo-img">
+        </div>
+        <div class="greeting" id="greeting"></div>
+    </div>
+
+    <div class="ministers-container">
+        <h2 class="section-title">Our Ministers</h2>
+        <div class="ministers-grid" id="ministers-grid"></div>
+        <div class="not-found" id="not-found" style="display: none;">
+            No ministers available at the moment. Please check back later.
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDl612wDzyx7GjCmppUhttHP_bUTAzoDZA",
+            authDomain: "gospel-ministers.firebaseapp.com",
+            databaseURL: "https://gospel-ministers-default-rtdb.firebaseio.com",
+            projectId: "gospel-ministers",
+            storageBucket: "gospel-ministers.firebasestorage.app",
+            messagingSenderId: "758802296692",
+            appId: "1:758802296692:web:719659c89a43500e190621"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const ministersRef = ref(database, 'ministers');
+
+        const ministersGrid = document.getElementById('ministers-grid');
+        const notFoundMessage = document.getElementById('not-found');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        onValue(ministersRef, (snapshot) => {
+            const ministers = snapshot.val();
+            ministersGrid.innerHTML = '';
+
+            if (ministers) {
+                Object.values(ministers).forEach(minister => {
+                    if (minister?.name) {
+                        const card = document.createElement('div');
+                        card.className = 'minister-card';
+                        card.innerHTML = `
+                            <h3 class="minister-name">${minister.name}</h3>
+                            ${minister.homeChurch ? `<p class="minister-detail">🏠 ${minister.homeChurch}</p>` : ''}
+                            ${minister.phone ? `<p class="minister-detail">📞 ${minister.phone}</p>` : ''}
+                            ${minister.dateUploaded ? `<p class="minister-detail">📅 ${new Date(minister.dateUploaded).toLocaleDateString()}</p>` : ''}
+                            ${minister.profileLink ? `
+                                <a href="${minister.profileLink}" 
+                                   class="view-button"
+                                   target="_blank"
+                                   rel="noopener">
+                                    View Profile
+                                </a>` : ''}
+                        `;
+                        ministersGrid.appendChild(card);
+                        observer.observe(card);
+                    }
+                });
+
+                notFoundMessage.style.display = ministersGrid.children.length ? 'none' : 'block';
+            } else {
+                notFoundMessage.style.display = 'block';
+            }
+        }, (error) => {
+            console.error('Database Error:', error);
+            notFoundMessage.style.display = 'block';
+        });
+
+        // Set time-based greeting
+        const updateGreeting = () => {
+            const hour = new Date().getHours();
+            document.getElementById('greeting').textContent = 
+                hour < 12 ? 'Good Morning!' : 
+                hour < 18 ? 'Good Afternoon!' : 'Good Evening!';
+        };
+        updateGreeting();
+        setInterval(updateGreeting, 60000);
+    </script>
+</body>
+</html>

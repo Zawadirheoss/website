@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gospel Springs Church Branches</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #e67e22;
+            --light: #f9f9f9;
+            --gold: #FFD700;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', serif;
+        }
+
+        body {
+            background: linear-gradient(45deg, #f3f4f6, #fff);
+        }
+
+        .header {
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            background: linear-gradient(135deg, rgba(44,62,80,0.95) 30%, rgba(230,126,34,0.9)),
+                        url('church-banner.jpg') center/cover;
+            color: white;
+            position: relative;
+        }
+
+        .church-logo {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 60px;
+            border: 2px solid var(--gold);
+        }
+
+        .greeting {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: -30px auto 4rem;
+            padding: 0 20px;
+            position: relative;
+            z-index: 100;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            border-radius: 50px;
+            border: 2px solid var(--accent);
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            box-shadow: 0 5px 20px rgba(230,126,34,0.3);
+        }
+
+        .branches-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+            padding-bottom: 5rem;
+        }
+
+        .branch-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            position: relative;
+        }
+
+        .branch-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+
+        .branch-image {
+            height: 280px;
+            width: 100%;
+            object-fit: cover;
+            border-bottom: 5px solid var(--accent);
+        }
+
+        .branch-content {
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .branch-title {
+            color: var(--primary);
+            margin-bottom: 1.2rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mother-church-badge {
+            background: var(--gold);
+            color: var(--primary);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .branch-description {
+            color: #666;
+            line-height: 1.6;
+            margin: 1.2rem 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-button {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .location-btn {
+            background: var(--accent);
+            color: white;
+        }
+
+        .call-btn {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-button:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 6rem 1.5rem 4rem;
+            }
+            
+            .branch-title {
+                font-size: 1.5rem;
+            }
+            
+            .branches-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <img src="Gospel springs logo.jpg" alt="Church Logo" class="church-logo">
+        <h1 id="greeting"></h1>
+        <h1>Gospel Springs Church Branches</h1>
+        <p>"Planted by streams of living water" - Psalm 1:3</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for a branch...">
+    </div>
+
+    <div class="branches-container">
+        <!-- Emasinga (Mother Church) -->
+        <div class="branch-card">
+            <img src="emasinga.jpg" alt="Emasinga Church" class="branch-image">
+            <div class="branch-content">
+                <h2 class="branch-title">
+                    Gospel Springs Emasinga
+                    <span class="mother-church-badge">Mother Church</span>
+                </h2>
+                <p class="branch-description">The founding branch established in 1995, serving as the spiritual home for thousands. Features a 2000-seat sanctuary and community center.</p>
+                <div class="button-group">
+                    <a href="#" class="action-button location-btn">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Location
+                    </a>
+                    <a href="tel:+254712345678" class="action-button call-btn">
+                        <i class="fas fa-phone"></i>
+                        Call
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Branches (Repeat similar structure) -->
+        <div class="branch-card">
+            <img src="nasira.jpg" alt="Nasira Church" class="branch-image">
+            <div class="branch-content">
+                <h2 class="branch-title">Gospel Springs Nasira</h2>
+                <p class="branch-description">Vibrant urban congregation with dynamic youth programs and community outreach initiatives.</p>
+                <div class="button-group">
+                    <a href="#" class="action-button location-btn">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Location
+                    </a>
+                    <a href="tel:+254712345678" class="action-button call-btn">
+                        <i class="fas fa-phone"></i>
+                        Call
+                    </a>
+                </div>
+            </div>
+        </div>
+<!-- Other Branches (Repeat similar structure) -->
+<div class="branch-card">
+    <img src="nasira.jpg" alt="Lubinu" class="branch-image">
+    <div class="branch-content">
+        <h2 class="branch-title">Gospel Springs Lubinu</h2>
+        <p class="branch-description">Vibrant urban congregation with dynamic youth programs and community outreach initiatives.</p>
+        <div class="button-group">
+            <a href="#" class="action-button location-btn">
+                <i class="fas fa-map-marker-alt"></i>
+                Location
+            </a>
+            <a href="tel:+254712345678" class="action-button call-btn">
+                <i class="fas fa-phone"></i>
+                Call
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Other Branches (Repeat similar structure) -->
+<div class="branch-card">
+    <img src="nasira.jpg" alt="Church" class="branch-image">
+    <div class="branch-content">
+        <h2 class="branch-title">Gospel Springs Ikoli</h2>
+        <p class="branch-description">Vibrant urban congregation with dynamic youth programs and community outreach initiatives.</p>
+        <div class="button-group">
+            <a href="#" class="action-button location-btn">
+                <i class="fas fa-map-marker-alt"></i>
+                Location
+            </a>
+            <a href="tel:+254712345678" class="action-button call-btn">
+                <i class="fas fa-phone"></i>
+                Call
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Other Branches (Repeat similar structure) -->
+<div class="branch-card">
+    <img src="nasira.jpg" alt="Church" class="branch-image">
+    <div class="branch-content">
+        <h2 class="branch-title">Gospel Springs Ahero</h2>
+        <p class="branch-description">Vibrant urban congregation with dynamic youth programs and community outreach initiatives.</p>
+        <div class="button-group">
+            <a href="#" class="action-button location-btn">
+                <i class="fas fa-map-marker-alt"></i>
+                Location
+            </a>
+            <a href="tel:+254712345678" class="action-button call-btn">
+                <i class="fas fa-phone"></i>
+                Call
+            </a>
+        </div>
+    </div>
+</div>
+
+        <!-- Add remaining branches following the same pattern -->
+        <!-- Lubinu, Lung'anyiro, Elwangale, Mombasa, Majengo, Ruai, Ekero, Ikoli, Mujuru, Siaya, Nyaporo, Ahero -->
+        
+    </div>
+
+    <script>
+        // Time-based Greeting
+        const greeting = document.getElementById('greeting');
+        const hour = new Date().getHours();
+        const greetings = {
+            morning: '☀️ Good Morning, Beloved!',
+            afternoon: '🌤️ Blessed Afternoon!',
+            evening: '🌙 Graceful Evening!'
+        };
+        greeting.textContent = hour < 12 ? greetings.morning : hour < 18 ? greetings.afternoon : greetings.evening;
+
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.branch-card').forEach(card => {
+                const title = card.querySelector('.branch-title').textContent.toLowerCase();
+                card.style.display = title.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

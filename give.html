@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Give & Offerings | Gospel Springs Mission</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #092c9e;
+            --primary-light: #3a4fb3;
+            --accent: #ff6600;
+            --accent-light: #ff8533;
+            --light: #f8f9fa;
+            --lighter: #ffffff;
+            --dark: #2d3748;
+            --darker: #1a202c;
+            --gray: #718096;
+            --light-gray: #e2e8f0;
+            --success: #38a169;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius);
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .logo:hover img {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text p {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .logo-text span {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .greeting {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            animation: fadeIn 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .greeting i {
+            color: var(--accent);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem;
+            flex: 1;
+            margin-top: 90px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius);
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Giving Options Section */
+        .giving-section {
+            background-color: var(--lighter);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+        }
+
+        .giving-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .giving-section h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .giving-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+        }
+
+        .giving-section p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .category-select {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: var(--lighter);
+            color: var(--darker);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+
+        .category-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(9, 44, 158, 0.2);
+            outline: none;
+        }
+
+        .category-select option {
+            padding: 1rem;
+        }
+
+        /* Why Give Section */
+        .why-give {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .reason-card {
+            background: var(--lighter);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            border-top: 4px solid var(--accent);
+        }
+
+        .reason-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .reason-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .reason-card h3 {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .reason-card p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        /* Bible Verse Section */
+        .verse-section {
+            background: linear-gradient(135deg, rgba(9, 44, 158, 0.9) 0%, rgba(58, 79, 179, 0.9) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .verse-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
+        }
+
+        .verse-text {
+            font-size: 1.4rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .verse-reference {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Testimonial Section */
+        .testimonial-section {
+            background-color: var(--lighter);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--light-gray);
+        }
+
+        .testimonial-section h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .testimonial {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            color: var(--darker);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .testimonial-text::before,
+        .testimonial-text::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.3;
+            position: absolute;
+        }
+
+        .testimonial-text::before {
+            top: -1rem;
+            left: 0;
+        }
+
+        .testimonial-text::after {
+            bottom: -2rem;
+            right: 0;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 1rem;
+        }
+
+        /* How We Use Funds Section */
+        .funds-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 3rem;
+            text-align: center;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .funds-section h2 {
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .funds-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .fund-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .fund-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .fund-item i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-light);
+        }
+
+        .fund-item h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .fund-item p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Thank You Section */
+        .thank-you {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--lighter);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--light-gray);
+        }
+
+        .thank-you h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .thank-you p {
+            font-size: 1.1rem;
+            color: var(--dark);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .heart {
+            color: #e53e3e;
+            font-size: 1.5rem;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 0.8rem 1rem;
+            }
+
+            .logo img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-text p {
+                font-size: 1rem;
+            }
+
+            .logo-text span {
+                font-size: 0.8rem;
+            }
+
+            .greeting {
+                font-size: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+                margin-top: 80px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .giving-section, .why-give, .verse-section, .testimonial-section, .funds-section, .thank-you {
+                padding: 1.5rem;
+            }
+
+            .verse-text {
+                font-size: 1.2rem;
+            }
+
+            .testimonial-text {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .giving-section h2, .testimonial-section h2, .funds-section h2, .thank-you h2 {
+                font-size: 1.5rem;
+            }
+
+            .reason-card, .fund-item {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Logo and Greeting -->
+    <div class="header">
+        <a href="#" class="logo">
+            <img src="Gospel springs logo.jpg" alt="Church Logo">
+            <div class="logo-text">
+                <p>GS Mission</p>
+                <span>Winning,discipling,sending</span>
+            </div>
+        </a>
+        <div class="greeting" id="greeting">
+            <i class="fas fa-hand-peace"></i>
+            <span id="greeting-text"></span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1>Partner With Us in Ministry</h1>
+                <p>Your generous giving enables the Gospel to reach further and transform more lives. Every gift makes an eternal difference.</p>
+            </section>
+
+            <!-- Giving Options Section -->
+            <section class="giving-section">
+                <h2>How Would You Like to Give?</h2>
+                <p>Select a category below to continue with your secure donation.</p>
+
+                <select id="categorySelect" class="category-select">
+                    <option value="" disabled selected>Select a giving category</option>
+                    <option value="tithe.html">Tithe (10% of your income)</option>
+                    <option value="offering.html">Offering (Freewill gift)</option>
+                    <option value="donation.html">Donation (Specific cause)</option>
+                    <option value="partnership.html">Monthly Partnership (Ongoing support)</option>
+                    <option value="confrence.html">Conference Registration</option>
+                    <option value="other.html">Other (Specify purpose)</option>
+                </select>
+            </section>
+
+            <!-- Why Give Section -->
+            <section class="why-give">
+                <div class="reason-card">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>Support Ministry</h3>
+                    <p>Your gifts help sustain our local church ministries, outreach programs, and mission efforts around the world.</p>
+                </div>
+                
+                <div class="reason-card">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Invest in Eternity</h3>
+                    <p>Giving is an act of worship that stores up treasures in heaven and advances God's kingdom on earth.</p>
+                </div>
+                
+                <div class="reason-card">
+                    <i class="fas fa-blessing"></i>
+                    <h3>Experience Blessing</h3>
+                    <p>God promises to bless those who give cheerfully and honor Him with their resources.</p>
+                </div>
+            </section>
+
+            <!-- Bible Verse Section -->
+            <section class="verse-section">
+                <p class="verse-text">"Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver."</p>
+                <p class="verse-reference">2 Corinthians 9:7 (NIV)</p>
+            </section>
+
+            <!-- Testimonial Section -->
+            <section class="testimonial-section">
+                <h2>Stories of Impact</h2>
+                <div class="testimonial">
+                    <p class="testimonial-text">When we started giving regularly, we saw God's faithfulness in our finances in ways we never expected. Our giving has become one of the greatest joys in our spiritual journey.</p>
+                    <p class="testimonial-author">— Michael & Sarah Johnson, Members since 2018</p>
+                </div>
+            </section>
+
+            <!-- How We Use Funds Section -->
+            <section class="funds-section">
+                <h2>How Your Giving Makes a Difference</h2>
+                <p>We are committed to financial integrity and maximizing every dollar for ministry impact.</p>
+                
+                <div class="funds-grid">
+                    <div class="fund-item">
+                        <i class="fas fa-church"></i>
+                        <h3>Local Ministry</h3>
+                        <p>Supporting our worship services, children's programs, and community outreach.</p>
+                    </div>
+                    
+                    <div class="fund-item">
+                        <i class="fas fa-globe-americas"></i>
+                        <h3>Global Missions</h3>
+                        <p>Funding missionaries and humanitarian projects in 12 countries worldwide.</p>
+                    </div>
+                    
+                    <div class="fund-item">
+                        <i class="fas fa-utensils"></i>
+                        <h3>Compassion</h3>
+                        <p>Feeding the hungry, sheltering the homeless, and caring for the vulnerable.</p>
+                    </div>
+                    
+                    <div class="fund-item">
+                        <i class="fas fa-book-bible"></i>
+                        <h3>Discipleship</h3>
+                        <p>Creating biblical resources and training future Christian leaders.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Thank You Section -->
+            <section class="thank-you">
+                <h2>We Value Your Support</h2>
+                <p>Your generosity is changing lives and making an eternal impact. We don't take your trust lightly and are committed to being good stewards of every gift.</p>
+                <p>From the bottom of our hearts, <span class="heart">❤</span> thank you!</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Dynamic Greeting Based on Time
+        const greetingElement = document.getElementById('greeting-text');
+        const hour = new Date().getHours();
+        let greeting = '';
+        let icon = '';
+
+        if (hour < 12) {
+            greeting = 'Good Morning';
+            icon = '<i class="fas fa-sun"></i>';
+        } else if (hour < 18) {
+            greeting = 'Good Afternoon';
+            icon = '<i class="fas fa-sun"></i>';
+        } else {
+            greeting = 'Good Evening';
+            icon = '<i class="fas fa-moon"></i>';
+        }
+
+        greetingElement.textContent = greeting;
+
+        // Handle Category Selection
+        const categorySelect = document.getElementById('categorySelect');
+
+        categorySelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            if (selectedValue) {
+                // In a real implementation, this would redirect to the selected page
+                // For this demo, we'll show an alert
+                const selectedText = this.options[this.selectedIndex].text;
+                alert(`You selected: ${selectedText}\n\n(In a live site, this would redirect to the ${selectedText} page)`);
+                
+                // Uncomment this line for actual implementation:
+                // window.location.href = selectedValue;
+            }
+        });
+
+        // Animation for cards when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.reason-card, .fund-item, .giving-section, .testimonial-section');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animation
+        window.addEventListener('load', () => {
+            const elements = document.querySelectorAll('.reason-card, .fund-item, .giving-section, .testimonial-section');
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            });
+            
+            // Trigger first check
+            animateOnScroll();
+        });
+
+        // Listen for scroll events
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
