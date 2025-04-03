@@ -345,9 +345,9 @@
         function updateGreeting() {
             const hour = new Date().getHours();
             const greeting = document.getElementById('greeting');
-            let message = 'Good Evening';
-            if (hour < 12) message = 'Good Morning';
-            else if (hour < 18) message = 'Good Afternoon';
+            let message = 'Hi,Good Evening';
+            if (hour < 12) message = 'Hi,Good Morning';
+            else if (hour < 18) message = 'Hi,Good Afternoon';
             greeting.textContent = `${message} 🌟`;
         }
         updateGreeting();
@@ -359,7 +359,7 @@
 
         const activeTimers = new Set();
 
-        function createTimer(eventElement, eventDate, eventLink) {
+        function createTimer(eventElement, eventDate,eventLink) {
             const timerElement = eventElement.querySelector('.timer');
             const watchBtn = eventElement.querySelector('.watch-btn');
             const eventCard = eventElement;
@@ -392,7 +392,7 @@
                     // Set click handler to open the exact link from database
                     watchBtn.onclick = () => {
                         if (eventLink) {
-                            window.open(eventLink, '_blank');
+                            window.open(link, '_blank');
                         }
                     };
                 }
