@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Events</title>
+    <title>Gospel Springs Mission - Live Events</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -62,6 +62,49 @@
 
         .logo:hover {
             transform: rotate(-15deg);
+        }
+
+        /* Hero Section Styles */
+        .hero-section {
+            position: relative;
+            height: 400px;
+            margin: 1rem 2rem;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 3rem;
+            color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(45deg, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            max-width: 600px;
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            max-width: 500px;
+            opacity: 0.9;
         }
 
         .events-container {
@@ -251,95 +294,6 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Video Player Styles */
-        .video-player-container {
-            width: 100%;
-            margin-top: 1rem;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            position: relative;
-            background: #000;
-            aspect-ratio: 16/9;
-        }
-
-        .video-player {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        .video-controls {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .video-player-container:hover .video-controls {
-            transform: translateY(0);
-        }
-
-        .control-btn {
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s ease;
-        }
-
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .time-display {
-            color: white;
-            font-size: 0.9rem;
-            margin: 0 0.5rem;
-        }
-
-        .progress-container {
-            flex-grow: 1;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
-            margin: 0 0.5rem;
-            cursor: pointer;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: var(--live);
-            border-radius: 3px;
-            width: 0%;
-        }
-
-        .volume-container {
-            display: flex;
-            align-items: center;
-            margin-right: 0.5rem;
-        }
-
-        .volume-slider {
-            width: 80px;
-            margin-left: 0.5rem;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
@@ -347,10 +301,21 @@
     
     <header class="header">
         <div class="header-left">
-            <img src="Gospel springs logo.jpg" alt="Live Events" class="logo">
+            <img src="Gospel springs logo.jpg" alt="Gospel Springs Mission" class="logo">
+            <h1 style="font-size: 1.5rem; color: var(--dark);">Gospel Springs Mission</h1>
         </div>
         <div class="greeting" id="greeting"></div>
     </header>
+
+    <section class="hero-section">
+        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" 
+             alt="Gospel Springs Mission Live Event" 
+             class="hero-image">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to Gospel Springs Mission</h1>
+            <p class="hero-text">Join us for powerful worship services, inspiring messages, and life-changing encounters with God.</p>
+        </div>
+    </section>
 
     <div class="events-container" id="eventsContainer"></div>
 
@@ -363,7 +328,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
 
-        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCrz6qySUu5D1TBxvyVfVBLbY_DCvtY3rA",
             authDomain: "live-events-bd682.firebaseapp.com",
@@ -378,211 +342,59 @@
         const db = getDatabase(app);
         const eventsRef = ref(db, 'events');
 
-        // Time-based greeting
         function updateGreeting() {
             const hour = new Date().getHours();
             const greeting = document.getElementById('greeting');
             let message = 'Good Evening';
-            
             if (hour < 12) message = 'Good Morning';
             else if (hour < 18) message = 'Good Afternoon';
-            
             greeting.textContent = `${message} 🌟`;
         }
         updateGreeting();
         setInterval(updateGreeting, 1000 * 60 * 5);
 
-        // Notification permission
         if (Notification.permission !== 'denied') {
             Notification.requestPermission();
         }
 
-        // Event timer management
         const activeTimers = new Set();
-        const videoPlayers = new Map();
 
-        function createVideoPlayer(container, videoUrl) {
-            const videoId = `video-${Math.random().toString(36).substr(2, 9)}`;
-            
-            const playerHTML = `
-                <div class="video-player-container">
-                    <video id="${videoId}" class="video-player" playsinline>
-                        <source src="${videoUrl}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-controls">
-                        <button class="control-btn play-pause-btn">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <span class="time-display">00:00 / 00:00</span>
-                        <div class="progress-container">
-                            <div class="progress-bar"></div>
-                        </div>
-                        <div class="volume-container">
-                            <button class="control-btn mute-btn">
-                                <i class="fas fa-volume-up"></i>
-                            </button>
-                            <input type="range" class="volume-slider" min="0" max="1" step="0.1" value="1">
-                        </div>
-                        <button class="control-btn fullscreen-btn">
-                            <i class="fas fa-expand"></i>
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            container.insertAdjacentHTML('beforeend', playerHTML);
-            
-            const video = document.getElementById(videoId);
-            const playPauseBtn = container.querySelector('.play-pause-btn');
-            const muteBtn = container.querySelector('.mute-btn');
-            const fullscreenBtn = container.querySelector('.fullscreen-btn');
-            const progressBar = container.querySelector('.progress-bar');
-            const progressContainer = container.querySelector('.progress-container');
-            const timeDisplay = container.querySelector('.time-display');
-            const volumeSlider = container.querySelector('.volume-slider');
-            
-            // Store video element for later access
-            videoPlayers.set(videoId, video);
-            
-            // Play/Pause functionality
-            playPauseBtn.addEventListener('click', () => {
-                if (video.paused) {
-                    video.play();
-                    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                } else {
-                    video.pause();
-                    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                }
-            });
-            
-            // Update progress bar
-            video.addEventListener('timeupdate', () => {
-                const progress = (video.currentTime / video.duration) * 100;
-                progressBar.style.width = `${progress}%`;
-                
-                // Update time display
-                const currentMinutes = Math.floor(video.currentTime / 60);
-                const currentSeconds = Math.floor(video.currentTime % 60);
-                const durationMinutes = Math.floor(video.duration / 60);
-                const durationSeconds = Math.floor(video.duration % 60);
-                
-                timeDisplay.textContent = 
-                    `${currentMinutes}:${currentSeconds < 10 ? '0' : ''}${currentSeconds} / 
-                    ${durationMinutes}:${durationSeconds < 10 ? '0' : ''}${durationSeconds}`;
-            });
-            
-            // Click on progress bar to seek
-            progressContainer.addEventListener('click', (e) => {
-                const rect = progressContainer.getBoundingClientRect();
-                const pos = (e.clientX - rect.left) / rect.width;
-                video.currentTime = pos * video.duration;
-            });
-            
-            // Volume controls
-            volumeSlider.addEventListener('input', () => {
-                video.volume = volumeSlider.value;
-                if (video.volume > 0) {
-                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                } else {
-                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                }
-            });
-            
-            muteBtn.addEventListener('click', () => {
-                if (video.volume > 0) {
-                    video.volume = 0;
-                    volumeSlider.value = 0;
-                    muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                } else {
-                    video.volume = 1;
-                    volumeSlider.value = 1;
-                    muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                }
-            });
-            
-            // Fullscreen functionality
-            fullscreenBtn.addEventListener('click', () => {
-                if (!document.fullscreenElement) {
-                    container.querySelector('.video-player-container').requestFullscreen().catch(err => {
-                        console.error(`Error attempting to enable fullscreen: ${err.message}`);
-                    });
-                } else {
-                    document.exitFullscreen();
-                }
-            });
-            
-            // Update play/pause button when video ends
-            video.addEventListener('ended', () => {
-                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-                progressBar.style.width = '0%';
-                timeDisplay.textContent = '00:00 / 00:00';
-            });
-        }
-
-        function createTimer(eventElement, eventDate, videoUrl) {
+        function createTimer(eventElement, eventDate, eventLink) {
             const timerElement = eventElement.querySelector('.timer');
             const watchBtn = eventElement.querySelector('.watch-btn');
             const eventCard = eventElement;
-            const videoContainer = eventElement.querySelector('.video-container');
 
             function updateTimer() {
                 const now = new Date();
                 const diff = eventDate - now;
                 
                 if (diff > 0) {
-                    // Countdown phase
                     eventCard.classList.add('upcoming');
                     eventCard.classList.remove('live');
-                    
                     const hours = Math.floor(diff / 3600000);
                     const minutes = Math.floor((diff % 3600000) / 60000);
                     const seconds = Math.floor((diff % 60000) / 1000);
-                    timerElement.innerHTML = `
-                        <span class="countdown">Starts in: 
-                        ${hours}h ${minutes}m ${seconds}s</span>
-                    `;
-
-                    // Disable watch button during countdown
+                    timerElement.innerHTML = `<span class="countdown">Starts in: ${hours}h ${minutes}m ${seconds}s</span>`;
                     watchBtn.disabled = true;
                     watchBtn.innerHTML = `Event Starts Soon <i class="fas fa-clock"></i>`;
-
-                    // Remove video player if exists
-                    if (videoContainer) {
-                        videoContainer.remove();
-                    }
-
-                    // Send notification 10 minutes before
-                    if (diff < 600000 && diff > 599000) {
-                        if (Notification.permission === 'granted') {
-                            new Notification('Event starting soon!', {
-                                body: `"${eventElement.querySelector('.event-title').textContent}" starts in 10 minutes`
-                            });
-                        }
-                    }
+                    watchBtn.onclick = null;
                 } else {
-                    // Elapsed time phase (event is live)
                     eventCard.classList.remove('upcoming');
                     eventCard.classList.add('live');
-                    
                     const elapsed = now - eventDate;
                     const hours = Math.floor(elapsed / 3600000);
                     const minutes = Math.floor((elapsed % 3600000) / 60000);
                     const seconds = Math.floor((elapsed % 60000) / 1000);
-                    timerElement.innerHTML = `
-                        <span class="elapsed-time">Live for: 
-                        ${hours}h ${minutes}m ${seconds}s</span>
-                    `;
-
-                    // Enable watch button and add video player
+                    timerElement.innerHTML = `<span class="elapsed-time">Live for: ${hours}h ${minutes}m ${seconds}s</span>`;
                     watchBtn.disabled = false;
-                    watchBtn.innerHTML = `Watch Live <i class="fas fa-broadcast-tower"></i>`;
                     watchBtn.classList.add('live');
-
-                    // Add video player if not already present
-                    if (!eventElement.querySelector('.video-player-container') && videoUrl) {
-                        createVideoPlayer(eventElement, videoUrl);
-                    }
+                    
+                    // Set click handler to open the exact link from database
+                    watchBtn.onclick = () => {
+                        if (eventLink) {
+                            window.open(eventLink, '_blank');
+                        }
+                    };
                 }
             }
 
@@ -591,7 +403,6 @@
             activeTimers.add(interval);
         }
 
-        // Load events
         document.querySelector('.loader').style.display = 'block';
 
         onValue(eventsRef, (snapshot) => {
@@ -599,22 +410,15 @@
             const container = document.getElementById('eventsContainer');
             container.innerHTML = '';
 
-            // Clear existing timers and video players
             activeTimers.forEach(clearInterval);
             activeTimers.clear();
-            videoPlayers.forEach(player => {
-                player.pause();
-                player.removeAttribute('src');
-                player.load();
-            });
-            videoPlayers.clear();
 
             if (!snapshot.exists()) {
                 container.innerHTML = `
                     <div class="no-events fade-in">
                         <i class="fas fa-calendar-times"></i>
                         <h2>No Live Events Available</h2>
-                        <p>Check back later for upcoming events</p>
+                        <p>Check back later for upcoming Gospel Springs Mission events</p>
                     </div>
                 `;
                 return;
@@ -623,6 +427,7 @@
             snapshot.forEach((childSnapshot) => {
                 const event = childSnapshot.val();
                 const eventDate = new Date(event.datetime);
+                const eventLink = event.link; // Get the exact link from database
                 const eventElement = document.createElement('div');
                 eventElement.className = 'event-card fade-in';
                 eventElement.innerHTML = `
@@ -630,7 +435,7 @@
                     <h2 class="event-title">${event.title}</h2>
                     <div class="event-detail">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>${event.venue}</span>
+                        <span>${event.venue || 'Gospel Springs Mission'}</span>
                     </div>
                     <div class="event-detail">
                         <i class="fas fa-clock"></i>
@@ -643,13 +448,10 @@
                 `;
                 
                 container.appendChild(eventElement);
-                createTimer(eventElement, eventDate, event.videoUrl || '');
+                createTimer(eventElement, eventDate, eventLink);
             });
-        }, {
-            onlyOnce: false
-        });
+        }, { onlyOnce: false });
 
-        // Add service worker for PWA capabilities
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js')
