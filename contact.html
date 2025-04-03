@@ -15,54 +15,65 @@
         body {
             background: #ffffff;
             min-height: 100vh;
+            position: relative;
         }
 
+        /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #2b6cb0 0%, #6b46c1 100%);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             padding: 1.5rem 5%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .logo img {
-            width: 60px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .greeting {
             color: white;
             font-size: 1.4rem;
-            font-weight: 300;
+            font-weight: 500;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
+        /* Contact Container */
         .contact-container {
+            margin: 120px auto 40px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 25px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
             width: 90%;
             max-width: 1000px;
-            margin: 3rem auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
             overflow: hidden;
-            transform: translateY(-50px);
             border: 1px solid rgba(255,255,255,0.3);
             backdrop-filter: blur(10px);
         }
 
         .contact-info {
-            background: linear-gradient(160deg, #2b6cb0, #6b46c1);
-            padding: 4rem;
+            background: linear-gradient(160deg, #2575fc 0%, #6a11cb 100%);
+            padding: 50px;
             color: white;
             position: relative;
         }
@@ -70,24 +81,25 @@
         .contact-info::after {
             content: '';
             position: absolute;
-            bottom: -50px;
+            top: -50px;
             right: -50px;
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             background: rgba(255,255,255,0.1);
             border-radius: 50%;
         }
 
         .contact-form {
-            padding: 4rem;
-            background: rgba(255,255,255,0.9);
+            padding: 50px 40px;
+            position: relative;
         }
 
         h1 {
             font-size: 2.8rem;
             margin-bottom: 2rem;
-            color: #2b6cb0;
+            color: #2c3e50;
             position: relative;
+            display: inline-block;
         }
 
         h1::after {
@@ -97,7 +109,7 @@
             left: 0;
             width: 60px;
             height: 4px;
-            background: #6b46c1;
+            background: #6a11cb;
             border-radius: 2px;
         }
 
@@ -108,23 +120,23 @@
 
         .form-input {
             width: 100%;
-            padding: 1.2rem;
+            padding: 16px;
             border: 2px solid #e0e0e0;
             border-radius: 12px;
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(255,255,255,0.9);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #6b46c1;
-            box-shadow: 0 4px 15px rgba(107,70,193,0.2);
+            border-color: #6a11cb;
+            box-shadow: 0 4px 6px -1px rgba(106,17,203,0.1);
         }
 
         .form-label {
             position: absolute;
-            left: 15px;
+            left: 16px;
             top: 18px;
             color: #999;
             pointer-events: none;
@@ -135,49 +147,32 @@
         .form-input:focus ~ .form-label,
         .form-input:not(:placeholder-shown) ~ .form-label {
             top: -10px;
-            left: 10px;
-            font-size: 0.8rem;
-            background: linear-gradient(90deg, #2b6cb0, #6b46c1);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            left: 12px;
+            font-size: 0.75rem;
+            background: linear-gradient(180deg, #fff 50%, transparent 50%);
+            padding: 0 8px;
+            color: #6a11cb;
             font-weight: 600;
         }
 
         .submit-btn {
-            background: linear-gradient(135deg, #2b6cb0, #6b46c1);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             color: white;
-            padding: 1.2rem 3rem;
+            padding: 16px 40px;
             border: none;
             border-radius: 12px;
             cursor: pointer;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
             width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255,255,255,0.1);
-            transform: translate(25%, 25%);
-            border-radius: 50%;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(43,108,176,0.3);
-        }
-
-        .submit-btn:hover::after {
-            transform: translate(0, 0);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
 
         .contact-details {
@@ -188,8 +183,8 @@
             display: flex;
             align-items: center;
             margin-bottom: 2rem;
+            padding: 15px;
             background: rgba(255,255,255,0.1);
-            padding: 1.2rem;
             border-radius: 12px;
             transition: transform 0.3s ease;
         }
@@ -203,7 +198,7 @@
             margin-right: 1.5rem;
             width: 40px;
             text-align: center;
-            color: #6b46c1;
+            color: #ffd700;
         }
 
         .social-links {
@@ -218,21 +213,15 @@
             font-size: 1.8rem;
             transition: all 0.3s ease;
             text-decoration: none;
-            background: rgba(255,255,255,0.1);
-            padding: 12px;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            opacity: 0.8;
         }
 
         .social-link:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.2);
+            opacity: 1;
+            transform: scale(1.1);
         }
 
+        /* Modal Styles */
         .modal {
             position: fixed;
             top: 0;
@@ -243,20 +232,19 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 2000;
             backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background: white;
-            padding: 3rem;
+            padding: 40px;
             border-radius: 20px;
             text-align: center;
             min-width: 400px;
             transform: scale(0.8);
             opacity: 0;
-            animation: modalEnter 0.3s forwards;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            animation: modalEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
         @keyframes modalEnter {
@@ -267,75 +255,120 @@
         }
 
         .modal-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 1.5rem;
-            color: #6b46c1;
+            color: #6a11cb;
+        }
+
+        .modal-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .modal-close {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {
             .contact-container {
                 grid-template-columns: 1fr;
-                margin-top: 1rem;
+                margin: 100px auto 30px;
             }
-            
+
             .contact-info {
-                padding: 2rem;
+                padding: 30px;
             }
-            
-            .hero {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
+
+            .contact-form {
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .greeting {
+                font-size: 1.1rem;
             }
         }
     </style>
-    <!-- Font Awesome & Google Fonts -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Hero Section -->
     <div class="hero">
-        <div class="logo">
-            <img src="Gospel springs logo.jpg" alt="Gospel Springs Mission Logo">
-        </div>
-        <div class="greeting" id="greeting"></div>
+        <nav class="nav">
+            <div class="logo">
+                <img src="Gospel springs logo.jpg" alt="Gospel Springs Mission Logo">
+            </div>
+            <div class="greeting" id="greeting"></div>
+        </nav>
     </div>
 
-    <!-- Contact Container -->
+    <!-- Modal -->
+    <div class="modal" id="statusModal">
+        <div class="modal-content">
+            <i class="fas fa-check-circle modal-icon"></i>
+            <p class="modal-text" id="modalText"></p>
+            <button class="modal-close" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
     <div class="contact-container">
         <div class="contact-info">
-            <h2>Reach Out to Us</h2>
+            <h2>Connect With Us</h2>
             <div class="contact-details">
                 <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <p>+254 712 345 678</p>
+                    <i class="fas fa-phone-volume"></i>
+                    <div>
+                        <p>+254 712 345 678</p>
+                        <p>Mon-Fri: 8 AM - 5 PM</p>
+                    </div>
                 </div>
                 <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <p>Isongo-Ingoste Road<br>Navakholo Subcounty<br>Kakamega County</p>
+                    <i class="fas fa-map-marked-alt"></i>
+                    <div>
+                        <p>Isongo-Ingoste Road</p>
+                        <p>Navakholo Subcounty</p>
+                        <p>Kakamega County</p>
+                    </div>
                 </div>
             </div>
             <div class="social-links">
                 <a href="#" class="social-link" target="_blank">
-                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-facebook"></i>
                 </a>
                 <a href="#" class="social-link" target="_blank">
                     <i class="fab fa-youtube"></i>
                 </a>
-                <a href="#" class="social-link" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
+                <a href="tel:+254712345678" class="social-link">
+                    <i class="fas fa-phone"></i>
                 </a>
                 <a href="#" class="social-link" target="_blank">
-                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-whatsapp"></i>
                 </a>
             </div>
         </div>
         
         <form class="contact-form" id="contactForm">
-            <h1>Send Us Email</h1>
+            <h1>Send Us a Message</h1>
             <div class="form-group">
-                <input type="email" id="email" class="form-input" placeholder=" " required>
+                <input type="email" id="email" class="form-input" placeholder="" required>
                 <label class="form-label">Your Email Address</label>
             </div>
             <div class="form-group">
@@ -346,53 +379,99 @@
                 <input type="text" id="date" class="form-input" readonly>
                 <label class="form-label">Submission Date</label>
             </div>
-            <button type="submit" class="submit-btn">Send Message</button>
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <i class="fas fa-paper-plane"></i> Send Message
+            </button>
         </form>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="modal" id="statusModal">
-        <div class="modal-content">
-            <i class="fas fa-check-circle modal-icon"></i>
-            <p id="modalText" style="font-size: 1.2rem; margin-bottom: 1rem;"></p>
-            <p style="color: #666; font-size: 0.9rem;">This window will close automatically</p>
-        </div>
     </div>
 
     <!-- Firebase SDK -->
     <script type="module">
-        // ... (Keep the existing Firebase configuration and functions) ...
-        // Add closing animation to modal
-        const closeModal = () => {
-            document.getElementById('statusModal').style.display = 'none';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBBb-w9cH_gsAmheunI_Rd3u7NrOenj-_g",
+            authDomain: "emails-5eb96.firebaseapp.com",
+            databaseURL: "https://emails-5eb96-default-rtdb.firebaseio.com",
+            projectId: "emails-5eb96",
+            storageBucket: "emails-5eb96.firebasestorage.app",
+            messagingSenderId: "301065222212",
+            appId: "1:301065222212:web:dcbcec5ad8770c36b12411"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Time-based Greeting
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            let greeting = '';
+            if (hour < 12) greeting = "Good Morning 🌄";
+            else if (hour < 18) greeting = "Good Afternoon ☀️";
+            else greeting = "Good Evening 🌙";
+            document.getElementById('greeting').textContent = greeting;
         }
 
+        // Set current date
+        document.getElementById('date').value = new Date().toLocaleString();
+
+        // Handle form submission
+        const contactForm = document.getElementById('contactForm');
+        const modal = document.getElementById('statusModal');
+        const modalText = document.getElementById('modalText');
+
+        function showModal(message) {
+            modal.style.display = 'flex';
+            modalText.textContent = message;
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            showModal('Sending your message...');
+            document.querySelector('.modal-icon').className = 'fas fa-spinner fa-spin modal-icon';
+
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const date = document.getElementById('date').value;
+
+            try {
+                await push(ref(database, 'emails'), {
+                    email: email,
+                    message: message,
+                    date: date
+                });
+
+                document.querySelector('.modal-icon').className = 'fas fa-check-circle modal-icon';
+                showModal('Message successfully sent! 🎉\nWe will respond shortly.');
+                
+                setTimeout(() => {
+                    closeModal();
+                    window.location.reload();
+                }, 3000);
+
+            } catch (error) {
+                document.querySelector('.modal-icon').className = 'fas fa-times-circle modal-icon';
+                showModal('Error sending message. Please try again.');
+                console.error('Error:', error);
+            }
+        });
+
+        // Initial setup
+        updateGreeting();
+        setInterval(updateGreeting, 1000 * 60); // Update greeting every minute
+
+        // Close modal on outside click
         window.onclick = function(event) {
-            const modal = document.getElementById('statusModal');
-            if (event.target === modal) {
+            if (event.target == modal) {
                 closeModal();
             }
         }
-    </script>
-
-    <script>
-        // Dynamic Greeting
-        function updateGreeting() {
-            const hour = new Date().getHours();
-            const greeting = document.getElementById('greeting');
-            let message = "Welcome to Gospel Springs Mission";
-            
-            if (hour < 12) message = "Good Morning! 🌄";
-            else if (hour < 18) message = "Good Afternoon! ☀️";
-            else message = "Good Evening! 🌙";
-            
-            greeting.textContent = message;
-        }
-        
-        // Set current date
-        document.getElementById('date').value = new Date().toLocaleString();
-        updateGreeting();
-        setInterval(updateGreeting, 1000 * 60);
     </script>
 </body>
 </html>
