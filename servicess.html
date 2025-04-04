@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us Sunday - Gospel Springs Mission</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&family=Open+Sans:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2A5C82;
+            --secondary: #D4A418;
+            --accent: #8B322C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        body {
+            background: #fafafa;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('Gospel springs logo.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        #greeting {
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(42,92,130,0.8), rgba(42,92,130,0.9)),
+                        url('https://images.unsplash.com/photo-1503764654157-72d979d9af2f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -10%;
+            width: 120%;
+            height: 100px;
+            background: var(--primary);
+            transform: rotate(-3deg);
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 2;
+            animation: slideUp 1s ease;
+        }
+
+        .live-button {
+            background: var(--accent);
+            color: white;
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .live-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.3);
+        }
+
+        .section {
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .map-container {
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin: 3rem 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            padding: 2rem;
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 15px;
+            margin: 2rem 0;
+            position: relative;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .value-box {
+            background: linear-gradient(45deg, var(--primary), #1a4461);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 60vh;
+            }
+            
+            .section {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 id="greeting">Welcome to Gospel Springs Mission</h1>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem;">Join Our Worship Celebration</h2>
+            <p style="font-size: 1.5rem; margin-bottom: 1rem;">Every Sunday 8:00 AM - 12:30 PM</p>
+            <a href="live.html" class="live-button">
+                <i class="fas fa-video"></i>
+                Watch Live Stream
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Our Location</h2>
+        <div class="container">
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.201622931095!2d34.6545026!3d0.3383238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x178024e2f5f5950f%3A0x6ef8d5701ede89e1!2s8MQ4%2B739%20Butsotso!5e0!3m2!1sen!2ske!4v1718906582957!5m2!1sen!2skee" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                </iframe>
+            </div>
+            <div class="value-box">
+                <h3 style="margin-bottom: 1rem;"><i class="fas fa-church"></i> Directions</h3>
+                <p>Ialong Isongo-Ingoste Road<br>
+                50m Off the Road, Kakamega County<br>
+                Naakholo Constituent</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Sunday Experience</h2>
+        <div class="grid">
+            <div class="timeline-item">
+                <h3><i class="fas fa-praying-hands" style="color: var(--accent);"></i> Service Flow</h3>
+                <div class="timeline">
+                    <div class="timeline-event">
+                        <p class="time-badge">8:00 AM - Devotional</p>
+                        <p class="time-badge">9:00 AM - Worship Service</p>
+                        <p class="time-badge">11:00 AM - Fellowship</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <h3><i class="fas fa-hands" style="color: var(--secondary);"></i> What We Offer</h3>
+                <ul style="list-style: none; padding: 1rem 0;">
+                    <li style="padding: 0.5rem 0;"><i class="fas fa-child"></i> Children's Ministry</li>
+                    <li style="padding: 0.5rem 0;"><i class="fas fa-parking"></i> Secure Parking</li>
+                    <li style="padding: 0.5rem 0;"><i class="fas fa-coffee"></i> Refreshments</li>
+                    <li style="padding: 0.5rem 0;"><i class="fas fa-wheelchair"></i> Accessibility</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Why We Care</h2>
+        <div class="grid">
+            <div class="value-box">
+                <h3><i class="fas fa-heart-circle-check"></i> Your Value to Us</h3>
+                <p>At Gospel Springs, every individual is God's masterpiece. We provide:</p>
+                <ul style="padding: 1rem 0; list-style: none;">
+                    <li style="padding: 0.5rem 0;">• Personal welcome package</li>
+                    <li style="padding: 0.5rem 0;">• Prayer support team</li>
+                    <li style="padding: 0.5rem 0;">• Membership orientation</li>
+                    <li style="padding: 0.5rem 0;">• Community connection programs</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Dynamic Greeting
+        const greeting = document.getElementById('greeting');
+        const hour = new Date().getHours();
+        
+        const greetingText = hour < 12 ? "Good Morning! 🌄 Welcome Home" :
+                            hour < 18 ? "Good Afternoon! ☀️ We're Excited to See You" :
+                            "Good Evening! 🌙 Join Us This Weekend";
+        
+        greeting.innerHTML = greetingText;
+
+        // Add animation to elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.timeline-item, .value-box').forEach((el) => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
