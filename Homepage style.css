@@ -109,6 +109,59 @@ nav {
             margin-bottom: 2rem;
             font-style: italic;
         }
+/* Mission Pillars Styling */
+.mission-pillars {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.pillar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+}
+
+.pillar-bullet {
+    color: #FF6B00; /* Orange accent */
+    font-size: 2rem;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+.pillar-text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #1a237e; /* Dark blue */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+/* Optional: Add a hover effect */
+.pillar:hover .pillar-text {
+    transform: translateY(-3px);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pillar:hover .pillar-bullet {
+    animation: bounce 0.5s;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 0.8; transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
          /* Watch Live Button Styles */
          .watch-live-button {
             display: inline-flex;
