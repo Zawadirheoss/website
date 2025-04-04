@@ -110,26 +110,86 @@ nav {
             font-style: italic;
         }
 
-        .watch-live-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
-            background: linear-gradient(135deg, #ff4757, #ff6b6b);
-        }
-        .watch-live-button:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-        .watch-live-button .icon {
-            font-size: 20px;
-            color: white;
-        }
-        .watch-live-button .icon.youtube {
-            color: white; /* YouTube red */
-        }
-        .watch-live-button .icon.facebook {
-            color: #1877f2; /* Facebook blue */
-        }
-      
+        .watch-live-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #4267B2 0%, #FF0000 50%, #25F4EE 100%);
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.watch-live-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.watch-live-button:active {
+    transform: translateY(1px);
+}
+
+.watch-live-button .icon {
+    margin-right: 10px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.watch-live-button .facebook {
+    color: #ffffff;
+}
+
+.watch-live-button .youtube {
+    color: #ffffff;
+}
+
+.watch-live-button .tiktok {
+    color: #ffffff;
+}
+
+.watch-live-button:hover .facebook {
+    transform: scale(1.2);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.watch-live-button:hover .youtube {
+    transform: scale(1.2);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+.watch-live-button:hover .tiktok {
+    transform: scale(1.2);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Gradient animation on hover */
+.watch-live-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #25F4EE 0%, #4267B2 50%, #FF0000 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.watch-live-button:hover::after {
+    opacity: 1;
+}
 .section {
             padding: 6rem 10%;
             position: relative;
