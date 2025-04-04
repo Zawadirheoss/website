@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bishop William Laktari - Visionary Leader</title>
+    <title>Gospel Springs Mission - Founder's Message</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #FFD700;
             --navy: #0A1F3C;
-            --crimson: #DC143C;
+            --teal: #008080;
+            --gold: #FFD700;
             --ivory: #FFFFF0;
         }
 
@@ -17,86 +18,85 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Merriweather', serif;
         }
 
         body {
-            background: var(--ivory);
+            background: linear-gradient(45deg, var(--ivory) 60%, rgba(10,31,60,0.1));
             color: var(--navy);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.8;
+        }
+
+        .ministry-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .hero {
-            height: 45vh;
+            height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(10,31,60,0.9), rgba(10,31,60,0.9)),
-                        url('church-bg.jpg') center/cover;
+            text-align: center;
+            padding: 20px;
             position: relative;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            padding-bottom: 10vh;
+            background: linear-gradient(135deg, rgba(10,31,60,0.95) 30%, rgba(0,128,128,0.9));
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            color: var(--ivory);
-            padding: 20px;
-            max-width: 95%;
+        .greeting-box {
+            background: rgba(255,255,240,0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            max-width: 90%;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 1s 0.5s forwards;
         }
 
-        .animated-greeting {
-            font-size: clamp(2rem, 6vw, 4rem);
+        .greeting-text {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: var(--teal);
             margin-bottom: 1rem;
+        }
+
+        .founder-intro {
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .mission-statement {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .mission-pillar {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 1s forwards;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.5s ease;
         }
 
-        .title-box {
-            background: rgba(220,20,60,0.9);
-            padding: 1.5rem;
-            border-radius: 15px;
-            transform: rotate(-3deg);
-            display: inline-block;
-            margin: 2rem 0;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-
-        .founder-title {
-            font-size: clamp(1.5rem, 4vw, 3rem);
-            transform: rotate(3deg);
-            color: var(--gold);
-        }
-
-        .scroll-prompt {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        .achievements-grid {
-            max-width: 1200px;
-            margin: 10vh auto 5rem;
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .achievement-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .pillar-icon {
+            font-size: 2.5rem;
+            color: var(--teal);
+            margin-bottom: 1rem;
         }
 
         .scripture-banner {
@@ -109,75 +109,38 @@
             margin: 5rem 0;
         }
 
-        .floating-image {
-            width: min(400px, 90%);
-            height: auto;
-            aspect-ratio: 3/4;
-            border-radius: 20px;
-            object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            margin: 2rem auto;
-            display: block;
-            transition: transform 0.3s ease;
+        .founder-signature {
+            text-align: center;
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease;
         }
 
-        .founder-message {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .founder-message::before {
-            content: open-quote;
-            font-size: 5rem;
-            color: var(--crimson);
-            position: absolute;
-            top: -1rem;
-            left: 1rem;
-        }
-
-        .message-content {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: var(--navy);
-            padding: 2rem;
-            quotes: "“" "”";
-        }
-
-        @keyframes fadeInUp {
+        @keyframes slideUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-30px);}
-            60% {transform: translateY(-15px);}
-        }
-
         @media (max-width: 768px) {
             .hero {
+                height: 60vh;
                 clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
             }
 
-            .title-box {
-                padding: 1rem;
+            .greeting-box {
+                padding: 1.5rem;
             }
 
-            .founder-message {
+            .mission-statement {
                 margin: 3rem 1rem;
                 padding: 1rem;
             }
 
-            .message-content {
-                padding: 1rem;
-                font-size: 1rem;
+            .mission-pillar {
+                padding: 1.5rem;
             }
 
             .scripture-banner {
@@ -188,54 +151,48 @@
     </style>
 </head>
 <body>
+    <img src="logo.png" alt="Gospel springs logo.jpg" class="ministry-logo">
+
     <section class="hero">
-        <div class="hero-content">
-            <h1 class="animated-greeting" id="greeting"></h1>
-            <div class="title-box">
-                <h2 class="founder-title">I'm Bishop William Laktari</h2>
-            </div>
-          
+        <div class="greeting-box">
+            <p class="greeting-text" id="greeting"></p>
+            <h2 class="founder-intro">I'm Bishop William Laktari</h2>
         </div>
     </section>
 
     <main>
-        <img src="bishop.jpg" alt="Bishop William Laktari" class="floating-image">
-
-        <div class="founder-message">
-            <div class="message-content">
-                <p>Beloved in Christ,</p>
-                <p>For over three decades, we've journeyed together in faith, building not just churches but communities of hope. Our mission has always been to illuminate lives through God's word and empower generations through education.</p>
-                <p>When we planted our first humble chapel in 1992, we dared to dream of a spiritual awakening across Western Kenya. Today, through your steadfast support, we've established 14 vibrant worship centers and transformed hundreds of lives through Life Spring Academy.</p>
-                <p>This is not merely our achievement, but a testament to God's grace working through each of you. As we look to the future, I envision campuses of excellence, multimedia evangelism centers, and sustainable community projects that will uplift entire regions.</p>
-                <p>Join me in this divine partnership. Together, we will continue breaking barriers, nurturing souls, and creating legacies that echo through eternity.</p>
-                <p style="margin-top: 2rem; font-weight: bold; color: var(--crimson);">
-                    Yours in Service,<br>
-                    Bishop William Laktari<br>
-                    Founder & Spiritual Leader
-                </p>
-            </div>
-        </div>
-
-        <div class="achievements-grid">
-            <div class="achievement-card">
-                <h3><i class="fas fa-church" style="color: var(--crimson);"></i> 14 Churches</h3>
-                <p>Established across Western Kenya, nurturing spiritual growth in rural communities</p>
+        <div class="mission-statement">
+            <div class="mission-pillar">
+                <i class="fas fa-cross pillar-icon"></i>
+                <h3>Winning Souls for Christ</h3>
+                <p>Beloved, our first mandate is clear - to reach the unreached with the transformative power of the Gospel. Every street, every village, every heart matters. Through innovative evangelism and compassionate outreach, we're breaking barriers to salvation.</p>
             </div>
 
-            <div class="achievement-card">
-                <h3><i class="fas fa-graduation-cap" style="color: var(--crimson);"></i> Life Spring Academy</h3>
-                <p>Founded in 2005, educating 200+ students with Christian values</p>
+            <div class="mission-pillar">
+                <i class="fas fa-hands-praying pillar-icon"></i>
+                <h3>Discipling Believers</h3>
+                <p>Conversion is just the beginning. We commit to nurturing believers through Bible-based training, mentorship programs, and community fellowship. Our discipleship schools equip saints for kingdom impact.</p>
             </div>
 
-            <div class="achievement-card">
-                <h3><i class="fas fa-book-bible" style="color: var(--crimson);"></i> Author & Scholar</h3>
-                <p>7 published works on African Christian leadership and discipleship</p>
+            <div class="mission-pillar">
+                <i class="fas fa-globe-africa pillar-icon"></i>
+                <h3>Sending Ambassadors</h3>
+                <p>The harvest is plentiful! We're raising and releasing missionaries across Africa through our intensive training programs. From urban centers to remote villages, our sent ones carry the Gospel torch.</p>
             </div>
         </div>
 
         <div class="scripture-banner">
-            <p>"Therefore, my dear brothers and sisters, stand firm. Let nothing move you."</p>
-            <p>1 Corinthians 15:58</p>
+            <p>"Go therefore and make disciples of all nations..."</p>
+            <p>Matthew 28:19 (ESV)</p>
+        </div>
+
+        <div class="founder-signature">
+            <p style="font-size: 1.2rem; color: var(--teal); margin-bottom: 1rem;">Your Partner in the Great Commission,</p>
+            <img src="signature.png" alt="Bishop's Signature" style="height: 60px; margin: 1rem 0;">
+            <p style="font-weight: bold; color: var(--navy);">
+                Bishop William Laktari<br>
+                Founder, Gospel Springs Mission
+            </p>
         </div>
     </main>
 
@@ -243,37 +200,30 @@
         // Dynamic Greeting
         const hour = new Date().getHours();
         const greeting = document.getElementById('greeting');
-        
         const greetings = {
-            morning: "☀️ Arise and Shine!",
-            afternoon: "🕊️ Grace & Peace",
-            evening: "🌟 Blessed Night"
+            morning: "☀️ Good Morning, Beloved Brethren!",
+            afternoon: "🕊️ Grace & Peace This Afternoon!",
+            evening: "🌟 Blessed Evening, Kingdom Workers!"
         };
 
         greeting.textContent = hour < 12 ? greetings.morning : hour < 18 ? greetings.afternoon : greetings.evening;
 
-        // Responsive Image Handling
-        const image = document.querySelector('.floating-image');
-        let isMobile = window.matchMedia("(max-width: 768px)").matches;
+        // Scroll Animation for Mission Pillars
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
 
-        if (!isMobile) {
-            image.style.float = 'right';
-            image.style.shapeOutside = 'circle(50%)';
-            image.style.margin = '2rem 2rem 2rem 4rem';
-        }
+        document.querySelectorAll('.mission-pillar, .founder-signature').forEach(el => observer.observe(el));
 
-        // Scroll Listener for Parallax
+        // Parallax Effect
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            document.querySelector('.hero').style.backgroundPositionY = `${scrolled * 0.5}px`;
-        });
-
-        // Resize Handler
-        window.addEventListener('resize', () => {
-            isMobile = window.matchMedia("(max-width: 768px)").matches;
-            image.style.float = isMobile ? 'none' : 'right';
-            image.style.shapeOutside = isMobile ? 'none' : 'circle(50%)';
-            image.style.margin = isMobile ? '2rem auto' : '2rem 2rem 2rem 4rem';
+            document.querySelector('.hero').style.backgroundPosition = `center ${scrolled * 0.5}px`;
         });
     </script>
 </body>
