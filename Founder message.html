@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gospel Springs Mission - Founder's Message</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #0A1F3C;
-            --teal: #008080;
-            --gold: #FFD700;
-            --ivory: #FFFFF0;
+            --royal-blue: #2A4B8D;
+            --fire-red: #CC3333;
+            --golden-yellow: #FFC107;
+            --pure-white: #FFFFFF;
+            --deep-navy: #1A237E;
         }
 
         * {
@@ -22,208 +22,199 @@
         }
 
         body {
-            background: linear-gradient(45deg, var(--ivory) 60%, rgba(10,31,60,0.1));
-            color: var(--navy);
-            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--pure-white) 50%, #f8f9fa 50%);
+            color: var(--deep-navy);
             line-height: 1.8;
         }
 
         .ministry-logo {
-            position: fixed;
+            position: absolute;
             top: 20px;
             left: 20px;
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 2px solid var(--gold);
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 2px solid var(--golden-yellow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 100;
         }
 
-        .hero {
-            height: 70vh;
+        .hero-header {
+            height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 20px;
+            background: linear-gradient(45deg, var(--royal-blue), var(--deep-navy));
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
             position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            background: linear-gradient(135deg, rgba(10,31,60,0.95) 30%, rgba(0,128,128,0.9));
+            padding: 2rem;
+            margin-bottom: 5rem;
         }
 
-        .greeting-box {
-            background: rgba(255,255,240,0.9);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-            max-width: 90%;
-            transform: translateY(20px);
-            opacity: 0;
-            animation: slideUp 1s 0.5s forwards;
+        .dynamic-greeting {
+            color: var(--pure-white);
+            text-align: center;
+            max-width: 800px;
+            animation: textGlow 2s ease-in-out infinite alternate;
         }
 
         .greeting-text {
-            font-size: clamp(1.2rem, 4vw, 1.8rem);
-            color: var(--teal);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             margin-bottom: 1rem;
+            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
         }
 
-        .founder-intro {
-            font-size: clamp(1.5rem, 5vw, 2.5rem);
-            color: var(--navy);
-            font-weight: 700;
-        }
-
-        .mission-statement {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 2rem;
-            position: relative;
-        }
-
-        .mission-pillar {
-            background: white;
-            padding: 2rem;
+        .founder-letter {
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            padding: 3rem;
+            background: var(--pure-white);
             border-radius: 20px;
-            margin: 2rem 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s ease;
+            position: relative;
+            transform: translateY(-50px);
         }
 
-        .pillar-icon {
+        .letterhead {
+            text-align: center;
+            border-bottom: 3px double var(--fire-red);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .mission-highlight {
+            color: var(--fire-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .scripture-ref {
+            color: var(--royal-blue);
+            font-style: italic;
+            border-left: 3px solid var(--golden-yellow);
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .signature-block {
+            margin-top: 3rem;
+            text-align: right;
+        }
+
+        .signature-name {
+            font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
-            color: var(--teal);
-            margin-bottom: 1rem;
+            color: var(--deep-navy);
+            margin-top: 1rem;
         }
 
-        .scripture-banner {
-            background: var(--navy);
-            color: var(--gold);
-            padding: 4rem 2rem;
-            text-align: center;
-            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
-            margin: 5rem 0;
-        }
-
-        .founder-signature {
-            text-align: center;
-            margin: 4rem 0;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+            to { text-shadow: 0 0 20px rgba(255,255,255,0.6); }
         }
 
         @media (max-width: 768px) {
-            .hero {
-                height: 60vh;
-                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            .founder-letter {
+                padding: 2rem;
+                margin: 0 1rem -50px;
+                transform: translateY(-30px);
             }
 
-            .greeting-box {
-                padding: 1.5rem;
+            .hero-header {
+                height: 50vh;
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
             }
 
-            .mission-statement {
-                margin: 3rem 1rem;
-                padding: 1rem;
-            }
-
-            .mission-pillar {
-                padding: 1.5rem;
-            }
-
-            .scripture-banner {
-                padding: 3rem 1rem;
-                clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+            .ministry-logo {
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                left: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <img src="logo.png" alt="Gospel springs logo.jpg" class="ministry-logo">
+    <img src="Gospel springs logo.jpg" alt="Ministry Logo" class="ministry-logo">
 
-    <section class="hero">
-        <div class="greeting-box">
-            <p class="greeting-text" id="greeting"></p>
-            <h2 class="founder-intro">I'm Bishop William Laktari</h2>
+    <header class="hero-header">
+        <div class="dynamic-greeting">
+            <div class="greeting-text" id="greeting"></div>
+            <h1>Bishop William Laktari</h1>
         </div>
-    </section>
+    </header>
 
     <main>
-        <div class="mission-statement">
-            <div class="mission-pillar">
-                <i class="fas fa-cross pillar-icon"></i>
-                <h3>Winning Souls for Christ</h3>
-                <p>Beloved, our first mandate is clear - to reach the unreached with the transformative power of the Gospel. Every street, every village, every heart matters. Through innovative evangelism and compassionate outreach, we're breaking barriers to salvation.</p>
+        <article class="founder-letter">
+            <div class="letterhead">
+                <p>Gospel Springs Mission International</p>
+                <p id="current-date"></p>
             </div>
 
-            <div class="mission-pillar">
-                <i class="fas fa-hands-praying pillar-icon"></i>
-                <h3>Discipling Believers</h3>
-                <p>Conversion is just the beginning. We commit to nurturing believers through Bible-based training, mentorship programs, and community fellowship. Our discipleship schools equip saints for kingdom impact.</p>
+            <p>Beloved in Christ,</p>
+
+            <p>As we stand in this new season of ministry, my heart overflows with gratitude for your steadfast partnership in the Gospel. For nearly three decades, Gospel Springs Mission has been a vessel of transformation, pouring living water into thirsty souls across our continent.</p>
+
+            <p>Our sacred mandate remains unchanged: <span class="mission-highlight">Winning</span> the lost, <span class="mission-highlight">Discipling</span> believers, and <span class="mission-highlight">Sending</span> forth ambassadors of Christ. This threefold mission finds its roots in our Lord's Great Commission:</p>
+
+            <blockquote class="scripture-ref">
+                "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit..."<br>
+                - Matthew 28:19 (ESV)
+            </blockquote>
+
+            <p>This year, we're pioneering new strategies for digital discipleship while deepening our roots in community transformation. Our upcoming School of Ministry will equip 500 emerging leaders with tools for spiritual warfare and cross-cultural evangelism.</p>
+
+            <p>I urge you to join us in this harvest season through:</p>
+            <ul style="margin: 1.5rem 0; padding-left: 2rem;">
+                <li>Prayer covering for our missionaries in high-risk regions</li>
+                <li>Supporting our Bible translation projects</li>
+                <li>Participating in our global prayer chain</li>
+            </ul>
+
+            <p>The fields are ripe, but the workers are few. Together, we can flood nations with the springs of living water that bring eternal life.</p>
+
+            <div class="signature-block">
+                <p>Yours in Christ's Service,</p>
+                <div class="signature-name">William Laktari</div>
+                <p>Founder & Spiritual Director<br>
+                Gospel Springs Mission International</p>
             </div>
-
-            <div class="mission-pillar">
-                <i class="fas fa-globe-africa pillar-icon"></i>
-                <h3>Sending Ambassadors</h3>
-                <p>The harvest is plentiful! We're raising and releasing missionaries across Africa through our intensive training programs. From urban centers to remote villages, our sent ones carry the Gospel torch.</p>
-            </div>
-        </div>
-
-        <div class="scripture-banner">
-            <p>"Go therefore and make disciples of all nations..."</p>
-            <p>Matthew 28:19 (ESV)</p>
-        </div>
-
-        <div class="founder-signature">
-            <p style="font-size: 1.2rem; color: var(--teal); margin-bottom: 1rem;">Your Partner in the Great Commission,</p>
-            <img src="signature.png" alt="Bishop's Signature" style="height: 60px; margin: 1rem 0;">
-            <p style="font-weight: bold; color: var(--navy);">
-                Bishop William Laktari<br>
-                Founder, Gospel Springs Mission
-            </p>
-        </div>
+        </article>
     </main>
 
     <script>
         // Dynamic Greeting
         const hour = new Date().getHours();
         const greeting = document.getElementById('greeting');
-        const greetings = {
-            morning: "☀️ Good Morning, Beloved Brethren!",
-            afternoon: "🕊️ Grace & Peace This Afternoon!",
-            evening: "🌟 Blessed Evening, Kingdom Workers!"
+        const dateField = document.getElementById('current-date');
+        
+        const timeBasedGreeting = () => {
+            if (hour < 12) return "Good Morning";
+            if (hour < 18) return "Good Afternoon";
+            return "Good Evening";
         };
 
-        greeting.textContent = hour < 12 ? greetings.morning : hour < 18 ? greetings.afternoon : greetings.evening;
-
-        // Scroll Animation for Mission Pillars
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.mission-pillar, .founder-signature').forEach(el => observer.observe(el));
+        greeting.innerHTML = `Hi, ${timeBasedGreeting()} Brethren!`;
+        
+        // Current Date
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        dateField.textContent = new Date().toLocaleDateString('en-US', options);
 
         // Parallax Effect
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            document.querySelector('.hero').style.backgroundPosition = `center ${scrolled * 0.5}px`;
+            document.querySelector('.hero-header').style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+
+        // Logo Hover Effect
+        const logo = document.querySelector('.ministry-logo');
+        logo.addEventListener('mouseover', () => {
+            logo.style.transform = 'rotate(360deg)';
+            logo.style.transition = 'transform 0.8s ease';
+        });
+        logo.addEventListener('mouseout', () => {
+            logo.style.transform = 'rotate(0deg)';
         });
     </script>
 </body>
