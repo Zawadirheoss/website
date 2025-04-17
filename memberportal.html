@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gospel Springs Mission - Members Portal</title>
+    <title>Gospel Springs Mission - Exclusive Members Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6c4b8a;
-            --secondary: #f8b400;
-            --light: #f9f7fe;
-            --dark: #1a1a2e;
-            --accent: #e94560;
+            --primary: #5d3a9b;
+            --secondary: #f9c80e;
+            --accent: #ff3860;
+            --light: #f8f7ff;
+            --dark: #1e1b2e;
+            --glass: rgba(255, 255, 255, 0.2);
         }
         
         * {
@@ -23,8 +24,8 @@
         }
         
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, var(--light) 0%, #e6e3f7 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f8 100%);
             color: var(--dark);
             min-height: 100vh;
             display: flex;
@@ -36,161 +37,273 @@
             overflow-x: hidden;
         }
         
-        body::before {
+        .bg-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: -100px;
+            left: -100px;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            bottom: -150px;
+            right: -100px;
+            animation: float 18s infinite ease-in-out reverse;
+        }
+        
+        .circle-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--secondary);
+            top: 50%;
+            left: 30%;
+            animation: float 12s infinite ease-in-out 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(20px, 30px);
+            }
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+        }
+        
+        .header {
+            padding: 3.5rem 3rem 2.5rem;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(93, 58, 155, 0.3) 50%, transparent 100%);
+        }
+        
+        .logo {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(93, 58, 155, 0.3);
+            border: 3px solid white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(10px);
+        }
+        
+        h1 {
+            font-family: 'Marcellus', serif;
+            color: var(--primary);
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+        
+        .greeting {
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .greeting::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary) 0%, var(--accent) 100%);
+            border-radius: 3px;
+        }
+        
+        .content {
+            padding: 2.5rem 3rem 3rem;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.8) 100%);
+        }
+        
+        .message {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            position: relative;
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .message::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgxMDgsNzUsMTM4LDAuMDUpIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3BhdHRlcm4pIi8+PC9zdmc+') repeat;
-            opacity: 0.4;
-            z-index: -1;
-        }
-        
-        .container {
-            max-width: 800px;
-            width: 100%;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
-        }
-        
-        .header {
-            padding: 3rem 3rem 2rem;
-            text-align: center;
-            background: white;
-        }
-        
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: var(--primary);
-            color: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 5px 15px rgba(108, 75, 138, 0.3);
-        }
-        
-        h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary);
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-        
-        .subtitle {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 2rem;
-            font-weight: 400;
-        }
-        
-        .greeting {
-            font-size: 1.3rem;
-            color: var(--accent);
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-        
-        .content {
-            padding: 0 3rem 2rem;
-        }
-        
-        .message {
-            background: #f9f5ff;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            position: relative;
-            border-left: 5px solid var(--secondary);
-        }
-        
-        .message::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 5rem;
-            font-family: 'Playfair Display', serif;
-            color: rgba(108, 75, 138, 0.1);
-            line-height: 1;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSg5Myw1OCwxNTUsMC4wNSkiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=');
+            opacity: 0.3;
         }
         
         .message p {
             position: relative;
             z-index: 1;
-            font-size: 1.1rem;
-            line-height: 1.6;
+            font-size: 1.15rem;
+            line-height: 1.8;
             color: #555;
+            text-align: center;
         }
         
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
         
         .feature {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.7);
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            overflow: hidden;
         }
         
         .feature:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
         }
         
         .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: white;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(93, 58, 155, 0.2);
+            border: 3px solid white;
         }
         
         .feature h3 {
             color: var(--primary);
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: 600;
         }
         
         .feature p {
             color: #666;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
         
         .download-section {
             text-align: center;
-            padding: 2rem 0 3rem;
+            padding: 2rem 0 1rem;
+            position: relative;
         }
         
         .download-btn {
@@ -199,24 +312,27 @@
             justify-content: center;
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: white;
-            padding: 1rem 2.5rem;
+            padding: 1.2rem 3rem;
             border-radius: 50px;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             text-decoration: none;
-            box-shadow: 0 10px 25px rgba(108, 75, 138, 0.3);
-            transition: all 0.3s ease;
+            box-shadow: 0 15px 35px rgba(93, 58, 155, 0.3);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
         }
         
         .download-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(108, 75, 138, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(93, 58, 155, 0.4);
         }
         
         .download-btn:active {
-            transform: translateY(1px);
+            transform: translateY(0);
         }
         
         .download-btn::before {
@@ -226,8 +342,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.6s;
         }
         
         .download-btn:hover::before {
@@ -235,14 +351,47 @@
         }
         
         .download-btn i {
-            margin-right: 10px;
-            font-size: 1.3rem;
+            margin-right: 12px;
+            font-size: 1.4rem;
         }
         
         .note {
             font-size: 0.9rem;
-            color: #888;
+            color: #777;
             margin-top: 1.5rem;
+            font-style: italic;
+        }
+        
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            opacity: 0.1;
+            color: var(--primary);
+            animation: floatIcon linear infinite;
+        }
+        
+        @keyframes floatIcon {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
         }
         
         @media (max-width: 768px) {
@@ -251,69 +400,83 @@
             }
             
             .container {
-                border-radius: 15px;
+                border-radius: 20px;
             }
             
             .header, .content {
-                padding: 2rem 1.5rem;
+                padding: 2.5rem 1.5rem;
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .features {
                 grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
             }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+    <div class="bg-decoration">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+    </div>
+    
+    <div class="floating-icons" id="floatingIcons"></div>
+    
     <div class="container">
         <div class="header">
             <div class="logo">GSM</div>
-            <h1>Members Portal</h1>
+            <h1>Exclusive Members Portal</h1>
             <div class="subtitle">Gospel Springs Mission</div>
             <div class="greeting" id="greeting">Welcome Back!</div>
         </div>
         
         <div class="content">
             <div class="message">
-                <p>Welcome to the exclusive Members Portal of Gospel Springs Mission. This space is specially designed for our valued members to access premium content, connect with fellow members, and stay updated with our ministry's activities. Download the app now to enjoy all these benefits on your mobile device.</p>
+                <p>As a valued member of Gospel Springs Mission, you now have exclusive access to our premium mobile portal. This sacred digital space connects you with spiritual resources, community events, and fellowship opportunities designed to deepen your faith journey. Download now to carry this blessing with you wherever you go.</p>
             </div>
             
             <div class="features">
                 <div class="feature">
                     <div class="feature-icon">
-                        <i class="fas fa-lock"></i>
+                        <i class="fas fa-star"></i>
                     </div>
-                    <h3>Exclusive Access</h3>
-                    <p>Content and features available only to GSM members</p>
+                    <h3>Premium Content</h3>
+                    <p>Access sermons, devotionals, and study materials reserved for GSM members</p>
                 </div>
                 
                 <div class="feature">
                     <div class="feature-icon">
-                        <i class="fas fa-calendar-alt"></i>
+                        <i class="fas fa-bell"></i>
                     </div>
-                    <h3>Event Updates</h3>
-                    <p>Get notified about upcoming events and meetings</p>
+                    <h3>Priority Notifications</h3>
+                    <p>Be the first to know about special events and prayer meetings</p>
                 </div>
                 
                 <div class="feature">
                     <div class="feature-icon">
-                        <i class="fas fa-users"></i>
+                        <i class="fas fa-hands-praying"></i>
                     </div>
-                    <h3>Community</h3>
-                    <p>Connect with other members of our ministry</p>
+                    <h3>Prayer Network</h3>
+                    <p>Connect with our global prayer community in real-time</p>
                 </div>
             </div>
             
             <div class="download-section">
                 <a href="members-portal.apk" class="download-btn" download>
-                    <i class="fas fa-download"></i> Download App
+                    <i class="fas fa-cloud-download-alt"></i> Download Now
                 </a>
-                <p class="note">The app is available for Android devices only. iOS version coming soon.</p>
+                <p class="note">Android version 5.0+ required. Your spiritual companion awaits.</p>
             </div>
         </div>
     </div>
@@ -323,16 +486,56 @@
         const greetingElement = document.getElementById('greeting');
         const hour = new Date().getHours();
         
+        const greetings = {
+            morning: "Rise and Shine, Beloved",
+            afternoon: "Blessed Afternoon, Chosen One",
+            evening: "Evening Grace Upon You"
+        };
+        
         let greeting;
         if (hour < 12) {
-            greeting = "Good Morning";
+            greeting = greetings.morning;
         } else if (hour < 18) {
-            greeting = "Good Afternoon";
+            greeting = greetings.afternoon;
         } else {
-            greeting = "Good Evening";
+            greeting = greetings.evening;
         }
         
-        greetingElement.textContent = `${greeting}, Beloved Member!`;
+        greetingElement.textContent = greeting;
+        
+        // Create floating icons
+        const floatingIconsContainer = document.getElementById('floatingIcons');
+        const icons = ['cross', 'dove', 'church', 'bible', 'pray'];
+        
+        function createFloatingIcon() {
+            const icon = document.createElement('div');
+            icon.className = 'floating-icon';
+            icon.innerHTML = `<i class="fas fa-${icons[Math.floor(Math.random() * icons.length)]}"></i>`;
+            
+            const size = Math.random() * 30 + 20;
+            const left = Math.random() * 100;
+            const duration = Math.random() * 15 + 10;
+            const delay = Math.random() * 5;
+            
+            icon.style.left = `${left}%`;
+            icon.style.fontSize = `${size}px`;
+            icon.style.animationDuration = `${duration}s`;
+            icon.style.animationDelay = `${delay}s`;
+            
+            floatingIconsContainer.appendChild(icon);
+            
+            setTimeout(() => {
+                icon.remove();
+            }, duration * 1000);
+        }
+        
+        // Generate floating icons periodically
+        setInterval(createFloatingIcon, 800);
+        
+        // Initial floating icons
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createFloatingIcon, i * 300);
+        }
         
         // Animation on load
         document.addEventListener('DOMContentLoaded', () => {
@@ -341,7 +544,7 @@
                 setTimeout(() => {
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
-                }, 100 * index);
+                }, 150 * index);
             });
         });
         
@@ -349,8 +552,8 @@
         const animatedElements = document.querySelectorAll('.logo, h1, .subtitle, .greeting, .message, .feature, .download-btn');
         animatedElements.forEach(el => {
             el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         });
     </script>
 </body>
